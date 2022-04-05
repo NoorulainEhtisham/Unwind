@@ -31,6 +31,7 @@ class _HomePageMasterState extends State<HomePageMaster> {
       ),
       body: Center(child: _items[_currentIndex],),
       bottomNavigationBar: BottomNavigationBar(
+
         currentIndex: _currentIndex,
        onTap: (index) {
           setState(() {
@@ -38,12 +39,12 @@ class _HomePageMasterState extends State<HomePageMaster> {
           });
        },
         items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home', backgroundColor: Color(0xFF162A49) ),
         BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
         BottomNavigationBarItem(icon: Icon(Icons.audiotrack), label: 'Playlist'),
-        //BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
       ],
-
+        selectedItemColor: Colors.blueGrey,
       )
     );
   }
