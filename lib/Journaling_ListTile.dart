@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'diaryEntry.dart';
 import 'mydiary.dart';
 
 class JournalingListTile extends StatefulWidget {
@@ -41,8 +42,18 @@ class _JournalingListTileState extends State<JournalingListTile> {
               height: 70,
               width: 120,
               color: Colors.yellow,
-              child: const ListTile(
-                title: const Text("Add an entry"),
+              child: ListTile(
+                title: InkWell(
+                    child: Text("Add an entry"),
+                    onTap: (){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                          const DiaryEntry(), //navigate to meditation Exercises page here
+                        ),
+                      );
+                    },
+                ),
               ),
             ),
           ],

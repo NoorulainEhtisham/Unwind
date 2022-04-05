@@ -13,7 +13,7 @@ class HomePageMaster extends StatefulWidget {
 class _HomePageMasterState extends State<HomePageMaster> {
   int _currentIndex = 0;
   List<Widget> _items = [
-    //same page, different bodies
+    //same page but different content shown
     HomePage(),
     FavouritesScreen(),
     Playlist(),
@@ -25,7 +25,7 @@ class _HomePageMasterState extends State<HomePageMaster> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Welcome User!"),
+        // title: Text("Welcome User!"),
       ),
       body: Center(child: _items[_currentIndex],),
       bottomNavigationBar: BottomNavigationBar(

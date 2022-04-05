@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'mood_tracker_1.dart';
+import 'mood_tracker_2.dart';
 
 class MoodTrackerListTile extends StatefulWidget {
   const MoodTrackerListTile({Key? key}) : super(key: key);
@@ -41,7 +42,17 @@ class _MoodTrackerListTileState extends State<MoodTrackerListTile> {
             width: 120,
             color: Colors.green,
             child: ListTile(
-              title: Text("Mood History"),
+              title: InkWell(
+                  child: Text("Mood History"),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            MoodTrackerScreen2(),
+                      ),
+                    );
+                  },
+              ),
             ),
           ),
         ],

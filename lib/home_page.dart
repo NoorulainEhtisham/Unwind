@@ -3,8 +3,6 @@ import 'Journaling_ListTile.dart';
 import 'MeditationExercises_ListTile.dart';
 import 'MoodTracker_ListTile.dart';
 import 'Quotes_display.dart';
-import 'mood_tracker_1.dart';
-import 'mydiary.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
