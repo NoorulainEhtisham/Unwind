@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'mydiary.dart';
+
 class JournalingListTile extends StatefulWidget {
   const JournalingListTile({Key? key}) : super(key: key);
 
@@ -21,8 +23,18 @@ class _JournalingListTileState extends State<JournalingListTile> {
               height: 70,
               width: 120,
               color: Colors.yellow,
-              child: const ListTile(
-                title: const Text("My Diary"),
+              child: ListTile(
+                title: InkWell(
+                    child: Text("My Diary"),
+                  onTap: (){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                        const Diary(), //navigate to meditation Exercises page here
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             Container(

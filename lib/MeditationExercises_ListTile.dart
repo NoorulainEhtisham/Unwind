@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'exercise_screen.dart';
+
 class MeditationExercisesListTile extends StatefulWidget {
   const MeditationExercisesListTile({Key? key}) : super(key: key);
 
@@ -41,7 +43,17 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
                 width: 120,
                 color: Colors.pinkAccent,
                 child: ListTile(
-                    title: Text(Exercises[index].toString()),
+                    title: InkWell(
+                        child: Text(Exercises[index].toString()),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ExerciseScreen(), //navigate to meditation Exercises page here
+                          ),
+                        );
+                      },
+                    ),
                 ),
               );
           }

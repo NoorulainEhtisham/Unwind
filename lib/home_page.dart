@@ -15,44 +15,14 @@ class HomePage extends StatelessWidget {
       body: Column( //Use List Tile instead
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text("Mood Tracker"),
-          InkWell(
-            child: MoodTrackerListTile(),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) =>
-                  MoodTrackerScreen1(),
-                ),
-              );
-            },
-          ),
-          Text("Meditation Exercises"),
-          InkWell(
-            child: MeditationExercisesListTile(),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) =>
-                      MoodTrackerScreen1(), //navigate to meditation Exercises page here
-                ),
-              );
-            },
-          ),
-          Text("Journaling"),
-          InkWell(
-            child: JournalingListTile(),
-            onTap: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                builder: (context) =>
-                    Diary(), //navigate to meditation Exercises page here
-                ),
-              );
-            },
-          ),
-          Text("Quotes"),
-          QuotesDisplay(),
+          const Text("Mood Tracker"),
+          const MoodTrackerListTile(),
+          const Text("Meditation Exercises"),
+          const MeditationExercisesListTile(),
+          const Text("Journaling"),
+          const JournalingListTile(),
+          const Text("Quotes"),
+          const QuotesDisplay(),
         ],
       ),
     );
