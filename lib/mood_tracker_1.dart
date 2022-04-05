@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
+import 'launch.dart';
+import 'moods_type.dart';
+import 'database.dart';
 
 class MoodTrackerScreen1 extends StatefulWidget {
   const MoodTrackerScreen1({Key? key}) : super(key: key);
@@ -9,14 +12,15 @@ class MoodTrackerScreen1 extends StatefulWidget {
 }
 
 class _MoodTrackerScreen1State extends State<MoodTrackerScreen1> {
-  List<Moods> moodsList = [
-    Moods(moodName: "Happy", iconLink: const Icon(UniconsLine.smile), moodColor: const Color.fromRGBO(255, 255, 143, 100)),
-    Moods(moodName: "Surprised", iconLink: const Icon(UniconsLine.surprise), moodColor: const Color.fromRGBO(141, 121, 156, 100)),
-    Moods(moodName: "Bad", iconLink: const Icon(UniconsLine.image_block), moodColor: const Color.fromRGBO(143, 211, 174, 100),),
-    Moods(moodName: "Fearful", iconLink: const Icon(UniconsLine.image_block), moodColor: const Color.fromRGBO(254, 223, 144, 100),),
-    Moods(moodName: "Angry", iconLink: const Icon(UniconsLine.angry), moodColor: const Color.fromRGBO(254, 141, 143, 100),),
-    Moods(moodName: "Disgusted", iconLink: const Icon(UniconsLine.image_block), moodColor: const Color.fromRGBO(144, 143, 143, 100),),
-    Moods(moodName: "Sad", iconLink: const Icon(UniconsLine.sad), moodColor: const Color.fromRGBO(144, 188, 224, 100),),
+
+  List<MoodsType> moodsList = [
+    MoodsType(moodName: "Happy", iconLink: const Icon(UniconsLine.smile), moodColor: const Color.fromRGBO(255, 255, 143, 100)),
+    MoodsType(moodName: "Surprised", iconLink: const Icon(UniconsLine.surprise), moodColor: const Color.fromRGBO(141, 121, 156, 100)),
+    MoodsType(moodName: "Bad", iconLink: const Icon(UniconsLine.image_block), moodColor: const Color.fromRGBO(143, 211, 174, 100),),
+    MoodsType(moodName: "Fearful", iconLink: const Icon(UniconsLine.image_block), moodColor: const Color.fromRGBO(254, 223, 144, 100),),
+    MoodsType(moodName: "Angry", iconLink: const Icon(UniconsLine.angry), moodColor: const Color.fromRGBO(254, 141, 143, 100),),
+    MoodsType(moodName: "Disgusted", iconLink: const Icon(UniconsLine.image_block), moodColor: const Color.fromRGBO(144, 143, 143, 100),),
+    MoodsType(moodName: "Sad", iconLink: const Icon(UniconsLine.sad), moodColor: const Color.fromRGBO(144, 188, 224, 100),),
   ];
 
   @override
@@ -26,6 +30,7 @@ class _MoodTrackerScreen1State extends State<MoodTrackerScreen1> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Padding(padding: EdgeInsets.all(8)),
             const Text(
@@ -47,6 +52,14 @@ class _MoodTrackerScreen1State extends State<MoodTrackerScreen1> {
                         child: ListTile(
                           leading: moodsList[index].iconLink,
                           title: Text(moodsList[index].moodName),
+                          onTap: (){
+                            Database().addMoodRecord(moodsList[index].moodName, DateTime.now());
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //     builder: (context) => const LaunchScreen(),                                 //GO TO HOME PAGE FROM HERE
+                            //   ),
+                            // );
+                          },
                         ),
                       );
                     }))
@@ -57,10 +70,4 @@ class _MoodTrackerScreen1State extends State<MoodTrackerScreen1> {
   }
 }
 
-class Moods {
-  String moodName;
-  Icon iconLink;
-  Color moodColor = Colors.blueGrey;
 
-  Moods({required this.moodName, required this.iconLink, required this.moodColor});
-}

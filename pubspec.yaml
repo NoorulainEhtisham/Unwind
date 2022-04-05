@@ -31,10 +31,11 @@ dependencies:
     sdk: flutter
   unicons: ^2.1.0
   fl_chart: ^0.50.1
-  syncfusion_flutter_charts: ^19.4.56
   intl: ^0.17.0
   flutter_svg: ^1.0.3
   progress_indicators: ^1.0.0
+  flutter_calendar_carousel: ^2.1.0
+  syncfusion_flutter_calendar: ^20.1.47
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'launch.dart';
+import 'mood_tracker_1.dart';
+import 'mood_tracker_2.dart';
+import 'favourites.dart';
 
 
 void main() {
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const LaunchScreen(),
+      home: const MoodTrackerScreen2(),
     );
   }
 }
