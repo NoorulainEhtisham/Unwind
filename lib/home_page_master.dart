@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unwind_project/account_screen.dart';
 import 'package:unwind_project/playlist.dart';
 import 'favourites.dart';
 import 'home_page.dart';
@@ -13,15 +14,16 @@ class HomePageMaster extends StatefulWidget {
 class _HomePageMasterState extends State<HomePageMaster> {
   int _currentIndex = 0;
   List<Widget> _items = [
-    //same page but different content shown
+    //same page, different bodies
     HomePage(),
     FavouritesScreen(),
     Playlist(),
+    AccountScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size; //get screen size to allow flexibility in browser
+    //var screenSize = MediaQuery.of(context).size; //get screen size to allow flexibility in browser
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -39,6 +41,7 @@ class _HomePageMasterState extends State<HomePageMaster> {
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
         BottomNavigationBarItem(icon: Icon(Icons.audiotrack), label: 'Playlist'),
+        //BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
       ],
 
       )// FooterClass(),
