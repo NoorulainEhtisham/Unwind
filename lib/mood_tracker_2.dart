@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:unwind_project/mood_record.dart';
-import 'database.dart';
 
 class MoodTrackerScreen2 extends StatefulWidget {
   const MoodTrackerScreen2({Key? key}) : super(key: key);

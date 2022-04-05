@@ -1,10 +1,7 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/diaryEntry.dart';
-
 import 'entry.dart';
 
 class Diary extends StatefulWidget {
