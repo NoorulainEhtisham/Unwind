@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:unwind_project/deepBreathing1.dart';
+import 'package:unwind_project/durationList.dart';
+import 'package:unwind_project/entry.dart';
+import 'package:unwind_project/logIn.dart';
+import 'package:unwind_project/mydiary.dart';
+import 'package:unwind_project/signUp.dart';
 import 'launch.dart';
 import 'mood_tracker_1.dart';
 import 'mood_tracker_2.dart';
 import 'favourites.dart';
 
-
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (_) => Entries(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,8 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const MoodTrackerScreen2(),
+      home: DeepBreathingScreen()
     );
   }
 }
-
