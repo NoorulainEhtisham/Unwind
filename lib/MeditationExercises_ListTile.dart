@@ -22,7 +22,7 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 150,
+      height: 90,
       child: ListView.separated(
           separatorBuilder: (BuildContext context, int index) {
             return Container(
