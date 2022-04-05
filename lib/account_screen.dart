@@ -19,7 +19,8 @@ class _AccountScreenState extends State<AccountScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: ListView.builder(itemCount: account_options.length,itemBuilder: (context, index) => ListTile(
+            Expanded(child: ListView.builder(itemCount: account_options.length,
+              itemBuilder: (context, index) => ListTile(
               title: Text(account_options[index]),
             ),
             ),

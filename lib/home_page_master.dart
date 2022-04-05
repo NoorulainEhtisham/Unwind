@@ -44,7 +44,7 @@ class _HomePageMasterState extends State<HomePageMaster> {
         //BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
       ],
 
-      )// FooterClass(),
+      )
     );
   }
 }

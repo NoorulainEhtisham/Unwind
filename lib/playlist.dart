@@ -37,11 +37,11 @@ class _PlaylistState extends State<Playlist> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0, // 1c
-        foregroundColor: Colors.white,
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0, // 1c
+      //   foregroundColor: Colors.white,
+      // ),
       body: Column(
        // mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
