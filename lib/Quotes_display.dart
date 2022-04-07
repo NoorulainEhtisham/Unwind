@@ -7,7 +7,17 @@ class QuotesDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Color(0xFF162A49),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Colors.purple,
+              Colors.purpleAccent,
+            ],
+          ),
+        ),
+        //color: Color(0xFF162A49),
         height: 90,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -15,7 +25,7 @@ class QuotesDisplay extends StatelessWidget {
             Container(
               height: 70,
               width: 400,
-              color: Colors.orange,
+              color: Colors.pinkAccent,
               child: ListTile(
                 //read quotes here
                 title: Text("The only journey is the journey within."),
