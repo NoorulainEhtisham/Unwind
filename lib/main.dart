@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
         //primarySwatch: MaterialColor(0xFF162A49, color),
       ),
-      home: const Diary()
+      home: const LaunchScreen()
     );
   }
 }
