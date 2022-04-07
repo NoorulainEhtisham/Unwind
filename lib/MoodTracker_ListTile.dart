@@ -14,7 +14,17 @@ class _MoodTrackerListTileState extends State<MoodTrackerListTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFF162A49),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Colors.green,
+                Colors.greenAccent,
+              ],
+            ),
+        ),
+     // color: Color(0xFF162A49),
       height: 90,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -22,7 +32,7 @@ class _MoodTrackerListTileState extends State<MoodTrackerListTile> {
           Container(
             height: 70,
             width: 120,
-            color: Colors.green,
+            color: Color.fromRGBO(143, 211, 174, 100),
             child: ListTile(
               title: InkWell(
                 child: Text("How are you feeling today?"),
@@ -40,7 +50,7 @@ class _MoodTrackerListTileState extends State<MoodTrackerListTile> {
           Container(
             height: 70,
             width: 120,
-            color: Colors.green,
+            color: Color.fromRGBO(143, 211, 174, 100),
             child: ListTile(
               title: InkWell(
                   child: Text("Mood History"),

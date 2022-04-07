@@ -28,7 +28,18 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
       child: ListView.separated(
           separatorBuilder: (BuildContext context, int index) {
             return Container(
-              color: Color(0xFF162A49),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    Colors.purpleAccent,
+                    Colors.pinkAccent,
+                    Colors.redAccent,
+                  ],
+                ),
+              ),
+              //color: Color(0xFF162A49),
               height: 70,
               width: 10,
             );

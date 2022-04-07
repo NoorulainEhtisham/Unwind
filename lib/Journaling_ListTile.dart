@@ -15,7 +15,17 @@ class _JournalingListTileState extends State<JournalingListTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: const Color(0xFF162A49),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Colors.green,
+              Colors.blue,
+            ],
+          ),
+        ),
+        //color: const Color(0xFF162A49),
         height: 90,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -23,7 +33,7 @@ class _JournalingListTileState extends State<JournalingListTile> {
             Container(
               height: 70,
               width: 120,
-              color: Colors.yellow,
+              color: Color.fromRGBO(144, 188, 224, 100),
               child: ListTile(
                 title: InkWell(
                     child: Text("My Diary"),
@@ -41,7 +51,7 @@ class _JournalingListTileState extends State<JournalingListTile> {
             Container(
               height: 70,
               width: 120,
-              color: Colors.yellow,
+              color: Color.fromRGBO(144, 188, 224, 100),
               child: ListTile(
                 title: InkWell(
                     child: Text("Add an entry"),
