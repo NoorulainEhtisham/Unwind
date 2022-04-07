@@ -10,7 +10,7 @@ class Duration extends StatefulWidget {
 }
 
 class _DurationState extends State<Duration> {
-  List<int> times = [2,5,10,15,20,25,30];
+  List<int> times = [2, 5, 10, 15, 20, 25, 30];
   int _time = 0;
 
   setSelectedRadio(int val) {
@@ -18,6 +18,7 @@ class _DurationState extends State<Duration> {
       _time = val;
     });
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -34,33 +35,30 @@ class _DurationState extends State<Duration> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-                'Select your meditation duration\n',
+              'Select your meditation duration\n',
               style: Theme.of(context).textTheme.headline6,
             ),
             Expanded(
-                child: ListView.builder(
+              child: ListView.builder(
                   itemCount: times.length,
-                    itemBuilder: (context, index) =>
-                        RadioListTile(
-                            value: times[index],
-                            title: Text('${times[index]} minutes'),
-                            groupValue: _time,
-                            onChanged: (val){
-                              setSelectedRadio(val as int);
-                            }
-                        )
-                ),
+                  itemBuilder: (context, index) => RadioListTile(
+                      value: times[index],
+                      title: Text('${times[index]} minutes'),
+                      groupValue: _time,
+                      onChanged: (val) {
+                        setSelectedRadio(val as int);
+                      })),
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
-                ),
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30))),
                 onPressed: () {
                   widget.onRadioSelection(_time);
                   Navigator.of(context).pop(true);
-                }, child: const Text('Begin')
-            )
-
+                },
+                child: const Text('Begin'))
           ],
         ),
       ),

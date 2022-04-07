@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -13,135 +16,161 @@ class Diary extends StatefulWidget {
 
 class _DiaryState extends State<Diary> {
   late List<Entry> _entries;
-  bool isSelected = false;
+  List<Entry> selectedEntries = [];
+  bool settings = false;
+  List <Color> _colors = [
+    Color.fromRGBO(241, 209, 252, 1),
+    Color.fromRGBO(252, 219, 248, 1),
+    Color.fromRGBO(201, 241, 255, 1),
+    Color.fromRGBO(232, 250, 255, 1),
+    Color.fromRGBO(197, 217, 252, 1),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    _entries = context
-        .watch<Entries>()
-        .entries;
+    _entries = context.watch<Entries>().entries;
     return Scaffold(
-        backgroundColor: Colors.grey,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0, // 1c
-          foregroundColor: Colors.black,
-          title: Text(
-            'My Diary',
-            style: Theme
-                .of(context)
-                .textTheme
-                .headline2,
-            textAlign: TextAlign.left,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0, // 1c
+        foregroundColor: Colors.black,
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+            child: Text(
+              'My Diary',
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width/10,
+                fontFamily: 'Raleway',
+              ),
+              textAlign: TextAlign.left,
+            ),
           ),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: ListView.builder(
-                    itemCount: _entries.length,
-                    itemBuilder: (context, index) =>
-                        Card(
-                          child: ListTile(
-                            title: Text(_entries[index].title),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(DateFormat('dd MMMM yyyy').format(
-                                    _entries[index].date)),
-                                Text(
-                                    _entries[index].note.substring(
-                                    0,
-                                        _entries[index].note.length > MediaQuery.of(context).size.width.toInt()
-                                            ? MediaQuery.of(context).size.width.toInt()
-                                            : _entries[index].note.length
-                                    )
-                                ),
-                              ],
-                            ),
-                            leading: Checkbox(
-                                value: _entries[index].isSelected, onChanged: (value) {
-                              _entries[index].isSelected = value!;
-                                  if (_entries[index].isSelected) {
-                                    _showDeleteCard(context, _entries[index]);
-                                  }
-                                  setState(() {});
-                                }
-                            ),
-                            onTap: () {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (context) =>
-                                      DiaryEntry(
-                                        entry: Entry(
-                                            title: _entries[index].title,
-                                            date: _entries[index].date,
-                                            note: _entries[index].note
-                                        ),
-                                      )
-                                  )
-                              );
-                            },
-                          ),
-                        )
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ListView.separated(
+                separatorBuilder: (context, index) => const Divider(),
+                itemCount: _entries.length,
+                itemBuilder: (context, index) => ListTile(
+                  tileColor: _colors[index % _colors.length],
+                  dense: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  title: Text(_entries[index].title),
+                  subtitle: Text(DateFormat('dd MMMM yyyy')
+                      .format(_entries[index].date),
+                 /* Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      Text(_entries[index].note,
+                      overflow: TextOverflow.clip,),
+                    ],*/
+                  ),
+                  leading: settings
+                      ? Checkbox(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          value: _entries[index].isSelected,
+                          onChanged: (value) {
+                            _entries[index].isSelected = value!;
+                            if (_entries[index].isSelected) {
+                              selectedEntries.add(_entries[index]);
+                            } else {
+                              selectedEntries.remove(_entries[index]);
+                            }
+                            setState(() {});
+                          })
+                      : null,
+                  onLongPress: () {
+                    settings = true;
+                    setState(() {});
+                  },
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => DiaryEntry(
+                              entry: _entries[index]
+                            )));
+                  },
                 ),
-              )
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) =>
-                DiaryEntry()
-                )
-            );
-          },
-          tooltip: 'Add Entry',
-          child: const Icon(Icons.edit_outlined),
-        )
-    );
-  }
-
-
-  void _showDeleteCard(context, Entry _entry) {
-    bool _deleteNote;
-    showModalBottomSheet(
-        context: context, builder: (context) =>
-        ListTile(
-          title: const Text('Delete Note'),
-          leading: const Icon(Icons.delete),
-          onTap: () async {
-            _deleteNote = await showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text(
-                      'Are you sure you wish to delete the note?'),
-                  content: const Text(
-                      'The following note will be removed'),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(false);
-                        },
-                        child: const Text('Cancel')),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(true);
-                        },
-                        child: const Text('OK'))
-                  ],
-                ));
-            if(_deleteNote) {
-              context.read<Entries>().DeleteEntry(_entry);
-              setState(() {
-              });
-            }
-            Navigator.of(context).pop();
-            //context
-          },
-        )
+              ),
+            ),
+          )
+        ],
+      ),
+      floatingActionButton: !settings
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => DiaryEntry()));
+              },
+              tooltip: 'Add Entry',
+              child: const Icon(Icons.edit_outlined),
+            )
+          : null,
+      bottomSheet: settings
+          ? Card(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () async {
+                      bool _deleteNote = await showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: const Text(
+                                    'Are you sure you want to delete selected notes?'),
+                                content: const Text(
+                                    'The selected note will be removed'),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(false);
+                                      },
+                                      child: const Text('Cancel')),
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      child: const Text('OK'))
+                                ],
+                              ));
+                      if (_deleteNote) {
+                        for (var temp in selectedEntries) {
+                          context.read<Entries>().DeleteEntry(temp);
+                          setState(() {});
+                        }
+                      }
+                      settings = false;
+                      setState(() {}); //context
+                    },
+                    tooltip: 'Delete Note',
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      settings = false;
+                      for (var temp in selectedEntries) {
+                        context.read<Entries>().setSelected(temp, false);
+                      }
+                      selectedEntries.clear();
+                      setState(() {});
+                    },
+                    icon: const Icon(Icons.close),
+                    tooltip: 'Cancel',
+                  ),
+                ],
+              ),
+            )
+          : null,
     );
   }
 }

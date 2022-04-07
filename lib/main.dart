@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/entry.dart';
+import 'package:unwind_project/mydiary.dart';
 import 'launch.dart';
 
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
         //primarySwatch: MaterialColor(0xFF162A49, color),
       ),
-      home: const LaunchScreen()
+      home: const Diary()
     );
   }
 }
