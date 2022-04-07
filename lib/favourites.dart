@@ -13,7 +13,6 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -21,12 +20,13 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
           children: <Widget>[
             const Padding(padding: EdgeInsets.all(8)),
             const Text(
-              "Favourites",
+              "Favorites",
               style: TextStyle(
-                fontSize: 40,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: Color.fromRGBO(61, 90, 128, 100),
               ),
+              textAlign: TextAlign.center,
             ),
             const Padding(padding: EdgeInsets.all(12)),
             Expanded(child: ListView.builder(itemCount: favItems.length,itemBuilder: (context, index) => ListTile(

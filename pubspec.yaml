@@ -36,6 +36,7 @@ dependencies:
   progress_indicators: ^1.0.0
   flutter_calendar_carousel: ^2.1.0
   syncfusion_flutter_calendar: ^20.1.47
+  provider: ^6.0.2
 
 
   # The following adds the Cupertino Icons font to your application.

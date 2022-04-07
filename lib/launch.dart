@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+import 'package:unwind_project/Login_page.dart';
 import 'dart:async';
-//import 'logIn.dart';
-import 'mood_tracker_1.dart';
-//import 'mood_tracker_test.dart';
-import 'favourites.dart';
 
 class LaunchScreen extends StatefulWidget {
   const LaunchScreen({Key? key}) : super(key: key);
@@ -22,7 +19,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
     Timer(
         const Duration(seconds: 3),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => MoodTrackerScreen1())));
+            builder: (BuildContext context) => LoginPage())));
   }
 
   @override
