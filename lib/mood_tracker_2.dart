@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'calendar_data_source.dart';
 import 'database.dart';
+import 'heading_widget.dart';
 
 class MoodTrackerScreen2 extends StatefulWidget {
   const MoodTrackerScreen2({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class MoodTrackerScreen2 extends StatefulWidget {
 
 class _MoodTrackerScreen2State extends State<MoodTrackerScreen2> {
 
-  CalendarController _calendarController = CalendarController();
+  final CalendarController _calendarController = CalendarController();
 
   @override
   initState() {
@@ -24,25 +25,20 @@ class _MoodTrackerScreen2State extends State<MoodTrackerScreen2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Colors.black,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Padding(padding: EdgeInsets.all(8)),
-            const Text(
-              "Mood History",
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: Color.fromRGBO(61, 90, 128, 100),
-              ),
-            ),
-            const Padding(padding: EdgeInsets.all(18)),
+            const HeadingWidget(title: "Mood History"),
             Expanded(
               child: SfCalendar(
                 view: CalendarView.month,
+                //todayHighlightColor: Color(0x00c5d9fc),
                 showDatePickerButton: true,
                 allowViewNavigation: true,
                 allowedViews: const [CalendarView.day,  CalendarView.week, CalendarView.month],
@@ -57,6 +53,7 @@ class _MoodTrackerScreen2State extends State<MoodTrackerScreen2> {
                 ),
                 monthViewSettings: const MonthViewSettings(
                   appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
+                  //showTrailingAndLeadingDates: false,
                 ),
                 dataSource: MeetingDataSource(Database().getApp()),
               ),
