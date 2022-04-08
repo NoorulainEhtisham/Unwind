@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'account_screen.dart';
+import 'heading_widget.dart';
+import 'label_textField_widget.dart';
 
 class ChangePassword extends StatelessWidget {
    ChangePassword({Key? key}) : super(key: key);
@@ -19,60 +21,12 @@ class ChangePassword extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Padding(padding: EdgeInsets.all(8)),
-                  const Text(
-                    "Change Password",
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromRGBO(61, 90, 128, 100),
-                    ),
-                  ),
-              const Padding(padding: EdgeInsets.all(50)),
-              const Text("Old Password", style: TextStyle(fontSize: 20),),
-              const Padding(padding: EdgeInsets.all(7)),
-              Container(
-                  width: MediaQuery.of(context).size.width*0.9,
-                  height : MediaQuery.of(context).size.height*0.06,
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 0.3,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextField(
-                    controller: _oldPassController,
-                  ),
-              ),
-              const Padding(padding: EdgeInsets.all(25)),
-              const Text("New Password", style: TextStyle(fontSize: 20),),
-              const Padding(padding: EdgeInsets.all(7)),
-              Container(
-                  width: MediaQuery.of(context).size.width*0.9,
-                  height : MediaQuery.of(context).size.height*0.06,
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 0.3,),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextField(
-                controller: _newPass1Controller),
-              ),
-              const Text("Confirm New Password", style: TextStyle(fontSize: 20),),
-              const Padding(padding: EdgeInsets.all(7)),
-              Container(
-                width: MediaQuery.of(context).size.width*0.9,
-                height : MediaQuery.of(context).size.height*0.06,
-                padding: const EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 0.3,),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                    controller: _newPass2Controller),
-              ),
-              const Padding(padding: EdgeInsets.all(50)),
+              const HeadingWidget(title: "Change Password"),
+              const Padding(padding: EdgeInsets.all(20)),
+              LabelTextWidget(label: "Old Password", widgetController: _oldPassController),
+              LabelTextWidget(label: "New Password", widgetController: _newPass1Controller),
+              LabelTextWidget(label: "Confirm New Password", widgetController: _newPass2Controller),
+              const Padding(padding: EdgeInsets.all(30)),
                Center(
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width*0.4,

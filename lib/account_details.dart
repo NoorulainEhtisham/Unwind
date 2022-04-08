@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'heading_widget.dart';
 
 class AccountDetailsScreen extends StatefulWidget {
   const AccountDetailsScreen({Key? key}) : super(key: key);
@@ -27,14 +28,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "Account Details",
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(61, 90, 128, 100),
-                      ),
-                    ),
+                    HeadingWidget(title: "Account Details"),
                     isEditable == false ?
                     IconButton(
                         onPressed: () {
