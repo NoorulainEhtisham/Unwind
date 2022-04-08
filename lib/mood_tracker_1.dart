@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
+import 'home_page_master.dart';
 import 'moods_type.dart';
 import 'database.dart';
 
@@ -52,12 +53,12 @@ class _MoodTrackerScreen1State extends State<MoodTrackerScreen1> {
                           leading: moodsList[index].iconLink,
                           title: Text(moodsList[index].moodName),
                           onTap: (){
-                            Database().addMoodRecord(moodsList[index].moodName, DateTime.now());
-                            // Navigator.of(context).push(
-                            //   MaterialPageRoute(
-                            //     builder: (context) => const LaunchScreen(),                                 //GO TO HOME PAGE FROM HERE
-                            //   ),
-                            // );
+                            Database().addMoodRecord(moodsList[index].moodName, DateTime.now(), moodsList[index].moodColor);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const HomePageMaster(),                                 //GO TO HOME PAGE FROM HERE
+                              ),
+                            );
                           },
                         ),
                       );

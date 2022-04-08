@@ -1,17 +1,26 @@
-import 'mood_Record.dart';
-//import 'users.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:flutter/material.dart';
+
+
 
 class Database{
 
-  //final List<User> _usersList = [];
+  static final List<Appointment> _moodRecord = <Appointment>[];
 
-  final List<MoodRecord> _moodRecord = [];
+  void addMoodRecord(String _moodType, DateTime _date, Color _moodColor ){
 
-  // void findUser(String _email, String _password) {
-  // }
+    final DateTime today = _date;
+    final DateTime startTime = DateTime(today.year, today.month, today.day);
+    final DateTime endTime = startTime.add(const Duration(hours: 2));
 
-  void addMoodRecord(String _moodType, DateTime _date ){
-    _moodRecord.add(MoodRecord(moodType: _moodType, date: _date));
+    _moodRecord.add(
+      Appointment(startTime: startTime, endTime: endTime, subject: _moodType ,color: _moodColor),
+    );
+  }
+
+  List<Appointment> getApp()
+  {
+    return _moodRecord;
   }
 
 }

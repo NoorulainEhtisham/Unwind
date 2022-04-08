@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'calendar_data_source.dart';
+import 'database.dart';
 
 class MoodTrackerScreen2 extends StatefulWidget {
   const MoodTrackerScreen2({Key? key}) : super(key: key);
@@ -9,10 +11,20 @@ class MoodTrackerScreen2 extends StatefulWidget {
 }
 
 class _MoodTrackerScreen2State extends State<MoodTrackerScreen2> {
+
+  CalendarController _calendarController = CalendarController();
+
+  @override
+  initState() {
+    _calendarController.displayDate = DateTime.now();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -31,14 +43,22 @@ class _MoodTrackerScreen2State extends State<MoodTrackerScreen2> {
             Expanded(
               child: SfCalendar(
                 view: CalendarView.month,
-                // monthViewSettings: const MonthViewSettings(
-                  // monthCellStyle: MonthCellStyle(
-                  //   trailingDatesBackgroundColor: Colors.deepOrange,
-                  //   leadingDatesBackgroundColor: Colors.deepPurple,
-                  //   todayBackgroundColor: Colors.lightGreenAccent,
-                  // ),
-                // ),
-                dataSource: MeetingDataSource(getApp()),
+                showDatePickerButton: true,
+                allowViewNavigation: true,
+                allowedViews: const [CalendarView.day,  CalendarView.week, CalendarView.month],
+                controller: _calendarController,
+                headerHeight: 70,
+                headerStyle: const CalendarHeaderStyle(
+                  textAlign:  TextAlign.center,
+                  textStyle: TextStyle(
+                    fontSize : 23,
+                    letterSpacing: 4,
+                  ),
+                ),
+                monthViewSettings: const MonthViewSettings(
+                  appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
+                ),
+                dataSource: MeetingDataSource(Database().getApp()),
               ),
             ),
           ],
@@ -48,23 +68,5 @@ class _MoodTrackerScreen2State extends State<MoodTrackerScreen2> {
   }
 }
 
-List<Appointment> getApp()
-{
-  List<Appointment> meetings = <Appointment>[];
-  final DateTime today = DateTime.now();
-  final DateTime startTime = DateTime(today.year, today.month, today.day, 9, 0, 0);
-  final DateTime endTime = startTime.add(const Duration(hours: 12));
 
 
-  meetings.add(
-    Appointment(startTime: startTime, endTime: endTime, subject: 'Hello',color: Colors.red),
-  );
-
-  return meetings;
-}
-
-class MeetingDataSource extends CalendarDataSource{
-  MeetingDataSource(List<Appointment> source){
-    appointments = source;
-  }
-}
