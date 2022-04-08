@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'deep_breathing.dart';
 import 'exercise_screen.dart';
 
 class MeditationExercisesListTile extends StatefulWidget {
@@ -60,7 +61,7 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) =>
-                                ExerciseScreen(), //navigate to meditation Exercises page here
+                                DeepBreathingPage(), //navigate to meditation Exercises page here
                           ),
                         );
                       },

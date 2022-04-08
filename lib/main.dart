@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/entry.dart';
 import 'package:unwind_project/mydiary.dart';
+import 'DeepBreathingAnimation.dart';
+import 'deep_breathing.dart';
 import 'launch.dart';
 
 
