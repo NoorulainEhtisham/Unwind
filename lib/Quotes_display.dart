@@ -12,8 +12,8 @@ class QuotesDisplay extends StatelessWidget {
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
             colors: [
-              Colors.purple,
-              Colors.purpleAccent,
+              Color(0xFFC9F1FF),
+              Color(0xFFC5D9FC),
             ],
           ),
         ),
@@ -25,7 +25,13 @@ class QuotesDisplay extends StatelessWidget {
             Container(
               height: 70,
               width: 400,
-              color: Colors.pinkAccent,
+              decoration:  BoxDecoration(
+                image: DecorationImage(
+                    colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
+                    image: AssetImage('/images/Seaside.jpg'),
+                    fit: BoxFit.cover),
+              ),
+              //color: Colors.pinkAccent,
               child: ListTile(
                 //read quotes here
                 title: Text("The only journey is the journey within."),

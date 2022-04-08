@@ -19,12 +19,11 @@ class _MoodTrackerListTileState extends State<MoodTrackerListTile> {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                Colors.green,
-                Colors.greenAccent,
+                Color(0xFFBEA5C7),
+                Color(0xFFFCDBF8),
               ],
             ),
         ),
-     // color: Color(0xFF162A49),
       height: 90,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -32,7 +31,13 @@ class _MoodTrackerListTileState extends State<MoodTrackerListTile> {
           Container(
             height: 70,
             width: 120,
-            color: Color.fromRGBO(143, 211, 174, 100),
+            // color: Color.fromRGBO(143, 211, 174, 100),
+            decoration:  BoxDecoration(
+              image: DecorationImage(
+                  colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.2), BlendMode.dstATop),
+                  image: AssetImage('/images/mood.jpg'),
+                  fit: BoxFit.cover),
+            ),
             child: ListTile(
               title: InkWell(
                 child: Text("How are you feeling today?"),
@@ -50,7 +55,13 @@ class _MoodTrackerListTileState extends State<MoodTrackerListTile> {
           Container(
             height: 70,
             width: 120,
-            color: Color.fromRGBO(143, 211, 174, 100),
+            decoration:  BoxDecoration(
+              image: DecorationImage(
+                  colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.2), BlendMode.dstATop),
+                  image: AssetImage('/images/Calender.jpg'),
+                  fit: BoxFit.cover),
+            ),
+            //color: Color.fromRGBO(143, 211, 174, 100),
             child: ListTile(
               title: InkWell(
                   child: Text("Mood History"),

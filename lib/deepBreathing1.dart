@@ -17,29 +17,38 @@ class _DeepBreathingScreen1State extends State<DeepBreathingScreen1> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text("Breathe in slowly through your nose for 5 seconds."),
-            Text("Hold your breath for 5 seconds"),
-            Text("Breathe out through your mouth for 5 seconds."),
-            Counter(), //timer 1 to 5
-            Container(
-                height: 150,
-                child: BreathAnimation()
-            ),
-            ElevatedButton(
-              child: const Text("Stop"),
-              onPressed: (){
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) =>
-                    const DeepBreathingPage(),
-                  ),
-                );
-              },
-            ),
-          ],
+        child: Container(
+          constraints: BoxConstraints.expand(),
+          decoration:  BoxDecoration(
+            image: DecorationImage(
+                colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
+                image: AssetImage('/images/Feather.jpg'),
+                fit: BoxFit.cover),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Text("Breathe in slowly through your nose for 5 seconds."),
+              Text("Hold your breath for 5 seconds"),
+              Text("Breathe out through your mouth for 5 seconds."),
+              Counter(), //timer 1 to 5
+              Container(
+                  height: 150,
+                  child: BreathAnimation()
+              ),
+              ElevatedButton(
+                child: const Text("Stop"),
+                onPressed: (){
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const DeepBreathingPage(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

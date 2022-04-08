@@ -48,11 +48,11 @@ class _BreathAnimationState extends State<BreathAnimation> with TickerProviderSt
           width:size,
           child: Material(
             borderRadius: BorderRadius.circular(size/3),
-            color: Colors.greenAccent,
+            color: Color(0xFFF1D1FC),
             child: Icon(
               Icons.favorite,
               size:70,
-              color:Colors.purpleAccent,
+              color:Color(0xFFF59FC9),
             ),
           ),
         );

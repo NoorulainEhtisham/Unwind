@@ -34,9 +34,9 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
                   colors: [
-                    Colors.purpleAccent,
-                    Colors.pinkAccent,
-                    Colors.redAccent,
+                    Color(0xFFBEA5C7),
+                    Color(0xFFFCDBF8),
+                    Color(0xFFE8FAFF),
                   ],
                 ),
               ),
@@ -53,7 +53,13 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
               Container(
                 height: 50,
                 width: 120,
-                color: Colors.pinkAccent,
+                //color: Colors.pinkAccent,
+                decoration:  BoxDecoration(
+                  image: DecorationImage(
+                      colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
+                      image: AssetImage('/images/Feather.jpg'),
+                      fit: BoxFit.cover),
+                ),
                 child: ListTile(
                     title: InkWell(
                         child: Text(Exercises[index].toString()),

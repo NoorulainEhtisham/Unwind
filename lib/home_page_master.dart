@@ -38,7 +38,7 @@ class _HomePageMasterState extends State<HomePageMaster> {
           });
        },
         items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home', backgroundColor: Colors.lightBlue ),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home', backgroundColor: Color(0xFF99A9C4) ),
         BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
         BottomNavigationBarItem(icon: Icon(Icons.audiotrack), label: 'Playlist'),
         BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),

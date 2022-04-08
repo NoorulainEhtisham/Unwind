@@ -20,8 +20,9 @@ class _JournalingListTileState extends State<JournalingListTile> {
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
             colors: [
-              Colors.green,
-              Colors.blue,
+              Color(0xFFFCDBF8),
+              Color(0xFFE8FAFF),
+              Color(0xFFC9F1FF),
             ],
           ),
         ),
@@ -33,7 +34,13 @@ class _JournalingListTileState extends State<JournalingListTile> {
             Container(
               height: 70,
               width: 120,
-              color: Color.fromRGBO(144, 188, 224, 100),
+              decoration:  BoxDecoration(
+                image: DecorationImage(
+                    colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
+                    image: AssetImage('/images/Journal2.jpg'),
+                    fit: BoxFit.cover),
+              ),
+              //color: Color.fromRGBO(144, 188, 224, 100),
               child: ListTile(
                 title: InkWell(
                     child: Text("My Diary"),
@@ -51,7 +58,13 @@ class _JournalingListTileState extends State<JournalingListTile> {
             Container(
               height: 70,
               width: 120,
-              color: Color.fromRGBO(144, 188, 224, 100),
+              //color: Color.fromRGBO(144, 188, 224, 100),
+              decoration:  BoxDecoration(
+                image: DecorationImage(
+                    colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
+                    image: AssetImage('/images/Journal.jpg'),
+                    fit: BoxFit.cover),
+              ),
               child: ListTile(
                 title: InkWell(
                     child: Text("Add an entry"),

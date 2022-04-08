@@ -18,21 +18,30 @@ class _DeepBreathingPageState extends State<DeepBreathingPage> {
         title: Text("Deep Breathing"),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text("Place one hand on your belly and the other on your chest. "),
-            Text("Breathe in, hold, and exhale according to the timer."),
-            ElevatedButton(onPressed: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) =>
-                  const DeepBreathingScreen1(), //navigate to meditation Exercises page here
-                ),
-              );
-            },
-                child: Text("Start"))
-          ],
+        child: Container(
+            constraints: BoxConstraints.expand(),
+            decoration:  BoxDecoration(
+              image: DecorationImage(
+                  colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
+                  image: AssetImage('/images/Feather.jpg'),
+                  fit: BoxFit.cover),
+            ),
+            child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text("Place one hand on your belly and the other on your chest. "),
+              Text("Breathe in, hold, and exhale according to the timer."),
+              ElevatedButton(onPressed: (){
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                    const DeepBreathingScreen1(), //navigate to meditation Exercises page here
+                  ),
+                );
+              },
+                  child: Text("Start"))
+            ],
+          ),
         ),
       ),
     );

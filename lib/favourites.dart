@@ -33,7 +33,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
               title: Text(favItems[index]),
               trailing: IconButton(
                 icon: const Icon(Icons.favorite,
-                  color: Colors.red,),
+                  color: Color(0xFFF59FC9),),
                 onPressed: (){
                   favItems.removeAt(index);
                   setState(() {
