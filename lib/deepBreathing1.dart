@@ -15,7 +15,12 @@ class DeepBreathingScreen1 extends StatefulWidget {
 class _DeepBreathingScreen1State extends State<DeepBreathingScreen1> {
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Deep Breathing"),
+      ),
       body: Center(
         child: Container(
           constraints: BoxConstraints.expand(),
@@ -28,9 +33,9 @@ class _DeepBreathingScreen1State extends State<DeepBreathingScreen1> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Text("Breathe in slowly through your nose for 5 seconds."),
-              Text("Hold your breath for 5 seconds"),
-              Text("Breathe out through your mouth for 5 seconds."),
+              Text("Breathe in slowly through your nose."),
+              Text("Hold your breath for 5 seconds."),
+              Text("Breathe out through your mouth."),
               Counter(), //timer 1 to 5
               Container(
                   height: 150,

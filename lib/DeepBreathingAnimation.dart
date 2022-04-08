@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class BreathAnimation extends StatefulWidget {
   @override
@@ -43,6 +40,7 @@ class _BreathAnimationState extends State<BreathAnimation> with TickerProviderSt
   @override
   Widget build(BuildContext context) {
     final size = 200.0 -100.0 * _breathe;
+
     return Container(
           height: size,
           width:size,
