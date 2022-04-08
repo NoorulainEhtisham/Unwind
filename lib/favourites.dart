@@ -29,20 +29,24 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
               textAlign: TextAlign.center,
             ),
             const Padding(padding: EdgeInsets.all(12)),
-            Expanded(child: ListView.builder(itemCount: favItems.length,itemBuilder: (context, index) => ListTile(
-              title: Text(favItems[index]),
-              trailing: IconButton(
-                icon: const Icon(Icons.favorite,
-                  color: Colors.red,),
-                onPressed: (){
-                  favItems.removeAt(index);
-                  setState(() {
-
-                  });
-                },
+            Expanded(
+              child: ListView.builder(
+                itemCount: favItems.length,
+                itemBuilder: (context, index) => ListTile(
+                  title: Text(favItems[index]),
+                  trailing: IconButton(
+                    icon: const Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {
+                      favItems.removeAt(index);
+                      setState(() {});
+                    },
+                  ),
+                ),
               ),
-            ),),)
-
+            )
           ],
         ),
       ),
