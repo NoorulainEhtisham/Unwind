@@ -1,9 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:unwind_project/entry.dart';
-import 'package:unwind_project/mydiary.dart';
-import 'launch.dart';
+import 'dart:html';
+import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:unwind_project/MeditationExercises_ListTile.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
+import 'package:unwind_project/audio_player.dart';
+import 'package:unwind_project/entry.dart';
+import 'package:unwind_project/home_page.dart';
+import 'package:unwind_project/mydiary.dart';
+import 'package:unwind_project/playlist.dart';
+import 'package:unwind_project/trackview.dart';
+import 'launch.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -31,12 +40,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner:false,
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-        //primarySwatch: MaterialColor(0xFF162A49, color),
-      ),
-      home: const LaunchScreen()
-    );
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.lightBlue,
+          //primarySwatch: MaterialColor(0xFF162A49, color),
+        ),
+        home:
+        //Playlist()
+        //const MyHomePage()
+        //AudioTest()
+        //const HomePage()
+        LaunchScreen()
+        );
   }
 }
+
+

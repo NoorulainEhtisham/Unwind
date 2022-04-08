@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:unwind_project/tracks.dart';
 
 class TrackView extends StatefulWidget {
+  Function(bool) onSelectingTrack;
+  Function(Track) nowPlaying;
   final TrackList track;
-  const TrackView({Key? key, required this.track}) : super(key: key);
+  TrackView(
+      {Key? key,
+      required this.track,
+      required this.onSelectingTrack,
+      required this.nowPlaying})
+      : super(key: key);
 
   @override
   State<TrackView> createState() => _TrackViewState();
@@ -11,6 +18,7 @@ class TrackView extends StatefulWidget {
 
 class _TrackViewState extends State<TrackView> {
   late List<Track> _tracks;
+  bool isPlaying = false;
 
   @override
   void initState() {
@@ -31,17 +39,26 @@ class _TrackViewState extends State<TrackView> {
           textAlign: TextAlign.left,
         ),
         const Divider(
-          thickness: 2,
+          thickness: 1,
           color: Colors.white,
         ),
         ListView.builder(
             shrinkWrap: true,
             itemCount: _tracks.length,
             itemBuilder: (context, index) => ListTile(
-                  title: Text(_tracks[index].name),
+                  title: Text(
+                    _tracks[index].name,
+                    style: const TextStyle(),
+                  ),
                   subtitle: Text(_tracks[index].artistName),
                   leading: Text('${index + 1}'),
-                  trailing: Text('${_tracks[index].duration.inMinutes}'),
+                  trailing: Text(
+                      '${_tracks[index].duration.inMinutes.remainder(60)}:${(_tracks[index].duration.inSeconds.remainder(60))}'),
+                  onTap: () {
+                    isPlaying = !isPlaying;
+                    widget.onSelectingTrack(isPlaying);
+                    widget.nowPlaying(_tracks[index]);
+                  },
                 ))
       ],
     );
