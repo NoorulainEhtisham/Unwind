@@ -132,7 +132,7 @@ class _Instructions_textState extends State<Instructions_text> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
             Text(
-              Instructions[count],
+              Instructions[count],style: TextStyle(fontSize: 18),
             ),
         ],
       ),

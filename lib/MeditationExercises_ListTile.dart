@@ -30,7 +30,6 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
           separatorBuilder: (BuildContext context, int index) {
             return Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
                 gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
@@ -42,8 +41,8 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
                 ),
               ),
               //color: Color(0xFF162A49),
-              height: 70,
-              width: 10,
+              height: 120,
+              width: 20,
             );
           },
           scrollDirection: Axis.horizontal,
@@ -53,25 +52,29 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
             return
               Container(
                 height: 120,
-                width: 120,
+                width: 150,
                 decoration:  BoxDecoration(
                   image: DecorationImage(
                       colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
                       image: AssetImage('/images/Feather.jpg'),
                       fit: BoxFit.cover),
                 ),
-                child: ListTile(
-                    title: InkWell(
-                        child: Center(child: Text(Exercises[index].toString())),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                DeepBreathingPage(), //navigate to meditation Exercises page here
-                          ),
-                        );
-                      },
-                    ),
+                child: Container(
+                  height: 110,
+                  width: 140,
+                  child: ListTile(
+                      title: InkWell(
+                          child: Center(child: Text(Exercises[index].toString())),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DeepBreathingPage(), //navigate to meditation Exercises page here
+                            ),
+                          );
+                        },
+                      ),
+                  ),
                 ),
               );
           }

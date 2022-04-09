@@ -42,9 +42,9 @@ class _DeepBreathingPageState extends State<DeepBreathingPage> {
             child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text("Place one hand on your belly and the other on your chest. "),
-              Text("Breathe in, hold, and exhale according to the timer."),
-              Text("Focus on how your lungs expand and contract with each breath."),
+              Text("Place one hand on your belly and the other on your chest." ,style: TextStyle(fontSize: 18),),
+              Text("Breathe in, hold, and exhale according to the timer." ,style: TextStyle(fontSize: 18),),
+              Text("Focus on your lungs expanding and contracting." ,style: TextStyle(fontSize: 18),),
               ElevatedButton(onPressed: (){
                 Navigator.of(context).push(
                   MaterialPageRoute(
