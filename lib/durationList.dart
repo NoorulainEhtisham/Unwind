@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class DurationDialog extends StatefulWidget {
   final Function(int value) onRadioSelection;
-  const DurationDialog({Key? key, required this.onRadioSelection}) : super(key: key);
+  final List<int> Durations;
+  const DurationDialog({Key? key, required this.onRadioSelection, required this.Durations}) : super(key: key);
 
   @override
   State<DurationDialog> createState() => _DurationDialogState();
@@ -11,7 +12,7 @@ class DurationDialog extends StatefulWidget {
 
 class _DurationDialogState extends State<DurationDialog> {
   double screenWidth = 0;
-  List<int> times = [2, 5, 10, 15, 20, 25, 30];
+  List<int> times = [];
   int _time = 0;
 
   setSelectedRadio(int val) {
@@ -24,7 +25,8 @@ class _DurationDialogState extends State<DurationDialog> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _time = times[0];
+    times = widget.Durations;
+    //_time = times[0];
   }
 
   @override

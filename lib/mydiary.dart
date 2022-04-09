@@ -161,7 +161,7 @@ class _DiaryState extends State<Diary> {
                     onPressed: () {
                       settings = false;
                       for (var temp in selectedEntries) {
-                        context.read<Entries>().setSelected(temp, false);
+                        context.read<Entries>().setSelected(temp.getkey, false);
                       }
                       selectedEntries.clear();
                       setState(() {});

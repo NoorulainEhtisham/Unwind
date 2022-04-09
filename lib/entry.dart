@@ -31,8 +31,8 @@ class Entries extends ChangeNotifier {
 
   List<Entry> get entries => _entries;
 
-  void setSelected(Entry entry, bool value) {
-    int index = _entries.indexOf(entry);
+  void setSelected(int key, bool value) {
+    int index = _entries.indexWhere((element) => element.getkey == key);
     _entries[index].setSelected(value);
     notifyListeners();
   }

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
@@ -6,7 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:unwind_project/audio_player.dart';
 import 'package:unwind_project/exercises.dart';
-import 'package:unwind_project/page_manager.dart';
+import 'package:unwind_project/audio_manager.dart';
+import 'package:video_player/video_player.dart';
 
 class ExerciseScreen extends StatefulWidget {
   final Exercise exercise;
@@ -19,6 +21,7 @@ class ExerciseScreen extends StatefulWidget {
 class _ExerciseScreenState extends State<ExerciseScreen> {
   String script = "";
   bool isLoading = true;
+  Size screenSize = Size(0, 0);
   late Exercise _exercise;
 
   @override
@@ -30,11 +33,12 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   }
 
   _init() async {
+
     isLoading = true;
     setState(() {});
     //Load an existing PDF document.
-    PdfDocument document =
-        PdfDocument(inputBytes: await _readDocumentData(_exercise.script));
+    PdfDocument document = PdfDocument(
+        inputBytes: await _readDocumentData(_exercise.script),);
 
 //Create a new instance of the PdfTextExtractor.
     PdfTextExtractor extractor = PdfTextExtractor(document);
@@ -43,17 +47,21 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     script = extractor.extractText();
     isLoading = false;
     setState(() {});
+    document.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    screenSize = MediaQuery.of(context).size;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
         title: Text(
           _exercise.title,
-          style: const TextStyle(
-            fontSize: 30,
+          softWrap: false,
+          overflow: TextOverflow.visible,
+          style: TextStyle(
+            fontSize: screenSize.width*0.05,
             fontWeight: FontWeight.bold,
             color: Color.fromRGBO(61, 90, 128, 100),
           ),
@@ -62,22 +70,23 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       ),
       body: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(0),
-          child: isLoading
-              ? const CircularProgressIndicator()
-              : Padding(
-                padding: const EdgeInsets.only(bottom: 500, top: 10, left: 10, right: 10),
+          child:
+          // isLoading
+          //     ? const CircularProgressIndicator()
+          //     :
+          Padding(
+                padding: const EdgeInsets.only(bottom: 500),
                 child: Text(
                     script,
-                    textAlign: TextAlign.center,
                     textScaleFactor: 2,
+                    textAlign: TextAlign.center,
                   ),
               ),
         ),
       ),
-      floatingActionButton: AudioPlayer(
+      floatingActionButton: AudioPlayerBox(
         title: _exercise.title,
-        pageManager: PageManager(path: _exercise.path),
+        audioManager: AudioManager(controller: VideoPlayerController.network(_exercise.path)),
         isPlaylist: false,
       ),
     );

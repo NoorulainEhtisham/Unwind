@@ -1,44 +1,47 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:unwind_project/page_manager.dart';
+import 'package:unwind_project/audio_manager.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:video_player/video_player.dart';
 
-class AudioPlayer extends StatefulWidget {
+class AudioPlayerBox extends StatefulWidget {
+  Color color;
   final bool isPlaylist;
-  PageManager pageManager;
+  AudioManager audioManager;
   String title;
-  AudioPlayer({Key? key,required this.title, required this.isPlaylist, required this.pageManager})
+  AudioPlayerBox(
+      {Key? key,
+      required this.title,
+      required this.isPlaylist,
+      required this.audioManager,
+      this.color = Colors.white})
       : super(key: key);
 
   @override
-  State<AudioPlayer> createState() => _AudioPlayerState();
+  State<AudioPlayerBox> createState() => _AudioPlayerBoxState();
 }
 
-class _AudioPlayerState extends State<AudioPlayer> {
-  // AudioPlayer audioPlayer = AudioPlayer();
-  // PlayerState playerState = PlayerState.PAUSED;
-  // AudioCache audioCache = AudioCache();
-  late final PageManager _pageManager;
+class _AudioPlayerBoxState extends State<AudioPlayerBox> {
+  late final AudioManager _audioManager;
+  Size screenSize = Size(0, 0);
   bool isFavourite = false;
   late bool onPlaylistPage;
-
 
   @override
   void initState() {
     super.initState();
-    _pageManager = widget.pageManager;
+    _audioManager = widget.audioManager;
     onPlaylistPage = widget.isPlaylist;
   }
 
   @override
   Widget build(BuildContext context) {
-
-    print("\n\nNow playing ${widget.pageManager.path}");
+    screenSize = MediaQuery.of(context).size;
+    print("\n\nNow playing");
     return Container(
-      color: Colors.white,
-      height: MediaQuery.of(context).size.height * 0.23,
-      width: MediaQuery.of(context).size.width,
+      color: widget.color,
+      height: screenSize.height * 0.25,
+      width: screenSize.width,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -48,23 +51,34 @@ class _AudioPlayerState extends State<AudioPlayer> {
             Row(
               children: [
                 Icon(Icons.music_note),
-                Text(widget.title),
+                Text(
+                  widget.title,
+                  style: TextStyle(
+                    fontSize: screenSize.width * 0.05,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
             const Spacer(),
             ValueListenableBuilder<ProgressBarState>(
-              valueListenable: _pageManager.progressNotifier,
+              valueListenable: _audioManager.progressNotifier,
               builder: (_, value, __) {
                 return ProgressBar(
                     progress: value.current,
                     buffered: value.buffered,
                     total: value.total,
-                    onSeek : _pageManager.seek
-                );
-                    // onSeek: (Duration) {
-                    //   _pageManager.seek(Duration);
-                    //   setState(() {});
-                    // });
+                    progressBarColor: Colors.indigo,
+                    baseBarColor: Colors.grey.withOpacity(0.24),
+                    bufferedBarColor: Colors.white.withOpacity(0.24),
+                    thumbColor: Colors.white,
+                    barHeight: 3.5,
+                    thumbRadius: 5.0,
+                    onSeek: _audioManager.seek);
+                // onSeek: (Duration) {
+                //   _pageManager.seek(Duration);
+                //   setState(() {});
+                // });
               },
             ),
             Row(
@@ -73,11 +87,11 @@ class _AudioPlayerState extends State<AudioPlayer> {
               children: [
                 if (widget.isPlaylist)
                   IconButton(
-                      onPressed: () {},
+                      onPressed: _audioManager.rewind,
                       iconSize: 32.0,
-                      icon: Icon(Icons.skip_previous)),
+                      icon: Icon(Icons.fast_rewind)),
                 ValueListenableBuilder<ButtonState>(
-                  valueListenable: _pageManager.buttonNotifier,
+                  valueListenable: _audioManager.buttonNotifier,
                   builder: (_, value, __) {
                     switch (value) {
                       case ButtonState.loading:
@@ -91,31 +105,29 @@ class _AudioPlayerState extends State<AudioPlayer> {
                         return IconButton(
                           icon: const Icon(Icons.play_arrow),
                           iconSize: 32.0,
-                          onPressed: _pageManager.play,
+                          onPressed: _audioManager.play,
                         );
                       case ButtonState.playing:
                         return IconButton(
                           icon: const Icon(Icons.pause),
                           iconSize: 32.0,
-                          onPressed: _pageManager.pause,
+                          onPressed: _audioManager.pause,
                         );
                     }
                   },
                 ),
                 if (widget.isPlaylist)
                   IconButton(
-                      onPressed: () {},
+                      onPressed: _audioManager.fastForward,
                       iconSize: 32.0,
-                      icon: Icon(Icons.skip_next)),
+                      icon: const Icon(Icons.fast_forward)),
                 if (widget.isPlaylist)
                   IconButton(
-                      color: Colors.pinkAccent,
+                      color: Colors.pink,
                       iconSize: 32.0,
                       onPressed: () {
                         isFavourite = !isFavourite;
-                            setState(() {
-
-                            });
+                        setState(() {});
                       },
                       icon: Icon(isFavourite
                           ? Icons.favorite
@@ -130,7 +142,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
 
   @override
   void dispose() {
+    _audioManager.dispose();
     super.dispose();
-    _pageManager.dispose();
   }
 }

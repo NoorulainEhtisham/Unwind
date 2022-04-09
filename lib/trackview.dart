@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:unwind_project/audio_manager.dart';
 import 'package:unwind_project/tracks.dart';
+import 'package:video_player/video_player.dart';
+
+import 'audio_player.dart';
 
 class TrackView extends StatefulWidget {
-  Function(bool) onSelectingTrack;
-  Function(Track) nowPlaying;
   final TrackList track;
-  TrackView(
-      {Key? key,
-      required this.track,
-      required this.onSelectingTrack,
-      required this.nowPlaying})
-      : super(key: key);
+  TrackView({Key? key, required this.track}) : super(key: key);
 
   @override
   State<TrackView> createState() => _TrackViewState();
@@ -18,6 +15,7 @@ class TrackView extends StatefulWidget {
 
 class _TrackViewState extends State<TrackView> {
   late List<Track> _tracks;
+  Track nowPlaying = Track(name: '', artistName: '', duration: Duration());
   bool isPlaying = false;
 
   @override
@@ -25,7 +23,12 @@ class _TrackViewState extends State<TrackView> {
     // TODO: implement initState
     super.initState();
     _tracks = widget.track.tracks;
-    //print(_tracks.toString());
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -39,8 +42,8 @@ class _TrackViewState extends State<TrackView> {
           textAlign: TextAlign.left,
         ),
         const Divider(
-          thickness: 1,
-          color: Colors.white,
+          thickness: 1.8,
+          //color: Colors.white,
         ),
         ListView.builder(
             shrinkWrap: true,
@@ -53,14 +56,55 @@ class _TrackViewState extends State<TrackView> {
                   subtitle: Text(_tracks[index].artistName),
                   leading: Text('${index + 1}'),
                   trailing: Text(
-                      '${_tracks[index].duration.inMinutes.remainder(60)}:${(_tracks[index].duration.inSeconds.remainder(60))}'),
-                  onTap: () {
-                    isPlaying = !isPlaying;
-                    widget.onSelectingTrack(isPlaying);
-                    widget.nowPlaying(_tracks[index]);
+                      '${_tracks[index].duration.inMinutes}:${(_tracks[index].duration.inSeconds.remainder(60))}'),
+                  onTap: () async {
+                    //isPlaying = true;
+                    setState(() {
+                      nowPlaying = _tracks[index];
+                    });
+                    await showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              contentPadding: EdgeInsets.zero,
+                              content:
+                              AudioPlayerBox(
+                                title: nowPlaying.name,
+                                audioManager: AudioManager(
+                                    controller: VideoPlayerController.network(
+                                        nowPlaying.URL)),
+                                isPlaylist: true,
+                                color: Color.fromRGBO(197, 217, 252, 1),
+                              ),
+                            ));
                   },
-                ))
+                )),
+        //AudioFile(audioPlayer: audioPlayer)
       ],
     );
   }
+
+  // onTapped(int index) async {
+  //   print("Video playing from " + _tracks[index].URL);
+  //   selectedIndex = index;
+  //   setState(() {
+  //
+  //   });
+  //   vpc = VideoPlayerController.network(_tracks[index].URL);
+  //
+  //   setState(() {
+  //     vpc.pause();
+  //     vpc.seekTo(Duration(seconds: 0));
+  //   });
+  // }
+  //
+  // void videoListener() {
+  //   if(vpc.value.position == vpc.value.duration) {
+  //     print("Audio ended");
+  //     isEndplaying = true;
+  //     isPlaying = false;
+  //     setState(() {
+  //
+  //     });
+  //   }
+  // }
 }

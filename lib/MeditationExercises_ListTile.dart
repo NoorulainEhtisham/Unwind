@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:unwind_project/durationList.dart';
 import 'package:unwind_project/exercises.dart';
 
@@ -17,7 +20,9 @@ class _MeditationExercisesListTileState
     extends State<MeditationExercisesListTile> {
   //read exercises list from db into this array
   bool begin = false;
-  List<String> Exercises = [
+  int time = -1;
+  int ind = -1;
+  List<String> categories = [
     'Deep Breathing',
     'Mindfulness',
     'Simple',
@@ -26,8 +31,13 @@ class _MeditationExercisesListTileState
     'Grounding',
     'Walking',
   ];
+  List<Exercise> _exercises = [];
+  List<Exercise> _selectedCategoryExercises = [];
+  List<int> _selectedCategoryDurations = [];
+  late Exercise _exercise;
   @override
   Widget build(BuildContext context) {
+    _exercises = context.watch<Exercises>().exercises;
     return SizedBox(
       height: 90,
       child: ListView.separated(
@@ -51,7 +61,7 @@ class _MeditationExercisesListTileState
           },
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: Exercises.length,
+          itemCount: categories.length,
           itemBuilder: (context, index) {
             return Container(
               height: 50,
@@ -59,54 +69,94 @@ class _MeditationExercisesListTileState
               color: Colors.pinkAccent,
               child: ListTile(
                 title: InkWell(
-                  child: Text(Exercises[index].toString()),
+                  child: Text(categories[index].toString()),
                   onTap: () async {
-                    await showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              contentPadding: EdgeInsets.all(8),
-                              content: DurationDialog(
-                                onRadioSelection: (value) {
-                                  begin = true;
-                                  setState(() {});
-                                  // print(value);
-                                },
-                              ),
-                              actions: [
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        minimumSize:
-                                            const Size(double.infinity, 50),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(30))),
-                                    onPressed: () {
-                                      if (begin) {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ExerciseScreen(
-                                                  exercise: Exercise(
-                                                      title: 'Body Scan Meditation',
-                                                      category: Exercises[index],
-                                                      path: 'assets/audios/Body-Scan-Meditation-3-UCLA.mp3',
-                                                      script: 'scripts/BodyScanMeditation_Transcript-3-UCLA.pdf',
-                                                      duration: Duration()
+                    if (categories[index].compareTo("Deep Breathing") != 0) {
+                      _selectedCategoryExercises.clear();
+                      _selectedCategoryDurations.clear();
+                      getRelevantCategory(categories[index]);
+                      //print(_selectedCategoryDurations);
+                      await showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                contentPadding: EdgeInsets.zero,
+                                content: DurationDialog(
+                                  onRadioSelection: (value) {
+                                    begin = true;
+                                    setState(() {
+                                      time = value;
+                                    });
+                                    // print(value);
+                                  },
+                                  Durations: _selectedCategoryDurations,
+                                ),
+                                actions: [
+                                  ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          minimumSize:
+                                              const Size(double.infinity, 50),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30))),
+                                      onPressed: () {
+                                        if (begin) {
+                                          if (_selectedCategoryExercises
+                                              .isNotEmpty) {
+                                            ind = getRelevantExercise(time);
+                                            setState(() {
+                                             // print("index = $ind");
+                                            });
+                                          }
+                                          ind != -1
+                                              ? Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ExerciseScreen(
+                                                    exercise:
+                                                        _selectedCategoryExercises[
+                                                            ind], //navigate to meditation Exercises page here
                                                   ),
-                                                ), //navigate to meditation Exercises page here
-                                          ),
-                                        );
-                                        //Navigator.of(context).pop();
-                                      }
-                                    },
-                                    child: const Text('Begin')),
-                              ],
-                            ));
+                                                ))
+                                              : null; //Navigator.of(context).pop();
+                                        }
+                                      },
+                                      child: const Text('Begin')),
+                                ],
+                              ));
+                    }
                   },
                 ),
               ),
             );
           }),
     );
+  }
+
+  void getRelevantCategory(String category) {
+    int duration = 0;
+    for (var value in _exercises) {
+      duration = ((value.duration.inSeconds) / 60)
+          .ceil(); //2:44 minutes round up to 3:00 minutes
+      //print(duration);
+      if (value.category.toLowerCase().compareTo(category.toLowerCase()) == 0) {
+        setState(() {
+          _selectedCategoryExercises.add(value);
+          _selectedCategoryDurations.add(duration);
+        });
+      }
+    }
+  }
+
+  int getRelevantExercise(int duration) {
+    int index = _selectedCategoryExercises.indexWhere((element) => ((element.duration.inSeconds) / 60)
+        .ceil() == duration);
+    return index;
+
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 }

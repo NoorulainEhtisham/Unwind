@@ -1,5 +1,3 @@
-import 'dart:html';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +6,7 @@ import 'package:unwind_project/MeditationExercises_ListTile.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:unwind_project/audio_player.dart';
 import 'package:unwind_project/entry.dart';
+import 'package:unwind_project/exercises.dart';
 import 'package:unwind_project/home_page.dart';
 import 'package:unwind_project/mydiary.dart';
 import 'package:unwind_project/playlist.dart';
@@ -15,8 +14,11 @@ import 'package:unwind_project/trackview.dart';
 import 'launch.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-    create: (_) => Entries(),
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => Entries()),
+      ChangeNotifierProvider(create: (_) => Exercises())
+    ],
     child: const MyApp(),
   ));
 }
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
         //const MyHomePage()
         //AudioTest()
         //const HomePage()
-        LaunchScreen()
+       LaunchScreen()
         );
   }
 }

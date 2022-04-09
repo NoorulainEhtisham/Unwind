@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:unwind_project/audio_player.dart';
-import 'package:unwind_project/page_manager.dart';
+import 'package:unwind_project/audio_manager.dart';
 import 'package:unwind_project/tracks.dart';
 import 'package:unwind_project/trackview.dart';
+import 'package:video_player/video_player.dart';
 
 class Playlist extends StatefulWidget {
   const Playlist({Key? key}) : super(key: key);
@@ -13,7 +14,6 @@ class Playlist extends StatefulWidget {
 
 class _PlaylistState extends State<Playlist> {
   bool isPlaying = false;
-  late AudioPlayer _audioPlayer;
   Track nowPlaying = Track(name: '', artistName: '', duration: Duration());
   final List<TrackList> _tracklist = [
     TrackList([
@@ -96,17 +96,22 @@ class _PlaylistState extends State<Playlist> {
     ], category: 'Sleep'),
   ];
 
+  late VideoPlayerController vpc;
+  late int selectedIndex;
+
   @override
   void initState() {
     // TODO: implement initState
+    vpc = VideoPlayerController.network(_tracklist[0].tracks[0].URL);
+    selectedIndex = 0;
+    //vpc.addListener(videoListener);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    //_audioPlayer = AudioPlayer(path: nowPlaying.URL, isPlaylist: true);
-    if (nowPlaying != null) print(nowPlaying.URL + "\n\n" + nowPlaying.credits);
+    //if (nowPlaying != null) print(nowPlaying.URL + "\n\n" + nowPlaying.credits);
     return Scaffold(
       backgroundColor: Color.fromRGBO(252, 219, 248, 1),
       body: Column(
@@ -132,34 +137,22 @@ class _PlaylistState extends State<Playlist> {
                     for (var temp in _tracklist)
                       TrackView(
                         track: temp,
-                        onSelectingTrack: (value) {
-                          isPlaying = value;
-                          setState(() {});
-                        },
-                        nowPlaying: (_track) {
-                          setState(() {
-                            nowPlaying = _track;
-                          });
-                        },
                       )
                   ],
                 ),
               ),
             ),
           ),
-          if (isPlaying)
-            AudioPlayer(
-              title: nowPlaying.name,
-              pageManager: PageManager(path: nowPlaying.URL), isPlaylist: true,
-            ),
         ],
       ),
       //bottomSheet: AudioPlayer(),
     );
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
+    vpc.dispose();
     super.dispose();
   }
 }

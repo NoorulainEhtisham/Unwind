@@ -45,6 +45,7 @@ dependencies:
   video_player: ^2.3.0
   audio_video_progress_bar: ^0.10.0
   syncfusion_flutter_pdf: ^20.1.47-beta.1
+  syncfusion_flutter_pdfviewer: ^20.1.47-beta
 
 
 dev_dependencies:
