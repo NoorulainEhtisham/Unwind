@@ -61,7 +61,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           softWrap: false,
           overflow: TextOverflow.visible,
           style: TextStyle(
-            fontSize: screenSize.width*0.05,
+            fontSize: screenSize.width*0.04,
             fontWeight: FontWeight.bold,
             color: Color.fromRGBO(61, 90, 128, 100),
           ),

@@ -25,10 +25,10 @@ class _HomePageMasterState extends State<HomePageMaster> {
   Widget build(BuildContext context) {
     //var screenSize = MediaQuery.of(context).size; //get screen size to allow flexibility in browser
     return Scaffold(
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   // title: Text("Welcome User!"),
-      // ),
+      appBar: AppBar(
+        centerTitle: true,
+        // title: Text("Welcome User!"),
+      ),
       body: Center(child: _items[_currentIndex],),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,

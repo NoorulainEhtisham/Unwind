@@ -71,25 +71,20 @@ class _AudioPlayerBoxState extends State<AudioPlayerBox> {
                     progressBarColor: Colors.indigo,
                     baseBarColor: Colors.grey.withOpacity(0.24),
                     bufferedBarColor: Colors.white.withOpacity(0.24),
-                    thumbColor: Colors.white,
-                    barHeight: 3.5,
+                    thumbColor: Colors.grey[500],
+                    barHeight: 4,
                     thumbRadius: 5.0,
                     onSeek: _audioManager.seek);
-                // onSeek: (Duration) {
-                //   _pageManager.seek(Duration);
-                //   setState(() {});
-                // });
               },
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (widget.isPlaylist)
-                  IconButton(
-                      onPressed: _audioManager.rewind,
-                      iconSize: 32.0,
-                      icon: Icon(Icons.fast_rewind)),
+                IconButton(
+                    onPressed: _audioManager.rewind,
+                    iconSize: screenSize.width * 0.05,
+                    icon: Icon(Icons.fast_rewind)),
                 ValueListenableBuilder<ButtonState>(
                   valueListenable: _audioManager.buttonNotifier,
                   builder: (_, value, __) {
@@ -97,34 +92,33 @@ class _AudioPlayerBoxState extends State<AudioPlayerBox> {
                       case ButtonState.loading:
                         return Container(
                           margin: const EdgeInsets.all(8.0),
-                          width: 32.0,
-                          height: 32.0,
+                          width: screenSize.width * 0.05,
+                          height: screenSize.width * 0.05,
                           child: const CircularProgressIndicator(),
                         );
                       case ButtonState.paused:
                         return IconButton(
                           icon: const Icon(Icons.play_arrow),
-                          iconSize: 32.0,
+                          iconSize: screenSize.width * 0.05,
                           onPressed: _audioManager.play,
                         );
                       case ButtonState.playing:
                         return IconButton(
                           icon: const Icon(Icons.pause),
-                          iconSize: 32.0,
+                          iconSize: screenSize.width * 0.05,
                           onPressed: _audioManager.pause,
                         );
                     }
                   },
                 ),
-                if (widget.isPlaylist)
-                  IconButton(
-                      onPressed: _audioManager.fastForward,
-                      iconSize: 32.0,
-                      icon: const Icon(Icons.fast_forward)),
+                IconButton(
+                    onPressed: _audioManager.fastForward,
+                    iconSize: screenSize.width * 0.05,
+                    icon: const Icon(Icons.fast_forward)),
                 if (widget.isPlaylist)
                   IconButton(
                       color: Colors.pink,
-                      iconSize: 32.0,
+                      iconSize: screenSize.width * 0.05,
                       onPressed: () {
                         isFavourite = !isFavourite;
                         setState(() {});
