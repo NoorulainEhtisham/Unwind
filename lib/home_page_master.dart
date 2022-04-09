@@ -27,9 +27,14 @@ class _HomePageMasterState extends State<HomePageMaster> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        // title: Text("Welcome User!"),
+        automaticallyImplyLeading: false,
+        title: Text("Welcome User!"),
       ),
-      body: Center(child: _items[_currentIndex],),
+      body: Center(
+        child: Container(
+            padding: EdgeInsets. all(15),
+            child: _items[_currentIndex]),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
        onTap: (index) {

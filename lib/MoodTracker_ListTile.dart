@@ -15,6 +15,7 @@ class _MoodTrackerListTileState extends State<MoodTrackerListTile> {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,

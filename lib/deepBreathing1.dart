@@ -16,11 +16,7 @@ class _DeepBreathingScreen1State extends State<DeepBreathingScreen1> {
   @override
   Widget build(BuildContext context) {
 
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Deep Breathing"),
-      ),
       body: Center(
         child: Container(
           constraints: BoxConstraints.expand(),
@@ -33,12 +29,11 @@ class _DeepBreathingScreen1State extends State<DeepBreathingScreen1> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Text("Breathe in slowly through your nose."),
-              Text("Hold your breath for 5 seconds."),
-              Text("Breathe out through your mouth."),
+              Instructions_text(),
               Counter(), //timer 1 to 5
               Container(
-                  height: 150,
+                  height: 300,
+                  //height: MediaQuery.of(context).size.height*0.2,
                   child: BreathAnimation()
               ),
               ElevatedButton(
@@ -98,3 +93,50 @@ class _CounterState extends State<Counter> {
     return Text('$count', style: Theme.of(context).textTheme.headline4);
   }
 }
+class Instructions_text extends StatefulWidget {
+  const Instructions_text({Key? key}) : super(key: key);
+
+  @override
+  _Instructions_textState createState() => _Instructions_textState();
+}
+
+class _Instructions_textState extends State<Instructions_text> {
+  int count = 0;
+  List<String> Instructions = [
+    "Breathe in slowly through your nose.",
+    "Hold your breath for 5 seconds.",
+    "Breathe out through your mouth.",
+  ];
+  Timer? timer;
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(
+      const Duration(seconds: 5),
+          (timer) {
+        setState(() {
+          if (count<2){
+            count++;
+          }else{
+            count=0;
+          }
+        });
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+            Text(
+              Instructions[count],
+            ),
+        ],
+      ),
+    );
+  }
+}
+

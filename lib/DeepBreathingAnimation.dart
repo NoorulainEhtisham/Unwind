@@ -7,6 +7,7 @@ class BreathAnimation extends StatefulWidget {
 }
 
 class _BreathAnimationState extends State<BreathAnimation> with TickerProviderStateMixin{
+  int count=0;
   late AnimationController _breatheController;
   var _breathe =0.0;
 
@@ -18,11 +19,9 @@ class _BreathAnimationState extends State<BreathAnimation> with TickerProviderSt
 
     _breatheController.addStatusListener((status) async {
       if(status == AnimationStatus.completed){
-
         Timer(
             Duration(seconds: 5),
-                () =>
-                (_breatheController.reverse())
+                () => (_breatheController.reverse())
         );
         //_breatheController.reverse();
       } else if (status == AnimationStatus.dismissed){
@@ -39,20 +38,22 @@ class _BreathAnimationState extends State<BreathAnimation> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    final size = 200.0 -100.0 * _breathe;
+    final size = 100 + 150.0 * _breathe;
 
-    return Container(
-          height: size,
-          width:size,
-          child: Material(
-            borderRadius: BorderRadius.circular(size/3),
-            color: Color(0xFFF1D1FC),
-            child: Icon(
-              Icons.favorite,
-              size:70,
-              color:Color(0xFFF59FC9),
-            ),
-          ),
+    return
+        Container(
+              height: size,
+              width:size,
+              child: Material(
+                //borderRadius: BorderRadius.circular(size/3),
+                borderRadius: BorderRadius.circular(100),
+                color: Color(0xFFF1D1FC),
+                child: Icon(
+                  Icons.favorite,
+                  size:70,
+                  color:Color(0xFFF59FC9),
+                ),
+              ),
         );
   }
 }

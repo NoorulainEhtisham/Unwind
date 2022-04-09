@@ -30,6 +30,7 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
           separatorBuilder: (BuildContext context, int index) {
             return Container(
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
                 gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
