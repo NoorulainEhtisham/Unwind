@@ -25,7 +25,7 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 90,
+      height: 140,
       child: ListView.separated(
           separatorBuilder: (BuildContext context, int index) {
             return Container(
@@ -52,9 +52,8 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
           itemBuilder: (context,index) {
             return
               Container(
-                height: 50,
+                height: 120,
                 width: 120,
-                //color: Colors.pinkAccent,
                 decoration:  BoxDecoration(
                   image: DecorationImage(
                       colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
@@ -63,7 +62,7 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
                 ),
                 child: ListTile(
                     title: InkWell(
-                        child: Text(Exercises[index].toString()),
+                        child: Center(child: Text(Exercises[index].toString())),
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(

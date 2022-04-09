@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Journaling_ListTile.dart';
 import 'MeditationExercises_ListTile.dart';
@@ -9,17 +10,26 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column( //Use List Tile instead
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: ListView(
+        scrollDirection: Axis.vertical,
         children: [
-          const Text("Mood Tracker"),
-          const MoodTrackerListTile(),
-          const Text("Meditation Exercises"),
-          const MeditationExercisesListTile(),
-          const Text("Journaling"),
-          const JournalingListTile(),
-          const Text("Quotes"),
-          const QuotesDisplay(),
+          Text("Welcome User!",style: Theme.of(context).textTheme.headlineSmall),
+          QuotesDisplay(),
+          SizedBox(
+            height: 30,
+          ),
+          Text("Mood Tracker",style: Theme.of(context).textTheme.headlineSmall),
+          MoodTrackerListTile(),
+          SizedBox(
+            height: 30,
+          ),
+          Text("Meditation Exercises",style: Theme.of(context).textTheme.headlineSmall),
+          MeditationExercisesListTile(),
+          SizedBox(
+            height: 30,
+          ),
+          Text("Journaling",style: Theme.of(context).textTheme.headlineSmall),
+          JournalingListTile(),
         ],
       ),
     );

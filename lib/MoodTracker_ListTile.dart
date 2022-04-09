@@ -25,23 +25,22 @@ class _MoodTrackerListTileState extends State<MoodTrackerListTile> {
               ],
             ),
         ),
-      height: 90,
+      height: 140,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            height: 70,
-            width: 120,
-            // color: Color.fromRGBO(143, 211, 174, 100),
+            height: 120,
+            width: 150,
             decoration:  BoxDecoration(
               image: DecorationImage(
-                  colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.2), BlendMode.dstATop),
+                  colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
                   image: AssetImage('/images/mood.jpg'),
                   fit: BoxFit.cover),
             ),
             child: ListTile(
               title: InkWell(
-                child: Text("How are you feeling today?"),
+                child: Center(child: Text("How are you feeling today?")),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -54,18 +53,18 @@ class _MoodTrackerListTileState extends State<MoodTrackerListTile> {
             ),
           ),
           Container(
-            height: 70,
-            width: 120,
+            height: 120,
+            width: 150,
             decoration:  BoxDecoration(
               image: DecorationImage(
-                  colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.2), BlendMode.dstATop),
+                  colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
                   image: AssetImage('/images/Calender.jpg'),
                   fit: BoxFit.cover),
             ),
             //color: Color.fromRGBO(143, 211, 174, 100),
             child: ListTile(
               title: InkWell(
-                  child: Text("Mood History"),
+                  child: Center(child: Text("Mood History")),
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(

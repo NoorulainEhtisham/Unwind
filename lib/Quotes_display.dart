@@ -13,6 +13,7 @@ class QuotesDisplay extends StatelessWidget {
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
             colors: [
+              Color(0xFFF1D1FC),
               Color(0xFFC9F1FF),
               Color(0xFFC5D9FC),
             ],
@@ -35,7 +36,7 @@ class QuotesDisplay extends StatelessWidget {
               //color: Colors.pinkAccent,
               child: ListTile(
                 //read quotes here
-                title: Text("The only journey is the journey within."),
+                title: Center(child: Text("The only journey is the journey within.")),
               ),
             ),
           ],

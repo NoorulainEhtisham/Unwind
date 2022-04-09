@@ -28,7 +28,7 @@ class _HomePageMasterState extends State<HomePageMaster> {
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title: Text("Welcome User!"),
+        title: Text("Unwind"),
       ),
       body: Center(
         child: Container(
