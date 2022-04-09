@@ -18,7 +18,7 @@ class _DiaryState extends State<Diary> {
   late List<Entry> _entries;
   List<Entry> selectedEntries = [];
   bool settings = false;
-  List <Color> _colors = [
+  final List<Color> _colors = [
     Color.fromRGBO(241, 209, 252, 1),
     Color.fromRGBO(252, 219, 248, 1),
     Color.fromRGBO(201, 241, 255, 1),
@@ -45,7 +45,7 @@ class _DiaryState extends State<Diary> {
             child: Text(
               'My Diary',
               style: TextStyle(
-                fontSize: MediaQuery.of(context).size.width/10,
+                fontSize: MediaQuery.of(context).size.width / 10,
                 fontFamily: 'Raleway',
               ),
               textAlign: TextAlign.left,
@@ -55,24 +55,27 @@ class _DiaryState extends State<Diary> {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: ListView.separated(
-                separatorBuilder: (context, index) => const Divider(),
+                separatorBuilder: (context, index) => const Padding(padding: EdgeInsets.all(2.0)),
                 itemCount: _entries.length,
                 itemBuilder: (context, index) => ListTile(
+                  contentPadding: EdgeInsets.all(10.0),
                   tileColor: _colors[index % _colors.length],
-                  dense: true,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   title: Text(_entries[index].title),
-                  subtitle: Text(DateFormat('dd MMMM yyyy')
-                      .format(_entries[index].date),
-                 /* Column(
+                  subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
-                      Text(_entries[index].note,
-                      overflow: TextOverflow.clip,),
-                    ],*/
+                      Text(DateFormat('dd MMMM yyyy')
+                          .format(_entries[index].date)),
+                      Text(
+                        _entries[index].note,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                      ),
+                    ],
                   ),
                   leading: settings
                       ? Checkbox(
@@ -95,9 +98,8 @@ class _DiaryState extends State<Diary> {
                   },
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => DiaryEntry(
-                              entry: _entries[index]
-                            )));
+                        builder: (context) =>
+                            DiaryEntry(entry: _entries[index])));
                   },
                 ),
               ),
@@ -130,7 +132,7 @@ class _DiaryState extends State<Diary> {
                                 title: const Text(
                                     'Are you sure you want to delete selected notes?'),
                                 content: const Text(
-                                    'The selected note will be removed'),
+                                    'The selected notes will be removed'),
                                 actions: [
                                   TextButton(
                                       onPressed: () {
@@ -159,7 +161,7 @@ class _DiaryState extends State<Diary> {
                     onPressed: () {
                       settings = false;
                       for (var temp in selectedEntries) {
-                        context.read<Entries>().setSelected(temp, false);
+                        context.read<Entries>().setSelected(temp.getkey, false);
                       }
                       selectedEntries.clear();
                       setState(() {});

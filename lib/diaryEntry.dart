@@ -119,7 +119,8 @@ class _DiaryEntryState extends State<DiaryEntry> {
                 bool cbt = await showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                          content: CognitiveDistortionAlert(
+                      contentPadding: EdgeInsets.all(2),
+                      content: CognitiveDistortionAlert(
                             onOptionChange: (value) {
                               _cdistort = value;
                               setState(() {

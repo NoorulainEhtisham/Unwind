@@ -43,6 +43,7 @@ class _CognitiveDistortionAlertState extends State<CognitiveDistortionAlert> {
           ),
           for (var temp in _cd)
             RadioListTile<CgnDistort>(
+              contentPadding: EdgeInsets.zero,
               dense: true,
               value: temp,
               groupValue: _cdistort,

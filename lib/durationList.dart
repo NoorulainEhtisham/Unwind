@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Duration extends StatefulWidget {
+class DurationDialog extends StatefulWidget {
   final Function(int value) onRadioSelection;
-  const Duration({Key? key, required this.onRadioSelection}) : super(key: key);
+  final List<int> Durations;
+  const DurationDialog({Key? key, required this.onRadioSelection, required this.Durations}) : super(key: key);
 
   @override
-  State<Duration> createState() => _DurationState();
+  State<DurationDialog> createState() => _DurationDialogState();
 }
 
-class _DurationState extends State<Duration> {
-  List<int> times = [2, 5, 10, 15, 20, 25, 30];
+class _DurationDialogState extends State<DurationDialog> {
+  double screenWidth = 0;
+  List<int> times = [];
   int _time = 0;
 
   setSelectedRadio(int val) {
@@ -23,44 +25,37 @@ class _DurationState extends State<Duration> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _time = times[0];
+    times = widget.Durations;
+    //_time = times[0];
   }
 
   @override
   Widget build(BuildContext context) {
+    screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'Select your meditation duration\n',
-              style: Theme.of(context).textTheme.headline6,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            'Select your meditation duration\n',
+            style: TextStyle(
+              fontSize: screenWidth * 0.04,
             ),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: times.length,
-                  itemBuilder: (context, index) => RadioListTile(
-                      value: times[index],
-                      title: Text('${times[index]} minutes'),
-                      groupValue: _time,
-                      onChanged: (val) {
-                        setSelectedRadio(val as int);
-                      })),
-            ),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30))),
-                onPressed: () {
-                  widget.onRadioSelection(_time);
-                  Navigator.of(context).pop(true);
-                },
-                child: const Text('Begin'))
-          ],
-        ),
+            textAlign: TextAlign.center,
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+              itemCount: times.length,
+              itemBuilder: (context, index) => RadioListTile(
+                  value: times[index],
+                  title: Text('${times[index]} minutes'),
+                  groupValue: _time,
+                  onChanged: (val) {
+                    setSelectedRadio(val as int);
+                    widget.onRadioSelection(_time);
+                  })),
+        ],
       ),
     );
   }
