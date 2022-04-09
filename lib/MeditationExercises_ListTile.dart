@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'deep_breathing.dart';
 import 'exercise_screen.dart';
 
 class MeditationExercisesListTile extends StatefulWidget {
@@ -24,7 +25,7 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 90,
+      height: 140,
       child: ListView.separated(
           separatorBuilder: (BuildContext context, int index) {
             return Container(
@@ -33,15 +34,15 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
                   colors: [
-                    Colors.purpleAccent,
-                    Colors.pinkAccent,
-                    Colors.redAccent,
+                    Color(0xFFBEA5C7),
+                    Color(0xFFFCDBF8),
+                    Color(0xFFE8FAFF),
                   ],
                 ),
               ),
               //color: Color(0xFF162A49),
-              height: 70,
-              width: 10,
+              height: 120,
+              width: 20,
             );
           },
           scrollDirection: Axis.horizontal,
@@ -50,21 +51,30 @@ class _MeditationExercisesListTileState extends State<MeditationExercisesListTil
           itemBuilder: (context,index) {
             return
               Container(
-                height: 50,
-                width: 120,
-                color: Colors.pinkAccent,
-                child: ListTile(
-                    title: InkWell(
-                        child: Text(Exercises[index].toString()),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                ExerciseScreen(), //navigate to meditation Exercises page here
-                          ),
-                        );
-                      },
-                    ),
+                height: 120,
+                width: 150,
+                decoration:  BoxDecoration(
+                  image: DecorationImage(
+                      colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
+                      image: AssetImage('/images/Feather.jpg'),
+                      fit: BoxFit.cover),
+                ),
+                child: Container(
+                  height: 110,
+                  width: 140,
+                  child: ListTile(
+                      title: InkWell(
+                          child: Center(child: Text(Exercises[index].toString())),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DeepBreathingPage(), //navigate to meditation Exercises page here
+                            ),
+                          );
+                        },
+                      ),
+                  ),
                 ),
               );
           }

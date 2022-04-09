@@ -27,9 +27,14 @@ class _HomePageMasterState extends State<HomePageMaster> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        // title: Text("Welcome User!"),
+        automaticallyImplyLeading: false,
+        title: Text("Unwind",style: Theme.of(context).textTheme.headlineSmall),
       ),
-      body: Center(child: _items[_currentIndex],),
+      body: Center(
+        child: Container(
+            padding: EdgeInsets. all(15),
+            child: _items[_currentIndex]),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
        onTap: (index) {
@@ -38,7 +43,7 @@ class _HomePageMasterState extends State<HomePageMaster> {
           });
        },
         items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home', backgroundColor: Colors.lightBlue ),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home', backgroundColor: Color(0xFF99A9C4) ),
         BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
         BottomNavigationBarItem(icon: Icon(Icons.audiotrack), label: 'Playlist'),
         BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
