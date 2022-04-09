@@ -17,24 +17,40 @@ class _LaunchScreenState extends State<LaunchScreen> {
     // TODO: implement initState
     super.initState();
     Timer(
-        const Duration(seconds: 3),
+        const Duration(seconds: 2),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (BuildContext context) => LoginPage())));
   }
+  final List<Color> _colors = [
+    const Color(0xffF1D1FC),
+    const Color(0xffFCDBF8),
+    const Color(0xffE8FAFF),
+    const Color(0xffC9F1FF),
+    const Color(0xffC5D9FC),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SvgPicture.asset('assets/Unwind-Logo+Tagline.svg'),
-            JumpingDotsProgressIndicator(
-              fontSize: 70,
-              color: const Color(0xff00C2CB),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: _colors,
             ),
-          ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SvgPicture.asset('assets/Unwind-Logo.svg'),
+              JumpingDotsProgressIndicator(
+                fontSize: 70,
+                color: Colors.black,
+              ),
+            ],
+          ),
         ),
       ),
     );
