@@ -54,7 +54,7 @@ class _AudioPlayerBoxState extends State<AudioPlayerBox> {
                 Text(
                   widget.title,
                   style: TextStyle(
-                    fontSize: screenSize.width * 0.05,
+                    fontSize: screenSize.width * 0.03,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
