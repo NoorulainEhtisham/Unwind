@@ -38,6 +38,7 @@ class _MeditationExercisesListTileState
   late Exercise _exercise;
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     _exercises = context.watch<Exercises>().exercises;
     return SizedBox(
         height: 140,
@@ -65,18 +66,18 @@ class _MeditationExercisesListTileState
             itemCount: categories.length,
             itemBuilder: (context, index) {
               return Container(
-                  height: 120,
-                  width: 150,
+                  height: screenSize.height*0.2,
+                  width: screenSize.width*0.5,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         colorFilter: ColorFilter.mode(
                             Colors.green.withOpacity(0.3), BlendMode.dstATop),
-                        image: AssetImage('/images/Feather.jpg'),
+                        image: AssetImage('assets/images/Feather.jpg'),
                         fit: BoxFit.cover),
                   ),
                   child: Container(
-                    height: 110,
-                    width: 140,
+                    height: screenSize.height*0.2,
+                    width: screenSize.width*0.5,
                     child: ListTile(
                       title: InkWell(
                         child:

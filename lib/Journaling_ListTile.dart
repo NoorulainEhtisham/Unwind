@@ -14,6 +14,8 @@ class JournalingListTile extends StatefulWidget {
 class _JournalingListTileState extends State<JournalingListTile> {
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+
     return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -28,17 +30,17 @@ class _JournalingListTileState extends State<JournalingListTile> {
           ),
         ),
         //color: const Color(0xFF162A49),
-        height: 140,
+        height: screenSize.height*0.2,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              height: 120,
-              width: 150,
+              height: screenSize.height*0.2,
+              width: screenSize.width*0.4,
               decoration:  BoxDecoration(
                 image: DecorationImage(
                     colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
-                    image: AssetImage('/images/Journal2.jpg'),
+                    image: AssetImage('assets/images/Journal2.jpg'),
                     fit: BoxFit.cover),
               ),
               child: ListTile(
@@ -56,12 +58,12 @@ class _JournalingListTileState extends State<JournalingListTile> {
               ),
             ),
             Container(
-              height: 120,
-              width: 150,
+              height: screenSize.height*0.2,
+              width: screenSize.width*0.4,
               decoration:  BoxDecoration(
                 image: DecorationImage(
                     colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
-                    image: AssetImage('/images/Journal.jpg'),
+                    image: AssetImage('assets/images/Journal.jpg'),
                     fit: BoxFit.cover),
               ),
               child: ListTile(

@@ -13,6 +13,8 @@ class MoodTrackerListTile extends StatefulWidget {
 class _MoodTrackerListTileState extends State<MoodTrackerListTile> {
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+
     return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -25,17 +27,17 @@ class _MoodTrackerListTileState extends State<MoodTrackerListTile> {
               ],
             ),
         ),
-      height: 140,
+        height: screenSize.height*0.2,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            height: 120,
-            width: 150,
+            height: screenSize.height*0.2,
+            width: screenSize.width*0.4,
             decoration:  BoxDecoration(
               image: DecorationImage(
                   colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
-                  image: AssetImage('/images/mood.jpg'),
+                  image: AssetImage('assets/images/mood.jpg'),
                   fit: BoxFit.cover),
             ),
             child: ListTile(
@@ -53,12 +55,12 @@ class _MoodTrackerListTileState extends State<MoodTrackerListTile> {
             ),
           ),
           Container(
-            height: 120,
-            width: 150,
+            height: screenSize.height*0.2,
+            width: screenSize.width*0.4,
             decoration:  BoxDecoration(
               image: DecorationImage(
                   colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
-                  image: AssetImage('/images/Calender.jpg'),
+                  image: AssetImage('assets/images/Calender.jpg'),
                   fit: BoxFit.cover),
             ),
             //color: Color.fromRGBO(143, 211, 174, 100),

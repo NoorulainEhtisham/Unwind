@@ -6,6 +6,7 @@ class QuotesDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -20,17 +21,17 @@ class QuotesDisplay extends StatelessWidget {
           ),
         ),
         //color: Color(0xFF162A49),
-        height: 90,
+        height: screenSize.height*0.2,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              height: 70,
-              width: 400,
+              height: screenSize.height*0.2,
+              width: screenSize.width*0.8,
               decoration:  BoxDecoration(
                 image: DecorationImage(
                     colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
-                    image: AssetImage('/images/Seaside.jpg'),
+                    image: AssetImage('assets/images/Seaside.jpg'),
                     fit: BoxFit.cover),
               ),
               //color: Colors.pinkAccent,

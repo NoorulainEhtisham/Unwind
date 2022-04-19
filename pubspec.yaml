@@ -46,6 +46,8 @@ dependencies:
   audio_video_progress_bar: ^0.10.0
   syncfusion_flutter_pdf: ^20.1.47-beta.1
   syncfusion_flutter_pdfviewer: ^20.1.47-beta
+  firebase_core: ^1.14.1
+  cloud_firestore: ^3.1.12
 
 
 dev_dependencies:
@@ -72,8 +74,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/Unwind-Logo+Tagline.svg
-    - assets/Unwind-Logo.svg
+#    - assets/scripts/BodyScanForSleep_Transcript-15-UCLA.pdf
+    - assets/
+    - assets/images/
+    - assets/scripts/
     #- assets/audios
 
   # An image asset can refer to one or more resolution-specific "variants", see
