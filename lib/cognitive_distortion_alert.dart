@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'cognitive_distortions.dart';
+import 'entities/cognitive_distortions.dart';
 
 class CognitiveDistortionAlert extends StatefulWidget {
   Function(CgnDistort cgnd) onOptionChange;

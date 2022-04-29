@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/cognitive_distortion_alert.dart';
-import 'package:unwind_project/cognitive_distortions.dart';
+import 'package:unwind_project/entities/cognitive_distortions.dart';
 import 'package:unwind_project/durationList.dart';
-import 'entry.dart';
+import 'package:unwind_project/providers/entry_provider.dart';
+import 'package:unwind_project/entities//entry.dart';
 
 class DiaryEntry extends StatefulWidget {
   final Entry? entry;

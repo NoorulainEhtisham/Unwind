@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:unwind_project/audio_player.dart';
-import 'package:unwind_project/exercises.dart';
-import 'package:unwind_project/audio_manager.dart';
+import 'package:unwind_project/providers/audio_manager.dart';
 import 'package:video_player/video_player.dart';
+
+import 'entities/exercises.dart';
 
 class ExerciseScreen extends StatefulWidget {
   final Exercise exercise;
