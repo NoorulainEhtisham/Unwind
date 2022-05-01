@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:unwind_project/diaryEntry.dart';
+import 'package:unwind_project/views/diaryEntry.dart';
 import 'package:unwind_project/entities/entry.dart';
 
-import 'controllers/entry_provider.dart';
+import '../controllers/entry_provider.dart';
 
 class Diary extends StatefulWidget {
   const Diary({Key? key}) : super(key: key);

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:unwind_project/views/mydiary.dart';
 
-import 'diaryEntry.dart';
-import 'mydiary.dart';
+import 'views/diaryEntry.dart';
 
 class JournalingListTile extends StatefulWidget {
   const JournalingListTile({Key? key}) : super(key: key);

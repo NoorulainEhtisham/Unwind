@@ -5,7 +5,7 @@ import 'package:unwind_project/cognitive_distortion_alert.dart';
 import 'package:unwind_project/entities/cognitive_distortions.dart';
 import 'package:unwind_project/entities/entry.dart';
 
-import 'controllers/entry_provider.dart';
+import '../controllers/entry_provider.dart';
 
 class DiaryEntry extends StatefulWidget {
   final Entry? entry;
