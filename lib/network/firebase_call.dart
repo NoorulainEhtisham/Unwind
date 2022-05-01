@@ -1,5 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseCall {
   String collectionName;
@@ -9,29 +10,34 @@ class FirebaseCall {
     collection = FirebaseFirestore.instance.collection(collectionName);
   }
 
-  Future<void> getAll() async {
-    collection.get().then((QuerySnapshot querySnapshot) =>
-        querySnapshot.docs as Map<String, dynamic>)
-        .catchError((error)=> {});
+  Future<List> getAll() async {
+    List data = [];
+    await collection.get().then((QuerySnapshot querySnapshot) =>
+      data = querySnapshot.docs
+    ).catchError((error) => print("Cannot get all data $error"));
+    return data;
   }
 
-  Future<void> getOne(String documentID) async {
-    collection
-    .doc(documentID)
+  Future<Object?> getOne(String documentID) async {
+    Object? data = {};
+    await collection
+        .doc(documentID)
         .get()
-        .then((value) => value as Map<String, dynamic>)
-        .catchError((error)=> print("Error: $error"));
+        .then((value) {
+          data = value.data();
+    })
+        .catchError((error) => print("Error: $error"));
+    // print("Document = ${data}");
+    return data;
   }
 
-  Future<void> add(Map<String, dynamic> doc) async {
-    collection
-        .add(doc)
-        .then((value) {
-          String id = value.id;
-          print("Object added. ID $id");
-          return id;
-        })
-        .catchError((error) => print("Error: $error"));
+  Future<String> add(Map<String, dynamic> doc) async {
+    String id = "";
+    collection.add(doc).then((value) {
+      id = value.id;
+      print("Object added. ID $id");
+    }).catchError((error) => print("Error occured. Cannot add data.: $error"));
+    return id;
   }
 
   Future<void> delete(String documentID) async {
@@ -44,7 +50,7 @@ class FirebaseCall {
 
   Future<void> edit(String documentID, Map<String, dynamic> newDoc) async {
     collection
-    .doc(documentID)
+        .doc(documentID)
         .update(newDoc)
         .then((value) => print("Object Updated"))
         .catchError((error) => print("Failed to update object: $error"));

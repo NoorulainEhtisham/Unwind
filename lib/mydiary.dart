@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/diaryEntry.dart';
-import 'package:unwind_project/providers/entry_provider.dart';
 import 'package:unwind_project/entities/entry.dart';
+
+import 'controllers/entry_provider.dart';
 
 class Diary extends StatefulWidget {
   const Diary({Key? key}) : super(key: key);
@@ -17,8 +18,20 @@ class Diary extends StatefulWidget {
 
 class _DiaryState extends State<Diary> {
   late List<Entry> _entries;
-  List<Entry> selectedEntries = [];
-  bool settings = false;
+  late List<Entry> selectedEntries;
+  late bool settings;
+  late bool isLoading;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _entries = [];
+    selectedEntries = [];
+    settings = false;
+    isLoading = true;
+    super.initState();
+  }
+
   final List<Color> _colors = [
     Color.fromRGBO(241, 209, 252, 1),
     Color.fromRGBO(252, 219, 248, 1),
@@ -29,7 +42,12 @@ class _DiaryState extends State<Diary> {
 
   @override
   Widget build(BuildContext context) {
-    _entries = context.watch<Entries>().entries;
+    context.watch<EntryProvider>().getEntries().then((value) {
+      _entries = value;
+      isLoading = false;
+      setState(() {
+      });
+    });
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -38,7 +56,7 @@ class _DiaryState extends State<Diary> {
         foregroundColor: Colors.black,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        //mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -52,67 +70,74 @@ class _DiaryState extends State<Diary> {
               textAlign: TextAlign.left,
             ),
           ),
+          isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              :
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ListView.separated(
-                separatorBuilder: (context, index) => const Padding(padding: EdgeInsets.all(2.0)),
-                itemCount: _entries.length,
-                itemBuilder: (context, index) => ListTile(
-                  contentPadding: EdgeInsets.all(10.0),
-                  tileColor: _colors[index % _colors.length],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  title: Text(_entries[index].title),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(DateFormat('dd MMMM yyyy')
-                          .format(_entries[index].date)),
-                      Text(
-                        _entries[index].note,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) =>
+                          const Padding(padding: EdgeInsets.all(2.0)),
+                      itemCount: _entries.length,
+                      itemBuilder: (context, index) => ListTile(
+                        contentPadding: EdgeInsets.all(10.0),
+                        tileColor: _colors[index % _colors.length],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        title: Text(_entries[index].title),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(DateFormat('dd MMMM yyyy')
+                                .format(_entries[index].date)),
+                            Text(
+                              _entries[index].note,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: false,
+                            ),
+                          ],
+                        ),
+                        leading: settings
+                            ? Checkbox(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                value: _entries[index].isSelected,
+                                onChanged: (value) {
+                                  _entries[index].isSelected = value!;
+                                  if (_entries[index].isSelected) {
+                                    selectedEntries.add(_entries[index]);
+                                  } else {
+                                    selectedEntries.remove(_entries[index]);
+                                  }
+                                  setState(() {});
+                                })
+                            : null,
+                        onLongPress: () {
+                          settings = true;
+                          setState(() {});
+                        },
+                        onTap: () {
+                          print("Entry on list = ${_entries[index]}");
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  DiaryEntry(entry: _entries[index])));
+                        },
                       ),
-                    ],
+                    ),
                   ),
-                  leading: settings
-                      ? Checkbox(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          value: _entries[index].isSelected,
-                          onChanged: (value) {
-                            _entries[index].isSelected = value!;
-                            if (_entries[index].isSelected) {
-                              selectedEntries.add(_entries[index]);
-                            } else {
-                              selectedEntries.remove(_entries[index]);
-                            }
-                            setState(() {});
-                          })
-                      : null,
-                  onLongPress: () {
-                    settings = true;
-                    setState(() {});
-                  },
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            DiaryEntry(entry: _entries[index])));
-                  },
-                ),
-              ),
-            ),
-          )
+                )
         ],
       ),
       floatingActionButton: !settings
           ? FloatingActionButton(
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => DiaryEntry()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const DiaryEntry()));
               },
               tooltip: 'Add Entry',
               child: const Icon(Icons.edit_outlined),
@@ -149,7 +174,9 @@ class _DiaryState extends State<Diary> {
                               ));
                       if (_deleteNote) {
                         for (var temp in selectedEntries) {
-                          context.read<Entries>().DeleteEntry(temp);
+                          context
+                              .read<EntryProvider>()
+                              .deleteEntry(temp.documentID);
                           setState(() {});
                         }
                       }
@@ -162,7 +189,9 @@ class _DiaryState extends State<Diary> {
                     onPressed: () {
                       settings = false;
                       for (var temp in selectedEntries) {
-                        context.read<Entries>().setSelected(temp.documentID, false);
+                        context
+                            .read<EntryProvider>()
+                            .setSelected(temp.documentID, false);
                       }
                       selectedEntries.clear();
                       setState(() {});
@@ -176,4 +205,5 @@ class _DiaryState extends State<Diary> {
           : null,
     );
   }
+
 }

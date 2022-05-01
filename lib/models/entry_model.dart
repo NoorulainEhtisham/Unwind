@@ -1,32 +1,40 @@
-
-
 import 'package:unwind_project/models/model_abstract.dart';
 
 import '../entities/cognitive_distortions.dart';
 
-class EntryModel implements Model{
+class EntryModel implements Model {
   String id = "";
   String title;
   DateTime date;
   String note;
   bool isSelected;
-  CgnDistort cognitiveDistortion;
+  String cgnType;
+  String cgnExample;
 
-  EntryModel({required this.title, required this.note, required this.date, required this.cognitiveDistortion, required this.isSelected});
-
-  set ObjectID(String docID)=> id = docID;
-
-  @override
-  static EntryModel fromJson(Map<String, dynamic> json) {
-    return EntryModel(
-        title: json['title'],
-        note: json['note'],
-        date: json['date'],
-        cognitiveDistortion: json['cognitiveDistortion'],
-        isSelected: json['isSelected']
-    );
+  EntryModel(
+      {docID = "",
+      required this.title,
+      required this.note,
+      required this.date,
+      required this.cgnType,
+      required this.cgnExample,
+      required this.isSelected}) {
+    this.id = docID;
   }
 
+  // set ObjectID(String docID)=> id = docID;
+
+  @override
+  static EntryModel fromJson(Map<String, dynamic> json, String documentID) {
+    return EntryModel(
+        docID: documentID,
+        title: json['title'],
+        note: json['note'],
+        date: json['date'].toDate(),
+        cgnType: json['cgnType'],
+        cgnExample: json['cgnExample'],
+        isSelected: json['isSelected']);
+  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -35,7 +43,8 @@ class EntryModel implements Model{
     data['note'] = note;
     data['date'] = date;
     data['isSelected'] = isSelected;
-    data['cognitiveDistortion'] = cognitiveDistortion;
+    data['cgnType'] = cgnType;
+    data['cgnExample'] = cgnExample;
 
     return data;
   }

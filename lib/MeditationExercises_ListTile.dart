@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/durationList.dart';
-import 'package:unwind_project/providers/exercises_provider.dart';
 
+import 'controllers/exercises_provider.dart';
 import 'deep_breathing.dart';
 import 'entities/exercises.dart';
 import 'exercise_screen.dart';

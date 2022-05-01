@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:unwind_project/providers/audio_manager.dart';
-import 'package:unwind_project/providers/tracklist_provider.dart';
 import 'package:video_player/video_player.dart';
 
 import 'audio_player.dart';
+import 'controllers/audio_manager.dart';
+import 'controllers/tracklist_provider.dart';
 import 'entities/tracks.dart';
 
 class TrackView extends StatefulWidget {

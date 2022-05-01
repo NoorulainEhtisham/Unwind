@@ -3,9 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/cognitive_distortion_alert.dart';
 import 'package:unwind_project/entities/cognitive_distortions.dart';
-import 'package:unwind_project/durationList.dart';
-import 'package:unwind_project/providers/entry_provider.dart';
-import 'package:unwind_project/entities//entry.dart';
+import 'package:unwind_project/entities/entry.dart';
+
+import 'controllers/entry_provider.dart';
 
 class DiaryEntry extends StatefulWidget {
   final Entry? entry;
@@ -19,10 +19,9 @@ class _DiaryEntryState extends State<DiaryEntry> {
   CgnDistort _cdistort = CgnDistort(type: '', example: '');
   late Entry _entry;
   late bool newEnt;
+  bool isLoading = true;
   TextEditingController _notecontroller = TextEditingController();
   TextEditingController _titlecontroller = TextEditingController();
-
-
 
   @override
   void initState() {
@@ -35,19 +34,31 @@ class _DiaryEntryState extends State<DiaryEntry> {
       newEnt = false;
     } else {
       _entry = Entry(
-        title: 'Title',
-        date: DateTime.now(),
-        note: '',
-      );
+          title: 'Title',
+          date: DateTime.now(),
+          note: '',
+          isSelected: false,
+          id: "",
+          cognitiveDistortion: CgnDistort(type: "", example: ""));
       _titlecontroller.text = _entry.title;
       newEnt = true;
     }
     //_cdistort = _cd[0];
     setState(() {});
+    print("Entry on new screen = $_entry");
   }
 
   @override
   Widget build(BuildContext context) {
+    // context
+    //     .watch<EntryProvider>()
+    //     .getEntry(widget.entry!.documentID)
+    //     .then((value) {
+    //   _entry = value;
+    //   isLoading = false;
+    //   setState(() {});
+    // });
+
     return Scaffold(
       //backgroundColor: Colors.grey,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -76,40 +87,43 @@ class _DiaryEntryState extends State<DiaryEntry> {
           )
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ListTile(
-            title: TextField(
-              // _entry.title,
-              controller: _titlecontroller,
-              style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
-              decoration: const InputDecoration(
-                hintText: 'Title',
-                border: InputBorder.none
-              ),
+      body:
+      // isLoading
+      //     ? CircularProgressIndicator()
+      //     :
+      Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ListTile(
+                  title: TextField(
+                    // _entry.title,
+                    controller: _titlecontroller,
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.05),
+                    decoration: const InputDecoration(
+                        hintText: 'Title', border: InputBorder.none),
+                  ),
+                  subtitle: Text(
+                    DateFormat.MMMMEEEEd().format(_entry.date),
+                  ),
+                ),
+                const Text('\n'),
+                Expanded(
+                  //color: Colors.grey,
+                  child: TextField(
+                    expands: true,
+                    maxLines: null,
+                    minLines: null,
+                    controller: _notecontroller,
+                    decoration: const InputDecoration(
+                      hintText: 'Write your thoughts here',
+                      contentPadding: EdgeInsets.all(18.0),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            subtitle: Text(
-              DateFormat.MMMMEEEEd().format(_entry.date),
-            ),
-          ),
-          const Text('\n'),
-          Expanded(
-            //color: Colors.grey,
-            child: TextField(
-              expands: true,
-              maxLines: null,
-              minLines: null,
-              controller: _notecontroller,
-              decoration: const InputDecoration(
-                hintText: 'Write your thoughts here',
-                contentPadding: EdgeInsets.all(18.0),
-              ),
-            ),
-          ),
-        ],
-      ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SizedBox(
@@ -120,13 +134,11 @@ class _DiaryEntryState extends State<DiaryEntry> {
                 bool cbt = await showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      contentPadding: EdgeInsets.all(2),
-                      content: CognitiveDistortionAlert(
+                          contentPadding: const EdgeInsets.all(2),
+                          content: CognitiveDistortionAlert(
                             onOptionChange: (value) {
                               _cdistort = value;
-                              setState(() {
-
-                              });
+                              setState(() {});
                             },
                           ),
                           actions: [
@@ -141,17 +153,21 @@ class _DiaryEntryState extends State<DiaryEntry> {
                                 },
                                 child: const Text('Continue')),
                           ],
-                        )
-                    );
+                        ));
                 _entry.title = _titlecontroller.text;
                 _entry.note = _notecontroller.text;
+                _entry.cognitivedistortion = _cdistort;
                 newEnt
-                    ? context.read<Entries>().AddEntry(_entry)
-                    : context.read<Entries>().EditEntry(_entry);
-                context
-                    .read<Entries>()
-                    .setCognitiveDistortion(_entry, _cdistort);
+                    ? await context.read<EntryProvider>().addEntry(_entry)
+                    : context.read<EntryProvider>().editEntry(_entry);
                 Navigator.of(context).pop();
+
+                // newEnt
+                //     ? context.read<Entries>().AddEntry(_entry)
+                //     : context.read<Entries>().EditEntry(_entry);
+                // context
+                //     .read<Entries>()
+                //     .setCognitiveDistortion(_entry, _cdistort);
               },
               child: const Text('Save'),
               style: ElevatedButton.styleFrom(

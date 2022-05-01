@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:unwind_project/audio_player.dart';
-import 'package:unwind_project/providers/audio_manager.dart';
-import 'package:unwind_project/providers/tracklist_provider.dart';
 import 'package:unwind_project/trackview.dart';
 import 'package:video_player/video_player.dart';
 
+import 'controllers/tracklist_provider.dart';
 import 'entities/tracks.dart';
 
 class Playlist extends StatefulWidget {
