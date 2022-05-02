@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/durationList.dart';
+import 'package:unwind_project/heartbeat_page.dart';
 
 import 'controllers/exercises_provider.dart';
 import 'deep_breathing.dart';
@@ -26,6 +27,7 @@ class _MeditationExercisesListTileState
   int ind = -1;
   List<String> categories = [
     'Deep Breathing',
+    'Heartbeat',
     'Mindfulness',
     'Simple',
     'Body Scan',
@@ -84,8 +86,7 @@ class _MeditationExercisesListTileState
                         child:
                             Center(child: Text(categories[index].toString())),
                         onTap: () async {
-                          if (categories[index].compareTo('Deep Breathing') !=
-                              0) {
+                          if (index>1) {
                             _selectedCategoryExercises.clear();
                             _selectedCategoryDurations.clear();
                             getRelevantCategory(categories[index]);
@@ -138,8 +139,11 @@ class _MeditationExercisesListTileState
                                             child: const Text('Begin')),
                                       ],
                                     ));
-                          } else {
+                          } else if(index==0) {
                             Navigator.of(context).push(MaterialPageRoute(builder: (context)=> DeepBreathingPage()));
+                          }
+                          else{
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> HeartbeatScreen()));
                           }
                         },
                       ),

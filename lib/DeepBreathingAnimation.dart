@@ -23,7 +23,6 @@ class _BreathAnimationState extends State<BreathAnimation> with TickerProviderSt
             Duration(seconds: 5),
                 () => (_breatheController.reverse())
         );
-        //_breatheController.reverse();
       } else if (status == AnimationStatus.dismissed){
         _breatheController.forward();
       }
@@ -34,6 +33,7 @@ class _BreathAnimationState extends State<BreathAnimation> with TickerProviderSt
       });
     });
     _breatheController.forward();
+    //_breatheController.dispose(); //whereee?
   }
 
   @override
@@ -56,4 +56,5 @@ class _BreathAnimationState extends State<BreathAnimation> with TickerProviderSt
               ),
         );
   }
+
 }

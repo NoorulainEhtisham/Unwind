@@ -19,17 +19,16 @@ class _DeepBreathingScreen1State extends State<DeepBreathingScreen1> {
     return Scaffold(
       body: Center(
         child: Container(
+          // color: Color(0xFFBEA5C7),
           constraints: BoxConstraints.expand(),
-          decoration:  BoxDecoration(
-            image: DecorationImage(
-                colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
-                image: AssetImage('/images/Feather.jpg'),
-                fit: BoxFit.cover),
-          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Instructions_text(),
+              Container(
+                child: Instructions_text(),
+                height: 60,
+                width: 230,
+              ),
               Counter(), //timer 1 to 5
               Container(
                   height: 300,
@@ -39,6 +38,7 @@ class _DeepBreathingScreen1State extends State<DeepBreathingScreen1> {
               ElevatedButton(
                 child: const Text("Stop"),
                 onPressed: (){
+                  dispose(); //end animation
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) =>
