@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:unwind_project/controllers/google_sign_in_provider.dart';
 import 'controllers/entry_provider.dart';
 import 'controllers/exercises_provider.dart';
 import 'deep_breathing.dart';
@@ -16,7 +17,8 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => EntryProvider()),
-      ChangeNotifierProvider(create: (_) => Exercises())
+      ChangeNotifierProvider(create: (_) => Exercises()),
+      ChangeNotifierProvider(create: (_) => GoogleSignInProvider()),
     ],
     child: const MyApp(),
   ));

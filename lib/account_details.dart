@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unwind_project/user_google_account_info.dart';
 import 'heading_widget.dart';
 
 class AccountDetailsScreen extends StatefulWidget {
@@ -16,7 +17,9 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Account Details'),
+      ),
       body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
@@ -25,21 +28,17 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const Padding(padding: EdgeInsets.all(8)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    HeadingWidget(title: "Account Details"),
-                    isEditable == false ?
-                    IconButton(
-                        onPressed: () {
-                          isEditable = true;
-                          setState(() {
+                UserGoogleAccountInfo(),
 
-                          });
-                        },
-                        icon: const Icon(Icons.edit)) : Container(),
-                  ],
-                ),
+                isEditable == false ?
+                IconButton(
+                    onPressed: () {
+                      isEditable = true;
+                      setState(() {
+
+                      });
+                    },
+                    icon: const Icon(Icons.edit)) : Container(),
                 const Padding(padding: EdgeInsets.all(50)),
                 const Text("Name", style: TextStyle(fontSize: 20),),
                 const Padding(padding: EdgeInsets.all(7)),
