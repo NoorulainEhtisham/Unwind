@@ -9,8 +9,7 @@ class GoogleSignInProvider extends ChangeNotifier{
 
   GoogleSignInAccount get user => _user!;
 
-  Future googleLogin() async{
-    //call this function when button pressed
+  Future googleLogin() async{ //call this function when 'Sign in with Google' button pressed
     final googleUser = await googleSignIn.signIn();
     if(googleUser==null) return;
     _user= googleUser;
