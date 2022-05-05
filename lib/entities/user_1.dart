@@ -1,10 +1,10 @@
-class User {
+class User_1 {
   String _id = "";
   final String userEmail;
   final String userName;
   final String password;
 
-  User({
+  User_1({
    id,
     required this.userEmail,
     required this.userName,

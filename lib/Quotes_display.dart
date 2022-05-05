@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'controllers/quotes_provider.dart';
 
 class QuotesDisplay extends StatelessWidget {
   const QuotesDisplay({Key? key}) : super(key: key);
@@ -20,7 +22,6 @@ class QuotesDisplay extends StatelessWidget {
             ],
           ),
         ),
-        //color: Color(0xFF162A49),
         height: screenSize.height*0.2,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -34,10 +35,9 @@ class QuotesDisplay extends StatelessWidget {
                     image: AssetImage('assets/images/Seaside.jpg'),
                     fit: BoxFit.cover),
               ),
-              //color: Colors.pinkAccent,
               child: ListTile(
                 //read quotes here
-                title: Center(child: Text("The only journey is the journey within.")),
+                title: Center(child: Text(context.read<QuotesProvider>().getAllQuotes().toString())),
               ),
             ),
           ],

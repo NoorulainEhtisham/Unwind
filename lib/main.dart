@@ -1,15 +1,12 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/controllers/google_sign_in_provider.dart';
 import 'controllers/entry_provider.dart';
 import 'controllers/exercises_provider.dart';
+import 'controllers/quotes_provider.dart';
 import 'controllers/users_provider.dart';
-import 'deep_breathing.dart';
-import 'package:unwind_project/playlist.dart';
-import 'package:unwind_project/trackview.dart';
 import 'launch.dart';
 
 void main() async {
@@ -21,6 +18,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => Exercises()),
       ChangeNotifierProvider(create: (_) => GoogleSignInProvider()),
       ChangeNotifierProvider(create: (_) => UsersProvider()),
+      ChangeNotifierProvider(create: (_) => QuotesProvider()),
     ],
     child: const MyApp(),
   ));

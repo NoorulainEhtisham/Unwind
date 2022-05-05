@@ -7,6 +7,7 @@ import 'package:unwind_project/controllers/google_sign_in_provider.dart';
 import 'package:unwind_project/controllers/users_provider.dart';
 import 'package:unwind_project/user_google_account_info.dart';
 import 'Sign_up_page.dart';
+import 'entities/user_1.dart';
 import 'home_page_master.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,7 +20,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
   @override
   void initState() {
     // TODO: implement initState
