@@ -29,7 +29,6 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
               children: <Widget>[
                 const Padding(padding: EdgeInsets.all(8)),
                 UserGoogleAccountInfo(),
-
                 isEditable == false ?
                 IconButton(
                     onPressed: () {

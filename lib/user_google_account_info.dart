@@ -12,18 +12,24 @@ class UserGoogleAccountInfo extends StatefulWidget {
 class _UserGoogleAccountInfoState extends State<UserGoogleAccountInfo> {
   @override
   Widget build(BuildContext context) {
-    final usergoogleinfo = FirebaseAuth.instance.currentUser!;
-    return Column(
-      children: [
-        CircleAvatar(
-          radius:40,
-          backgroundImage: NetworkImage(usergoogleinfo.photoURL!),
-        ),
-        Text('Name: ' + usergoogleinfo.displayName!,
-        style: TextStyle(color:Colors.blue, fontSize: 16),),
-        Text('Email: ' + usergoogleinfo.email!,
-          style: TextStyle(color:Colors.blue, fontSize: 16),)
-      ],
-    );
+    final usergoogleinfo = FirebaseAuth.instance.currentUser;
+    if(usergoogleinfo==null){
+      return Text("");
+    }
+    else {
+      return Column(
+        children: [
+          CircleAvatar(
+            radius: 40,
+            backgroundImage: NetworkImage(usergoogleinfo.photoURL!),
+          ),
+          Text('Name: ' + usergoogleinfo.displayName!,
+            style: TextStyle(color: Colors.blue, fontSize: 16),),
+          Text('Email: ' + usergoogleinfo.email!,
+            style: TextStyle(color: Colors.blue, fontSize: 16),)
+        ],
+      );
+    }
   }
 }
+
