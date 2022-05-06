@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/controllers/google_sign_in_provider.dart';
-import 'package:unwind_project/controllers/users_provider.dart';
 import 'package:unwind_project/user_google_account_info.dart';
 import 'Sign_up_page.dart';
 import 'home_page_master.dart';
@@ -27,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     // TODO: implement initState
-    context.read<UsersProvider>().getAllUsers();
     super.initState();
   }
 
@@ -108,9 +106,9 @@ class _LoginPageState extends State<LoginPage> {
                     else if (snapshot.hasError){
                       return Center(child: Text('Something went wrong!'),);
                     }
-                    else if(snapshot.hasData){
-                      return Text("Google Info present");//HomePageMaster(); // if signed in through google then go to homepage instead
-                    }
+                    // else if(snapshot.hasData){
+                    //   return HomePageMaster(); // if signed in through google then go to homepage instead
+                    // }
                     else{ return Container(
                       height: 50,
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),

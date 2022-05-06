@@ -18,7 +18,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account Details'),
+        title: Text('Change email account'),
       ),
       body: SingleChildScrollView(
           child: Padding(
@@ -27,8 +27,8 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                //UserGoogleAccountInfo(),
                 const Padding(padding: EdgeInsets.all(8)),
-                UserGoogleAccountInfo(),
                 isEditable == false ?
                 IconButton(
                     onPressed: () {

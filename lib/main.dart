@@ -6,7 +6,6 @@ import 'package:unwind_project/controllers/google_sign_in_provider.dart';
 import 'controllers/entry_provider.dart';
 import 'controllers/exercises_provider.dart';
 import 'controllers/quotes_provider.dart';
-import 'controllers/users_provider.dart';
 import 'launch.dart';
 
 void main() async {
@@ -17,7 +16,6 @@ void main() async {
       ChangeNotifierProvider(create: (_) => EntryProvider()),
       ChangeNotifierProvider(create: (_) => Exercises()),
       ChangeNotifierProvider(create: (_) => GoogleSignInProvider()),
-      ChangeNotifierProvider(create: (_) => UsersProvider()),
       ChangeNotifierProvider(create: (_) => QuotesProvider()),
     ],
     child: const MyApp(),
