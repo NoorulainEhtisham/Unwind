@@ -7,7 +7,6 @@ import 'package:unwind_project/controllers/google_sign_in_provider.dart';
 import 'package:unwind_project/controllers/users_provider.dart';
 import 'package:unwind_project/user_google_account_info.dart';
 import 'Sign_up_page.dart';
-import 'entities/user_1.dart';
 import 'home_page_master.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,8 +17,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController nameController = TextEditingController();
+
+  final _auth = FirebaseAuth.instance;
+
+  TextEditingController userEmailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  String? email;
+  String? password;
   @override
   void initState() {
     // TODO: implement initState
@@ -41,10 +45,15 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
-                    controller: nameController,
+                    keyboardType: TextInputType.emailAddress,
+                    controller: userEmailController,
+                    // onChanged: (value){
+                    //   email=value;
+                    // },
+                    //do it for password too
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Username',
+                      labelText: 'User Email',
                     ),
                   ),
                 ),
@@ -67,16 +76,24 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: ElevatedButton(
                       child: const Text('Login'),
-                      onPressed: () {
-                        print(nameController.text);
+                      onPressed: () async {
+                        print(userEmailController.text);
                         print(passwordController.text);
-
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => HomePageMaster(
-                            ),
-                          ),
-                        );
+                        try {
+                          final user = await _auth.signInWithEmailAndPassword(
+                              //email: email, password: password);
+                              email: userEmailController.text, password: passwordController.text);
+                          if (user != null) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => HomePageMaster(
+                                ),
+                              ),
+                            );
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
                       },
                     )
                 ),
@@ -92,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                       return Center(child: Text('Something went wrong!'),);
                     }
                     else if(snapshot.hasData){
-                      return UserGoogleAccountInfo();//HomePageMaster(); // if signed in through google then go to homepage instead
+                      return Text("Google Info present");//HomePageMaster(); // if signed in through google then go to homepage instead
                     }
                     else{ return Container(
                       height: 50,
@@ -102,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                           primary: Color(0xFF90EE90),
                           minimumSize: Size(double.infinity,50),
                         ),
-                        icon: FaIcon(FontAwesomeIcons.google, color: Colors.blue,),
+                        icon: FaIcon(FontAwesomeIcons.google, color: Color(0xFF90EE90),),
                         label: Text("Sign Up with Google"),
                         onPressed: (){
                           final provider = Provider.of<GoogleSignInProvider>(context, listen:false);
@@ -121,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                     TextButton(
                       child: const Text(
                         'Sign up',
-                        style: TextStyle(fontSize: 15, color: Colors.blueAccent),
+                        style: TextStyle(fontSize: 15, color: Colors.purpleAccent),
                       ),
                       onPressed: () {
                         Navigator.of(context).push(

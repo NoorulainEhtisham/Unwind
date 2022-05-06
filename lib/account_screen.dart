@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:unwind_project/Login_page.dart';
@@ -12,6 +13,9 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+
+  final _auth = FirebaseAuth.instance;
+
   List<String> account_options = [
     "Account detail",
     "Change password",
@@ -45,7 +49,12 @@ class _AccountScreenState extends State<AccountScreen> {
                   title: Text(account_options[index]),
                   trailing: Icon(icons[index]),
                   onTap: () {
-                    if (pages[index] != null &&
+                    if(account_options[index]=='Logout'){
+                      //Implement logout functionality
+                      _auth.signOut();
+                      Navigator.pop(context);
+                    }
+                    else if (pages[index] != null &&
                         account_options[index]
                                 .compareTo("Manage notifications") !=
                             0) {
