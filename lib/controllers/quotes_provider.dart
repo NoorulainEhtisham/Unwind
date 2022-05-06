@@ -8,6 +8,8 @@ class QuotesProvider extends ChangeNotifier{
   FirebaseCall firebaseCall = FirebaseCall(collectionName: 'quotes');
   List<Quote> _quotes = [];
 
+  List<Quote> get quotes => _quotes; //getter
+
   Future<List<Quote>> getAllQuotes() async {
     List<QuoteModel> quotesList = [];
     await firebaseCall.getAll().then((List value) => quotesList = value

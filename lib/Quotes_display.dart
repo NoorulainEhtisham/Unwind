@@ -1,10 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:unwind_project/entities/quote.dart';
 import 'controllers/quotes_provider.dart';
 
-class QuotesDisplay extends StatelessWidget {
+class QuotesDisplay extends StatefulWidget {
   const QuotesDisplay({Key? key}) : super(key: key);
+
+  @override
+  State<QuotesDisplay> createState() => _QuotesDisplayState();
+}
+
+class _QuotesDisplayState extends State<QuotesDisplay> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<QuotesProvider>().getAllQuotes();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +51,34 @@ class QuotesDisplay extends StatelessWidget {
               ),
               child: ListTile(
                 //read quotes here
-                title: Center(child: Text(context.read<QuotesProvider>().getAllQuotes().toString())),
+                title: currQuote(),
               ),
             ),
           ],
         )
+    );
+  }
+}
+
+
+
+
+
+class currQuote extends StatefulWidget {
+  const currQuote({Key? key}) : super(key: key);
+  @override
+  State<currQuote> createState() => _currQuoteState();
+}
+
+class _currQuoteState extends State<currQuote> {
+  @override
+  Widget build(BuildContext context) {
+
+    final quotes_list = Provider.of<QuotesProvider>(context).quotes;
+    return Center(
+      child: Container(
+        child: Text( quotes_list[0].quote.toString() ),
+      ),
     );
   }
 }
