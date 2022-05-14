@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:unwind_project/entities/quote.dart';
 import 'controllers/quotes_provider.dart';
+import 'dart:math';
 
 class QuotesDisplay extends StatefulWidget {
   const QuotesDisplay({Key? key}) : super(key: key);
@@ -75,9 +75,13 @@ class _currQuoteState extends State<currQuote> {
   Widget build(BuildContext context) {
 
     final quotes_list = Provider.of<QuotesProvider>(context).quotes;
+
+    Random random = new Random();
+    int randomNumber = random.nextInt(quotes_list.length);
+
     return Center(
       child: Container(
-        child: Text( quotes_list[0].quote.toString() ),
+        child: Text( quotes_list[randomNumber].quote.toString(),),
       ),
     );
   }

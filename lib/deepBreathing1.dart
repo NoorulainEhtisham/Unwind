@@ -1,9 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:unwind_project/deep_breathing.dart';
-
 import 'DeepBreathingAnimation.dart';
+
 
 class DeepBreathingScreen1 extends StatefulWidget {
   const DeepBreathingScreen1({Key? key}) : super(key: key);
@@ -14,6 +13,7 @@ class DeepBreathingScreen1 extends StatefulWidget {
 
 class _DeepBreathingScreen1State extends State<DeepBreathingScreen1> {
   @override
+
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -66,6 +66,7 @@ class _CounterState extends State<Counter> {
   Timer? timer;
   @override
   void initState() {
+
     super.initState();
 
     timer = Timer.periodic(

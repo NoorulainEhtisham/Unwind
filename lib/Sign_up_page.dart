@@ -19,7 +19,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   TextEditingController userEmailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController userNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,6 @@ class _SignUpPageState extends State<SignUpPage> {
       body: Padding(
           padding: const EdgeInsets.all(10),
           child: ListView(
-            //SEND CONTROLLER'S DATA TO DB AS A JSON OBJECT
             children: <Widget>[
               SizedBox(
                 height: 250,
@@ -53,23 +51,13 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.all(10),
-                child: TextField(
-                  controller: userNameController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Username',
-                  ),
-                ),
-              ),
-              Container(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: TextField(
                   obscureText: true,
                   controller: passwordController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Password',
+                    labelText: 'Choose a password',
                   ),
                 ),
               ),
@@ -84,10 +72,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     onPressed: () async {
                       print(userEmailController.text);
                       print(passwordController.text);
-                      print(userNameController.text);
                       try {
                         final newUser = await _auth.createUserWithEmailAndPassword(
-                        //    email: email, password: password);
                               email: userEmailController.text, password: passwordController.text);
                         if (newUser != null) {
                           Navigator.of(context).push(

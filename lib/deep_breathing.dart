@@ -33,12 +33,12 @@ class _DeepBreathingPageState extends State<DeepBreathingPage> {
       body: Center(
         child: Container(
             constraints: BoxConstraints.expand(),
-            decoration:  BoxDecoration(
-              image: DecorationImage(
-                  colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
-                  image: AssetImage('/images/Feather.jpg'),
-                  fit: BoxFit.cover),
-            ),
+            // decoration:  BoxDecoration(
+            //   image: DecorationImage(
+            //       colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
+            //       image: AssetImage('/images/Feather.jpg'),
+            //       fit: BoxFit.cover),
+            // ),
             child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

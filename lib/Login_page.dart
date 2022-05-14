@@ -21,11 +21,23 @@ class _LoginPageState extends State<LoginPage> {
 
   TextEditingController userEmailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  String? email;
-  String? password;
+  late String email;
+  late String password;
+
+
+
+
   @override
   void initState() {
     // TODO: implement initState
+      _auth.authStateChanges()
+        .listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+      }
+    });
     super.initState();
   }
 
@@ -79,7 +91,6 @@ class _LoginPageState extends State<LoginPage> {
                         print(passwordController.text);
                         try {
                           final user = await _auth.signInWithEmailAndPassword(
-                              //email: email, password: password);
                               email: userEmailController.text, password: passwordController.text);
                           if (user != null) {
                             Navigator.of(context).push(
@@ -98,35 +109,57 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
-                StreamBuilder(
-                  stream: FirebaseAuth.instance.authStateChanges(),
-                  builder: (context, snapshot) {
-                    if(snapshot.connectionState==ConnectionState.waiting)
-                      return Center(child: CircularProgressIndicator());
-                    else if (snapshot.hasError){
-                      return Center(child: Text('Something went wrong!'),);
-                    }
-                    // else if(snapshot.hasData){
-                    //   return HomePageMaster(); // if signed in through google then go to homepage instead
-                    // }
-                    else{ return Container(
-                      height: 50,
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          primary: Color(0xFF90EE90),
-                          minimumSize: Size(double.infinity,50),
-                        ),
-                        icon: FaIcon(FontAwesomeIcons.google, color: Color(0xFF90EE90),),
-                        label: Text("Sign Up with Google"),
-                        onPressed: (){
-                          final provider = Provider.of<GoogleSignInProvider>(context, listen:false);
-                          provider.googleLogin();
-                          },
+                // StreamBuilder(
+                //   stream: FirebaseAuth.instance.authStateChanges(),
+                //   builder: (context, snapshot) {
+                //     if(snapshot.connectionState==ConnectionState.waiting)
+                //       return Center(child: CircularProgressIndicator());
+                //     else if (snapshot.hasError){
+                //       return Center(child: Text('Something went wrong!'),);
+                //     }
+                //     else if(snapshot.hasData){
+                //       return Text("Snapshot has data");//HomePageMaster(); // if signed in through google then go to homepage instead
+                //     }
+                //     else{ return Container(
+                //       height: 50,
+                //       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                //       child: ElevatedButton.icon(
+                //         style: ElevatedButton.styleFrom(
+                //           primary: Color(0xFF90EE90),
+                //           minimumSize: Size(double.infinity,50),
+                //         ),
+                //         icon: FaIcon(FontAwesomeIcons.google, color: Color(0xFF90EE90),),
+                //         label: Text("Sign Up with Google"),
+                //         onPressed: (){
+                //           final provider = Provider.of<GoogleSignInProvider>(context, listen:false);
+                //           provider.googleLogin();
+                //           },
+                //       ),
+                //     );}
+                //   }
+                // ),
+                  Container(
+                    height: 50,
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xFF90EE90),
+                        minimumSize: Size(double.infinity,50),
                       ),
-                    );}
-                  }
-                ),
+                      icon: FaIcon(FontAwesomeIcons.google, color: Color(0xFF90EE90),),
+                      label: Text("Sign Up with Google"),
+                      onPressed: (){
+                        final provider = Provider.of<GoogleSignInProvider>(context, listen:false);
+                        provider.googleLogin();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => HomePageMaster(
+                              ),
+                            ),
+                          );
+                        },
+                    ),
+                  ),
                 SizedBox(
                   height: 20,
                 ),

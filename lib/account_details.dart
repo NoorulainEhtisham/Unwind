@@ -1,6 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:unwind_project/user_google_account_info.dart';
-import 'heading_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AccountDetailsScreen extends StatefulWidget {
   const AccountDetailsScreen({Key? key}) : super(key: key);
@@ -18,7 +18,6 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Change email account'),
       ),
       body: SingleChildScrollView(
           child: Padding(
@@ -28,6 +27,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 //UserGoogleAccountInfo(),
+                //AccInfo(),
                 const Padding(padding: EdgeInsets.all(8)),
                 isEditable == false ?
                 IconButton(
@@ -91,6 +91,50 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
             ),
           ),
         ),
+    );
+  }
+}
+
+class AccInfo extends StatefulWidget {
+  const AccInfo({Key? key}) : super(key: key);
+
+  @override
+  State<AccInfo> createState() => _AccInfoState();
+}
+
+class _AccInfoState extends State<AccInfo> {
+
+
+  @override
+  Widget build(BuildContext context) {
+
+  final user= FirebaseAuth.instance.currentUser;
+  String? name="";
+  String? email="";
+  var pfp;
+  if ( user!= null) {
+    for (final providerProfile in user.providerData) {
+      // ID of the provider (google.com, apple.cpm, etc.)
+      final provider = providerProfile.providerId;
+      // UID specific to the provider
+      final uid = providerProfile.uid;
+      // Name, email address, and profile photo URL
+      name = providerProfile.displayName;
+      email = providerProfile.email;
+      pfp = providerProfile.photoURL;
+    }
+  }
+
+    return Container(
+      child: Column(
+        children: [
+          Text(name!),
+          Text(email!),
+          CircleAvatar(
+            backgroundImage: pfp,
+          )
+        ],
+      )
     );
   }
 }

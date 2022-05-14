@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //for vibrations
 import 'dart:io'; //for sleep
-import 'home_page_master.dart';
 
 class HeartbeatScreen extends StatefulWidget {
   const HeartbeatScreen({Key? key}) : super(key: key);
@@ -13,24 +12,24 @@ class HeartbeatScreen extends StatefulWidget {
 
 class _HeartbeatScreenState extends State<HeartbeatScreen> {
   _PatternVibrate() {
-    HapticFeedback.mediumImpact();
+    HapticFeedback.lightImpact();
 
     sleep(
       const Duration(milliseconds: 200),
     );
 
-    HapticFeedback.mediumImpact();
+    HapticFeedback.lightImpact();
 
     sleep(
       const Duration(milliseconds: 500),
     );
 
-    HapticFeedback.mediumImpact();
+    HapticFeedback.lightImpact();
 
     sleep(
       const Duration(milliseconds: 200),
     );
-    HapticFeedback.mediumImpact();
+    HapticFeedback.lightImpact();
 
     sleep(
       const Duration(milliseconds: 500),
@@ -54,9 +53,6 @@ class _HeartbeatScreenState extends State<HeartbeatScreen> {
               child: Text('Start'),
               onPressed: () {
                 run=true;
-                // while(run==true) {
-                //   _PatternVibrate();
-                // }
                 _PatternVibrate();
               },
             ),

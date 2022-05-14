@@ -33,7 +33,6 @@ class _BreathAnimationState extends State<BreathAnimation> with TickerProviderSt
       });
     });
     _breatheController.forward();
-    //_breatheController.dispose(); //whereee?
   }
 
   @override
