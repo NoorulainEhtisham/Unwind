@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //for vibrations
@@ -11,34 +12,31 @@ class HeartbeatScreen extends StatefulWidget {
 }
 
 class _HeartbeatScreenState extends State<HeartbeatScreen> {
-  _PatternVibrate() {
+  Timer? timer;
+  bool stopTimer = false;
+
+  void startTimer() {
+    timer = Timer.periodic(const Duration(milliseconds: 1500), (timer) => _heartBeats(timer));
+  }
+
+  _heartBeats(Timer timer) {
+    if (stopTimer) {
+      timer.cancel();
+      stopTimer = false;
+    }
+
     HapticFeedback.lightImpact();
-
-    sleep(
-      const Duration(milliseconds: 200),
-    );
-
+    sleep(const Duration(milliseconds: 200));
     HapticFeedback.lightImpact();
-
-    sleep(
-      const Duration(milliseconds: 500),
-    );
-
+    sleep(const Duration(milliseconds: 500));
     HapticFeedback.lightImpact();
-
-    sleep(
-      const Duration(milliseconds: 200),
-    );
+    sleep(const Duration(milliseconds: 200));
     HapticFeedback.lightImpact();
-
-    sleep(
-      const Duration(milliseconds: 500),
-    );
+    sleep(const Duration(milliseconds: 500));
   }
 
   @override
   Widget build(BuildContext context) {
-    bool run=false;
     return Scaffold(
         appBar: AppBar(
         ),
@@ -52,8 +50,7 @@ class _HeartbeatScreenState extends State<HeartbeatScreen> {
             ElevatedButton(
               child: Text('Start'),
               onPressed: () {
-                run=true;
-                _PatternVibrate();
+                startTimer();
               },
             ),
             Icon(
@@ -64,7 +61,7 @@ class _HeartbeatScreenState extends State<HeartbeatScreen> {
             ElevatedButton(
               child: Text('Stop'),
               onPressed: () {
-                run=false;
+                stopTimer = true;
               },
             ),
           ],
