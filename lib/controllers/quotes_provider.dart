@@ -25,7 +25,7 @@ class QuotesProvider extends ChangeNotifier{
     print('quotes API response: ${quotes.first.quote}');
 
     _quotes = quotes;
-
+    notifyListeners();
     return _quotes;
   }
 }

@@ -19,7 +19,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
   TextEditingController userEmailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  TextEditingController password2Controller = TextEditingController();
+  bool showError = false;
+  String error="";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,51 +29,54 @@ class _SignUpPageState extends State<SignUpPage> {
         title: Text("Sign up"),
       ),
       body: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(20),
           child: ListView(
             children: <Widget>[
               SizedBox(
                 height: 250,
                 child: SvgPicture.asset('assets/Unwind-Logo.svg'),
               ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                child: TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  controller: userEmailController,
-                  // onChanged: (value){
-                  //   email=value;
-                  //   //do something with user input
-                  //do it for password too
-                  // },
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'User Email',
-                  ),
+              TextField(
+                keyboardType: TextInputType.emailAddress,
+                controller: userEmailController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter email',
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                child: TextField(
-                  obscureText: true,
-                  controller: passwordController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Choose a password',
-                  ),
+              SizedBox(height:10),
+              TextField(
+                obscureText: true,
+                controller: passwordController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Choose a password',
+                ),
+              ),
+              SizedBox(height:10),
+              TextField(
+                obscureText: true,
+                controller: password2Controller,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Confirm password',
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
+              if(showError) ...[
+                Text('$error',
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),)
+              ],
               Container(
                   height: 50,
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: ElevatedButton(
                     child: const Text('Sign up'),
                     onPressed: () async {
-                      print(userEmailController.text);
-                      print(passwordController.text);
+                    if(passwordController.text==password2Controller.text) {
                       try {
                         final newUser = await _auth.createUserWithEmailAndPassword(
                               email: userEmailController.text, password: passwordController.text);
@@ -83,9 +88,33 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           );
                         }
+                      }
+                      on FirebaseAuthException catch (e) {
+                        if (e.code == 'weak-password') {
+                          error='The password provided is too weak.';
+                          setState(() {
+                            showError=true;
+                          });
+                        } else if (e.code == 'email-already-in-use') {
+                          error='The account already exists for that email.';
+                          setState(() {
+                            showError=true;
+                          });
+                        }
                       } catch (e) {
                         print(e);
+                        error='Please retry.';
+                        setState(() {
+                          showError=true;
+                        });
                       }
+                    }
+                    else{
+                      error='Password mismatch.';
+                      setState(() {
+                        showError = true;
+                      });
+                    }
                     },
                   )
               ),
