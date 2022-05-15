@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:unwind_project/mood_record_database.dart';
-import 'calendar_data_source.dart';
-import 'heading_widget.dart';
+import 'package:unwind_project/controllers/mood_record_database.dart';
+import '../calendar_data_source.dart';
+import '../heading_widget.dart';
 
 class MoodTrackerScreen2 extends StatefulWidget {
   const MoodTrackerScreen2({Key? key}) : super(key: key);
@@ -58,7 +58,6 @@ class _MoodTrackerScreen2State extends State<MoodTrackerScreen2> {
                 ),
                 dataSource: MeetingDataSource(MoodRecordDatabase().record),
               ),
-
             ),
           ],
         ),
