@@ -9,6 +9,7 @@ import 'package:unwind_project/audio_player.dart';
 import 'package:unwind_project/entry.dart';
 import 'package:unwind_project/exercises.dart';
 import 'package:unwind_project/home_page.dart';
+import 'package:unwind_project/controllers/moods_type_database.dart';
 import 'package:unwind_project/mydiary.dart';
 import 'DeepBreathingAnimation.dart';
 import 'deep_breathing.dart';
@@ -22,7 +23,8 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => Entries()),
-      ChangeNotifierProvider(create: (_) => Exercises())
+      ChangeNotifierProvider(create: (_) => Exercises()),
+      ChangeNotifierProvider(create: (_) => MoodsTypeDatabase())
     ],
     child: const MyApp(),
   ));
