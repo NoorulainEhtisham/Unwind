@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:unwind_project/account_screen.dart';
 import 'package:unwind_project/playlist.dart';
 import 'package:unwind_project/services/local_notification.dart';
-import 'favourites.dart';
+import 'views/favourites_list.dart';
 import 'home_page.dart';
 
 class HomePageMaster extends StatefulWidget {
@@ -18,7 +18,7 @@ class _HomePageMasterState extends State<HomePageMaster> {
   List<Widget> _items = [
     //same page, different bodies
     HomePage(),
-    FavouritesScreen(),
+    FavouritesListScreen(),
     Playlist(),
     AccountScreen(),
   ];
