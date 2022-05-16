@@ -1,6 +1,8 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:unwind_project/account_screen.dart';
 import 'package:unwind_project/playlist.dart';
+import 'package:unwind_project/services/local_notification.dart';
 import 'favourites.dart';
 import 'home_page.dart';
 
@@ -20,6 +22,36 @@ class _HomePageMasterState extends State<HomePageMaster> {
     Playlist(),
     AccountScreen(),
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    LocalNotification.initialize(context);
+
+    //terminated state
+    FirebaseMessaging.instance.getInitialMessage().then((message){
+      if(message != null){                                        //if not terminated
+        final routeFromMessage = message.data["route"];
+        Navigator.of(context).pushNamed(routeFromMessage);
+      }
+    });
+
+    FirebaseMessaging.onMessage.listen((message) {                  //foreground
+      if(message.notification != null){
+        print(message.notification!.body);
+        print(message.notification!.title);
+      }
+
+      LocalNotification.display(message);
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {         //background + user clicks
+      final routeFromMessage = message.data["route"];
+      Navigator.of(context).pushNamed(routeFromMessage);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
