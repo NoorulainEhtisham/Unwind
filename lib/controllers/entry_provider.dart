@@ -11,7 +11,6 @@ class EntryProvider extends ChangeNotifier {
   List<Entry> _entries = [];
   late Model model;
 
-
   void setSelected(String docID, bool value) {
     int index = _entries.indexWhere((element) => element.documentID == docID);
     _entries[index].setSelected(value);
@@ -30,26 +29,25 @@ class EntryProvider extends ChangeNotifier {
             title: e.title,
             date: e.date,
             note: e.note,
-            isSelected: e.isSelected,
-            cognitiveDistortion:
+            cognitivedistortion:
                 CgnDistort(type: e.cgnType, example: e.cgnExample)))
         .toList();
     _entries = entries;
-
     return _entries;
   }
 
   Future<Entry> getEntry(String documentID) async {
-    EntryModel _model = EntryModel(title: "", note: "", date: DateTime.now(), cgnType: "", cgnExample: "", isSelected: false);
-    await firebaseCall.getOne(documentID).then((value) => _model = EntryModel.fromJson(value as Map<String, dynamic>, documentID));
+    EntryModel _model = EntryModel(
+        title: "", note: "", date: DateTime.now(), cgnType: "", cgnExample: "");
+    await firebaseCall.getOne(documentID).then((value) => _model =
+        EntryModel.fromJson(value as Map<String, dynamic>, documentID));
     return Entry(
         id: documentID,
         title: _model.title,
         date: _model.date,
         note: _model.note,
-        isSelected: _model.isSelected,
-        cognitiveDistortion:
-        CgnDistort(type: _model.cgnType, example: _model.cgnExample));
+        cognitivedistortion:
+            CgnDistort(type: _model.cgnType, example: _model.cgnExample));
   }
 
   void setCognitiveDistortion(Entry entry, CgnDistort cd) {
@@ -60,18 +58,23 @@ class EntryProvider extends ChangeNotifier {
 
   void editEntry(Entry entry) {
     int index = -1;
+    print("ID: ${entry.documentID}");
     model = EntryModel(
-        title: entry.title,
-        note: entry.note,
-        date: entry.date,
-        cgnType: entry.cognitivedistortion.type,
-        cgnExample: entry.cognitivedistortion.example,
-        isSelected: entry.isSelected);
+      title: entry.title,
+      note: entry.note,
+      date: entry.date,
+      cgnType: entry.cognitivedistortion != null
+          ? entry.cognitivedistortion!.type
+          : '',
+      cgnExample: entry.cognitivedistortion != null
+          ? entry.cognitivedistortion!.example
+          : '',
+    );
     firebaseCall.edit(entry.documentID, model.toJson()).then((value) {
       if ((index = _entries.indexWhere(
               (element) => element.documentID == entry.documentID)) !=
           -1) {
-        _entries.insert(index, entry);
+        _entries[index] = entry;
       }
       notifyListeners();
     });
@@ -87,16 +90,22 @@ class EntryProvider extends ChangeNotifier {
   Future<String> addEntry(Entry entry) async {
     String id = "";
     model = EntryModel(
-        title: entry.title,
-        note: entry.note,
-        date: entry.date,
-        cgnType: entry.cognitivedistortion.type,
-        cgnExample: entry.cognitivedistortion.example,
-        isSelected: entry.isSelected);
-    id = await firebaseCall.add(model.toJson());
-    entry.setDocID(id);
-    _entries.add(entry);
+      title: entry.title,
+      note: entry.note,
+      date: entry.date,
+      cgnType: entry.cognitivedistortion != null
+          ? entry.cognitivedistortion!.type
+          : "",
+      cgnExample: entry.cognitivedistortion != null
+          ? entry.cognitivedistortion!.example
+          : "",
+    );
+    await firebaseCall.add(model.toJson()).then((value) {
+      print("Value : $value");
+      entry.setDocID(value);
+      _entries.add(entry);
+    });
     notifyListeners();
-    return id;
+    return entry.documentID;
   }
 }

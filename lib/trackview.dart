@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:unwind_project/controllers/playlist_provider.dart';
 import 'package:video_player/video_player.dart';
 
 import 'audio_player.dart';
 import 'controllers/audio_manager.dart';
-import 'controllers/tracklist_provider.dart';
+import 'entities/tracklist.dart';
 import 'entities/tracks.dart';
 
 class TrackView extends StatefulWidget {
@@ -23,7 +25,7 @@ class _TrackViewState extends State<TrackView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _tracks = widget.track.tracks;
+    _tracks = widget.track.tracks!;
   }
 
   @override
@@ -38,9 +40,9 @@ class _TrackViewState extends State<TrackView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          widget.track.category,
-          style: Theme.of(context).textTheme.headline6,
-          textAlign: TextAlign.left,
+        widget.track.category,
+        style: Theme.of(context).textTheme.headline6,
+        textAlign: TextAlign.left,
         ),
         const Divider(
           thickness: 1.8,
@@ -50,6 +52,9 @@ class _TrackViewState extends State<TrackView> {
             shrinkWrap: true,
             itemCount: _tracks.length,
             itemBuilder: (context, index) => ListTile(
+              contentPadding: EdgeInsets.zero,
+                  horizontalTitleGap: 0,
+                  minLeadingWidth: 20,
                   title: Text(
                     _tracks[index].name,
                     style: const TextStyle(),
@@ -65,47 +70,26 @@ class _TrackViewState extends State<TrackView> {
                     });
                     await showDialog(
                         context: context,
-                        builder: (context) => AlertDialog(
-                              contentPadding: EdgeInsets.zero,
-                              content:
-                              AudioPlayerBox(
-                                title: nowPlaying.name,
-                                audioManager: AudioManager(
-                                    controller: VideoPlayerController.network(
-                                        nowPlaying.URL)),
-                                isPlaylist: true,
-                                color: Color.fromRGBO(197, 217, 252, 1),
-                              ),
-                            ));
+                        builder: (context) =>
+                            AlertDialog(
+                              backgroundColor: const Color.fromRGBO(197, 217, 252, 1),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  ),
+                                  contentPadding: EdgeInsets.zero,
+                                  content:
+                                  AudioPlayerBox(
+                                    title: nowPlaying.name,
+                                    isPlaylist: true,
+                                    audioManager: AudioManager(
+                                      path: "https://www.chosic.com/wp-content/uploads/2022/01/Missing-You.mp3",)
+                                  ),
+
+                            )
+                    );
                   },
                 )),
-        //AudioFile(audioPlayer: audioPlayer)
       ],
     );
   }
-
-  // onTapped(int index) async {
-  //   print("Video playing from " + _tracks[index].URL);
-  //   selectedIndex = index;
-  //   setState(() {
-  //
-  //   });
-  //   vpc = VideoPlayerController.network(_tracks[index].URL);
-  //
-  //   setState(() {
-  //     vpc.pause();
-  //     vpc.seekTo(Duration(seconds: 0));
-  //   });
-  // }
-  //
-  // void videoListener() {
-  //   if(vpc.value.position == vpc.value.duration) {
-  //     print("Audio ended");
-  //     isEndplaying = true;
-  //     isPlaying = false;
-  //     setState(() {
-  //
-  //     });
-  //   }
-  // }
 }

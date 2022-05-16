@@ -1,17 +1,6 @@
 
-import '../entities/tracks.dart';
+import 'package:flutter/cupertino.dart';
 
-class TrackList{
-  String category;
-  List<Track> _tracks = [];
+class TrackListProvider extends ChangeNotifier{
 
-  List<Track> get tracks => _tracks;
-
-  TrackList(List<Track> tracks, {required this.category}) {
-    this._tracks = tracks;
-  }
-
-  void addTrack(Track _track) {
-    _tracks.add(_track);
-  }
 }
