@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:unwind_project/user_specific_data.dart';
 import 'Login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -81,6 +82,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         final newUser = await _auth.createUserWithEmailAndPassword(
                               email: userEmailController.text, password: passwordController.text);
                         if (newUser != null) {
+                          //create a new document for the user with the uid
+                          await DatabaseService(uid: newUser.user!.uid).updateuserData("FavList", "Diary"); //dummy user properties
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => LoginPage(
