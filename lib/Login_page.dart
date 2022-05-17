@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/controllers/google_sign_in_provider.dart';
+import 'package:unwind_project/forgotpassword_page.dart';
 import 'Sign_up_page.dart';
 import 'home_page_master.dart';
 
@@ -75,7 +76,12 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(fontSize: 13, color: Colors.purpleAccent,),
                     ),
                     onTap: (){
-
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ForgotPasswordPage(
+                          ),
+                        ),
+                      );
                     },
                 ),
                 SizedBox(
