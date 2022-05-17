@@ -5,6 +5,8 @@ import 'package:unwind_project/Login_page.dart';
 import 'package:unwind_project/account_details.dart';
 import 'package:unwind_project/change_password.dart';
 
+import 'forgotpassword_page.dart';
+
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
 
@@ -53,6 +55,14 @@ class _AccountScreenState extends State<AccountScreen> {
                       //Implement logout functionality
                       _auth.signOut();
                       Navigator.pop(context);
+                    }
+                    else if(account_options[index]=='Change password'){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ForgotPasswordPage(
+                          ),
+                        ),
+                      );
                     }
                     else if (pages[index] != null &&
                         account_options[index]
