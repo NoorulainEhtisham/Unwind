@@ -20,10 +20,7 @@ class _HeartbeatScreenState extends State<HeartbeatScreen> {
   }
 
   _heartBeats(Timer timer) {
-    if (stopTimer) {
-      timer.cancel();
-      stopTimer = false;
-    }
+
 
     HapticFeedback.lightImpact();
     sleep(const Duration(milliseconds: 200));
@@ -33,6 +30,12 @@ class _HeartbeatScreenState extends State<HeartbeatScreen> {
     sleep(const Duration(milliseconds: 200));
     HapticFeedback.lightImpact();
     sleep(const Duration(milliseconds: 500));
+
+    if (stopTimer) {
+      timer.cancel();
+      stopTimer = false;
+    }
+
   }
 
   @override
@@ -45,7 +48,7 @@ class _HeartbeatScreenState extends State<HeartbeatScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("Focusing on the touch sensation helps you ground yourself."),
+              child: Text("Take deep breaths and Focus on the touch sensation to ground yourself."),
             ),
             ElevatedButton(
               child: Text('Start'),
