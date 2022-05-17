@@ -17,22 +17,34 @@ class Diary extends StatefulWidget {
 }
 
 class _DiaryState extends State<Diary> {
-  late List<Entry> _entries;
-  late List<Entry> selectedEntries;
+  List<Entry> _entries = [];
   late bool settings;
   late bool isLoading;
+
+  setCheckedEntry(int index, bool checked) {
+    setState(() {
+      _entries[index].isSelected = checked;
+    });
+  }
+
+  getDiary() {
+    context.read<EntryProvider>().getEntries().then((value) {
+      _entries = value;
+      isLoading = false;
+      setState(() {});
+    });
+  }
 
   @override
   void initState() {
     // TODO: implement initState
-    _entries = [];
-    selectedEntries = [];
+    getDiary();
     settings = false;
     isLoading = true;
     super.initState();
   }
 
-  final List<Color> _colors = [
+  final List<Color> _colors = const [
     Color.fromRGBO(241, 209, 252, 1),
     Color.fromRGBO(252, 219, 248, 1),
     Color.fromRGBO(201, 241, 255, 1),
@@ -42,12 +54,7 @@ class _DiaryState extends State<Diary> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<EntryProvider>().getEntries().then((value) {
-      _entries = value;
-      isLoading = false;
-      setState(() {
-      });
-    });
+    // getDiary();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -74,16 +81,17 @@ class _DiaryState extends State<Diary> {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              :
-          Expanded(
+              : Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: ListView.separated(
+                      shrinkWrap: true,
                       separatorBuilder: (context, index) =>
                           const Padding(padding: EdgeInsets.all(2.0)),
                       itemCount: _entries.length,
                       itemBuilder: (context, index) => ListTile(
-                        contentPadding: EdgeInsets.all(10.0),
+                        horizontalTitleGap: 0,
+                        contentPadding: EdgeInsets.all(10),
                         tileColor: _colors[index % _colors.length],
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -108,13 +116,22 @@ class _DiaryState extends State<Diary> {
                                     borderRadius: BorderRadius.circular(10)),
                                 value: _entries[index].isSelected,
                                 onChanged: (value) {
-                                  _entries[index].isSelected = value!;
-                                  if (_entries[index].isSelected) {
-                                    selectedEntries.add(_entries[index]);
-                                  } else {
-                                    selectedEntries.remove(_entries[index]);
-                                  }
-                                  setState(() {});
+                                  print(
+                                      "Old value, ${_entries[index].isSelected} \n");
+                                  value != null
+                                      ? setCheckedEntry(index, value)
+                                      : null;
+                                  print(
+                                      "New value, ${_entries[index].isSelected} \n\n\n");
+
+                                  // if (_entries[index].isSelected) {
+                                  //   selectedEntries.add(_entries[index]);
+                                  // } else {
+                                  //   selectedEntries.remove(_entries[index]);
+                                  // }
+                                  // setState(() {
+                                  //   value!=null ? selected[index] = value: null;
+                                  // });
                                 })
                             : null,
                         onLongPress: () {
@@ -122,7 +139,6 @@ class _DiaryState extends State<Diary> {
                           setState(() {});
                         },
                         onTap: () {
-                          print("Entry on list = ${_entries[index]}");
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
                                   DiaryEntry(entry: _entries[index])));
@@ -145,6 +161,7 @@ class _DiaryState extends State<Diary> {
           : null,
       bottomSheet: settings
           ? Card(
+              color: Colors.grey,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 //crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -173,11 +190,12 @@ class _DiaryState extends State<Diary> {
                                 ],
                               ));
                       if (_deleteNote) {
-                        for (var temp in selectedEntries) {
-                          context
-                              .read<EntryProvider>()
-                              .deleteEntry(temp.documentID);
-                          setState(() {});
+                        for (int index = 0; index < _entries.length; index++) {
+                          _entries[index].isSelected
+                              ? context
+                                  .read<EntryProvider>()
+                                  .deleteEntry(_entries[index].documentID)
+                              : null;
                         }
                       }
                       settings = false;
@@ -187,13 +205,14 @@ class _DiaryState extends State<Diary> {
                   ),
                   IconButton(
                     onPressed: () {
-                      settings = false;
-                      for (var temp in selectedEntries) {
-                        context
-                            .read<EntryProvider>()
-                            .setSelected(temp.documentID, false);
+                      for (int index = 0; index < _entries.length; index++) {
+                        _entries[index].isSelected
+                            ? context
+                                .read<EntryProvider>()
+                                .setSelected(_entries[index].documentID, false)
+                            : null;
                       }
-                      selectedEntries.clear();
+                      settings = false;
                       setState(() {});
                     },
                     icon: const Icon(Icons.close),
@@ -205,5 +224,4 @@ class _DiaryState extends State<Diary> {
           : null,
     );
   }
-
 }

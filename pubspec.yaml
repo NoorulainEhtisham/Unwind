@@ -36,9 +36,13 @@ dependencies:
   video_player: ^2.3.0
   audio_video_progress_bar: ^0.10.0
   syncfusion_flutter_pdf: ^20.1.47-beta.1
-  syncfusion_flutter_pdfviewer: ^20.1.47-beta
   firebase_core: ^1.14.1
   cloud_firestore: ^3.1.12
+  firebase_storage: ^10.2.15
+  file_picker: ^4.5.1
+  audio_service: ^0.18.4
+  get_it: ^7.2.0
+  wakelock: ^0.6.1+2
   unicons: ^2.1.0
   fl_chart: ^0.50.1
   intl: ^0.17.0
@@ -79,7 +83,7 @@ flutter:
 #    - assets/scripts/BodyScanForSleep_Transcript-15-UCLA.pdf
     - assets/
     - assets/images/
-    - assets/scripts/
+   # - assets/scripts/
     #- assets/audios
 
   # An image asset can refer to one or more resolution-specific "variants", see

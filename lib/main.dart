@@ -3,8 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:unwind_project/controllers/playlist_provider.dart';
 import 'controllers/entry_provider.dart';
 import 'controllers/exercises_provider.dart';
+
 import 'package:unwind_project/MeditationExercises_ListTile.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:unwind_project/audio_player.dart';
@@ -19,14 +21,16 @@ import 'package:unwind_project/playlist.dart';
 import 'package:unwind_project/trackview.dart';
 import 'launch.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => Exercises()),
       ChangeNotifierProvider(create: (_) => MoodsTypeDatabase()),
       ChangeNotifierProvider(create: (_) => EntryProvider()),
+      ChangeNotifierProvider(create: (_) => ExerciseProvider()),
+      ChangeNotifierProvider(create: (_) => PlayListProvider())
     ],
     child: const MyApp(),
   ));

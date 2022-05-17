@@ -12,30 +12,27 @@ class FirebaseCall {
 
   Future<List> getAll() async {
     List data = [];
-    await collection.get().then((QuerySnapshot querySnapshot) =>
-      data = querySnapshot.docs
-    ).catchError((error) => print("Cannot get all data $error"));
+    await collection
+        .get()
+        .then((QuerySnapshot querySnapshot) => data = querySnapshot.docs)
+        .catchError((error) => print("Cannot get all data $error"));
     return data;
   }
 
   Future<Object?> getOne(String documentID) async {
     Object? data = {};
-    await collection
-        .doc(documentID)
-        .get()
-        .then((value) {
-          data = value.data();
-    })
-        .catchError((error) => print("Error: $error"));
+    await collection.doc(documentID).get().then((value) {
+      data = value.data();
+    }).catchError((error) => print("Error: $error"));
     // print("Document = ${data}");
     return data;
   }
 
   Future<String> add(Map<String, dynamic> doc) async {
     String id = "";
-    collection.add(doc).then((value) {
+    await collection.add(doc).then((value) {
       id = value.id;
-      print("Object added. ID $id");
+      //print("Object added. ID $id");
     }).catchError((error) => print("Error occured. Cannot add data.: $error"));
     return id;
   }
@@ -54,5 +51,17 @@ class FirebaseCall {
         .update(newDoc)
         .then((value) => print("Object Updated"))
         .catchError((error) => print("Failed to update object: $error"));
+  }
+
+  Future<String> addSubCollection(String parentID, String subCollectionPath,
+      Map<String, dynamic> doc) async {
+    String docID = "";
+    collection
+        .doc(parentID)
+        .collection(subCollectionPath)
+        .add(doc)
+        .then((value) => docID = value.id)
+        .catchError((error) => print("Failed to add subcollection $error"));
+    return docID;
   }
 }

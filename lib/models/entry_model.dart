@@ -7,33 +7,28 @@ class EntryModel implements Model {
   String title;
   DateTime date;
   String note;
-  bool isSelected;
   String cgnType;
   String cgnExample;
 
   EntryModel(
-      {docID = "",
+      {this.id = "",
       required this.title,
       required this.note,
       required this.date,
       required this.cgnType,
-      required this.cgnExample,
-      required this.isSelected}) {
-    this.id = docID;
-  }
+      required this.cgnExample});
 
   // set ObjectID(String docID)=> id = docID;
 
   @override
   static EntryModel fromJson(Map<String, dynamic> json, String documentID) {
     return EntryModel(
-        docID: documentID,
+        id: documentID,
         title: json['title'],
         note: json['note'],
         date: json['date'].toDate(),
         cgnType: json['cgnType'],
-        cgnExample: json['cgnExample'],
-        isSelected: json['isSelected']);
+        cgnExample: json['cgnExample']);
   }
 
   @override
@@ -42,7 +37,6 @@ class EntryModel implements Model {
     data['title'] = title;
     data['note'] = note;
     data['date'] = date;
-    data['isSelected'] = isSelected;
     data['cgnType'] = cgnType;
     data['cgnExample'] = cgnExample;
 

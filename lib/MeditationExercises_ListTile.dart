@@ -40,13 +40,19 @@ class _MeditationExercisesListTileState
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    _exercises = context.watch<Exercises>().exercises;
+    context.watch<ExerciseProvider>().getExercises().then((value) {
+      _exercises = value;
+      // setState(() {
+      //
+      // });
+
+    });
     return SizedBox(
         height: 140,
         child: ListView.separated(
             separatorBuilder: (BuildContext context, int index) {
               return Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
@@ -122,17 +128,18 @@ class _MeditationExercisesListTileState
                                                     // print("index = $ind");
                                                   });
                                                 }
-                                                ind != -1
-                                                    ? Navigator.of(context)
-                                                        .push(MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ExerciseScreen(
+                                                if(ind!=-1) {
+                                                  Navigator.of(context).pop();
+                                                  Navigator.of(context)
+                                                      .push(MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ExerciseScreen(
                                                           exercise:
-                                                              _selectedCategoryExercises[
-                                                                  ind], //navigate to meditation Exercises page here
+                                                          _selectedCategoryExercises[
+                                                          ind], //navigate to meditation Exercises page here
                                                         ),
-                                                      ))
-                                                    : null; //Navigator.of(context).pop();
+                                                  ));
+                                                }
                                               }
                                             },
                                             child: const Text('Begin')),

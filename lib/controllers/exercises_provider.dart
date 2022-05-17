@@ -1,54 +1,53 @@
 import 'package:flutter/cupertino.dart';
+import 'package:unwind_project/models/exercise_model.dart';
+import 'package:unwind_project/network/firebase_call.dart';
 
 
 import '../entities/exercises.dart';
+import '../models/model_abstract.dart';
 
-class Exercises extends ChangeNotifier {
-  List<Exercise> exercises = [
-    Exercise(
-        title: 'Body Scan Meditation',
-        category: 'Body Scan',
-        path: 'https://www.uclahealth.org/marc/mpeg/Body-Scan-Meditation.mp3',
-        script: 'assets/scripts/BodyScanMeditation_Transcript-3-UCLA.pdf',
-        duration: const Duration(minutes: 2, seconds: 44)),
-    Exercise(
-        title: 'Body Scan for Sleep',
-        category: 'Sleep',
-        path: 'https://www.uclahealth.org/marc/mpeg/Body-Scan-for-Sleep.mp3',
-        script: 'assets/scripts/BodyScanForSleep_Transcript-15-UCLA.pdf',
-        duration: Duration(minutes: 13, seconds: 50)),
-    Exercise(
-        title: 'Complete Meditation Instructions',
-        category: 'Simple',
-        path: 'https://www.uclahealth.org/marc/mpeg/03_Complete_Meditation_Instructions.mp3',
-        script: 'assets/scripts/CompleteMeditation_Transcript.pdf',
-        duration: Duration(minutes: 19, seconds: 03)),
-    Exercise(
-        title: 'Breath, Sound, Body Meditation',
-        category: 'Mindfulness',
-        path: 'https://www.uclahealth.org/marc/mpeg/02_Breath_Sound_Body_Meditation.mp3',
-        script: 'assets/scripts/BreathSoundBody_Transcript.pdf',
-        duration: Duration(minutes: 12, seconds: 00)),
-    Exercise(
-        title: 'The Practice of Vipassana (Mindfulness)',
-        category: 'Mindfulness',
-        path: 'http://traffic.libsyn.com/tarabrach/1-01-Vipassana-Mindfulness-Meditation-TaraBrach.mp3',
-        script: 'assets/scripts/Vipassana-Mindfulness-Meditation-RA-CD-TaraBrach.pdf',
-        duration: Duration(minutes: 15, seconds: 27)),
-    Exercise(
-        title: 'Walking Meditation Instructions',
-        category: 'Walking',
-        path: 'http://traffic.libsyn.com/tarabrach/2013-12-28-0903AM-Walking-Meditation-Instructions-TaraBrach.mp3',
-        script: 'assets/scripts/Walking-Meditation-Instructions.pdf',
-        duration: Duration(minutes: 6, seconds: 19)),
-    Exercise(
-        title: 'Soles of the Feet',
-        category: 'Grounding',
-        path: 'https://self-compassion.org/wp-content/uploads/2021/07/Soles-Of-The-Feet-Kristin-Neff-Self-Compassion.mp3',
-        script: 'assets/scripts/Walking-Meditation-Instructions.pdf',
-        duration: Duration(minutes: 13, seconds: 50)),
-  ];
+class ExerciseProvider extends ChangeNotifier {
 
-  List<Exercise> get exerciseList => exercises;
+  FirebaseCall _firebaseCall = FirebaseCall(collectionName: 'exercises');
+  late Model _model;
+
+  List<Exercise> _exercises = [];
+
+  Future<List<Exercise>> getExercises() async {
+    List<ExerciseModel> exList = [];
+    await _firebaseCall.getAll().then(
+            (List value) => exList = value.map(
+                    (e) => ExerciseModel.fromJson(e.data() as Map<String, dynamic>, e.id)
+            ).toList()
+    );
+    final exer = exList.map((e) =>
+        Exercise(
+          id: e.id,
+            title: e.title,
+            category: e.category,
+            path: e.path,
+            script: e.script,
+            duration: Duration(seconds: e.seconds)
+        )
+    ).toList();
+    _exercises = exer;
+    return _exercises;
+  }
+
+  Future<String> addExercise(Exercise exercise) async {
+    String id = "";
+    _model = ExerciseModel(
+        title: exercise.title,
+        category: exercise.category,
+        path: exercise.path,
+        script: exercise.script,
+        seconds: exercise.duration.inSeconds
+    );
+    id = await _firebaseCall.add(_model.toJson());
+    notifyListeners();
+    return id;
+  }
+
+
 
 }

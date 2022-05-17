@@ -1,6 +1,7 @@
 
 
 class Exercise {
+  String id;
   String title;
   String category;
   String path;
@@ -8,7 +9,8 @@ class Exercise {
   Duration duration;
 
   Exercise(
-      {required this.title,
+      {this.id = "",
+        required this.title,
       required this.category,
       required this.path,
       required this.script,

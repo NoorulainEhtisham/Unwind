@@ -34,21 +34,26 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   }
 
   _init() async {
-
     isLoading = true;
     setState(() {});
     //Load an existing PDF document.
     PdfDocument document = PdfDocument(
-        inputBytes: await _readDocumentData(_exercise.script),);
+      inputBytes: await _readDocumentData(
+          //_exercise.script
+        "https://www.uclahealth.org/marc/workfiles/CompleteMeditation_Transcript.pdf"
+      ),
+    );
 
 //Create a new instance of the PdfTextExtractor.
     PdfTextExtractor extractor = PdfTextExtractor(document);
 
 //Extract all the text from the document.
     script = extractor.extractText();
-    isLoading = false;
-    setState(() {});
-    document.dispose();
+
+    setState(() {
+      isLoading = false;
+    });
+    //document.dispose();
   }
 
   @override
@@ -62,7 +67,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           softWrap: false,
           overflow: TextOverflow.visible,
           style: TextStyle(
-            fontSize: screenSize.width*0.04,
+            fontSize: screenSize.width * 0.04,
             fontWeight: FontWeight.bold,
             color: Color.fromRGBO(61, 90, 128, 100),
           ),
@@ -71,23 +76,28 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       ),
       body: Center(
         child: SingleChildScrollView(
-          child:
-          // isLoading
-          //     ? const CircularProgressIndicator()
-          //     :
-          Padding(
-                padding: const EdgeInsets.only(bottom: 500),
-                child: Text(
+          child: isLoading
+              ? const CircularProgressIndicator()
+              // ElevatedButton(
+              //     onPressed: () {
+              //       context.read<ExerciseProvider>().addExercise(_exercise);
+              //     },
+              //     child: const Text('Add to firebase'))
+              : Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 100, horizontal: 10),
+                  child: Text(
                     script,
-                    textScaleFactor: 2,
+                    textScaleFactor: 1.5,
                     textAlign: TextAlign.center,
                   ),
-              ),
+                ),
         ),
       ),
       floatingActionButton: AudioPlayerBox(
         title: _exercise.title,
-        audioManager: AudioManager(controller: VideoPlayerController.network(_exercise.path)),
+        audioManager: AudioManager(
+          path: "https://www.uclahealth.org/marc/mpeg/03_Complete_Meditation_Instructions.mp3"),
         isPlaylist: false,
       ),
     );
@@ -95,6 +105,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 }
 
 Future<List<int>> _readDocumentData(String name) async {
-  final ByteData data = await rootBundle.load(name);
+  final ByteData data = await NetworkAssetBundle(Uri.parse(name)).load("");
+  //await rootBundle.load(name);
   return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 }

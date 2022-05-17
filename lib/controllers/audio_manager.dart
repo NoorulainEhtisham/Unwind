@@ -1,3 +1,4 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -13,10 +14,10 @@ class AudioManager {
 
   late VideoPlayerController controller;
 
-  AudioManager({required this.controller}) {
+  AudioManager({required String path}) {
+    controller = VideoPlayerController.network(path);
     _init();
   }
-
 
   void _init() async {
     await controller.initialize().then((value) => print(controller.value));
@@ -75,8 +76,9 @@ class AudioManager {
     controller.seekTo(position);
   }
 
-  void dispose() async {
-    await controller.dispose();
+  void dispose() {
+   // _audioHandler.customAction('dispose');
+    controller.dispose();
   }
 
   Future seekPosition(Duration Function(Duration currentPosition) builder) async {
@@ -98,6 +100,7 @@ class AudioManager {
   }
 
 }
+
 
 class ProgressBarState {
   ProgressBarState({

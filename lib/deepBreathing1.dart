@@ -23,7 +23,7 @@ class _DeepBreathingScreen1State extends State<DeepBreathingScreen1> {
           decoration:  BoxDecoration(
             image: DecorationImage(
                 colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
-                image: AssetImage('/images/Feather.jpg'),
+                image: AssetImage('assets/images/Feather.jpg'),
                 fit: BoxFit.cover),
           ),
           child: Column(
