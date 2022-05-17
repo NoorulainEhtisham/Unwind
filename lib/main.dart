@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:unwind_project/MeditationExercises_ListTile.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:unwind_project/audio_player.dart';
+import 'package:unwind_project/controllers/mood_record_database.dart';
 import 'package:unwind_project/entry.dart';
 import 'package:unwind_project/exercises.dart';
 import 'package:unwind_project/home_page.dart';
@@ -27,7 +28,8 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (_) => Entries()),
       ChangeNotifierProvider(create: (_) => Exercises()),
-      ChangeNotifierProvider(create: (_) => MoodsTypeDatabase())
+      ChangeNotifierProvider(create: (_) => MoodsTypeDatabase()),
+      ChangeNotifierProvider(create: (_) => MoodRecordDatabase()),
     ],
     child: const MyApp(),
   ));

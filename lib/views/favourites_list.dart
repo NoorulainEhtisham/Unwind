@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
-import 'heading_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:unwind_project/controllers/favourites_database.dart';
+import 'package:unwind_project/entities/favourites.dart';
+import '../heading_widget.dart';
 
-class FavouritesScreen extends StatefulWidget {
-  const FavouritesScreen({Key? key}) : super(key: key);
+class FavouritesListScreen extends StatefulWidget {
+  const FavouritesListScreen({Key? key}) : super(key: key);
 
   @override
-  State<FavouritesScreen> createState() => _FavouritesScreenState();
+  State<FavouritesListScreen> createState() => _FavouritesListScreenState();
 }
 
-class _FavouritesScreenState extends State<FavouritesScreen> {
-  List<String> favItems = ["Rain 5", "Deep Breathing", "Simple"];
+class _FavouritesListScreenState extends State<FavouritesListScreen> {
+  late List<Favourites> _favList;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FavouritesDatabase().getMoodsType();
+    _favList = [];
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    _favList = context.watch<FavouritesDatabase>().record;
+
     return Scaffold(
       body:  Center(
           child: Column(
@@ -22,7 +36,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
               const HeadingWidget(title: "Favorites"),
               Expanded(
                 child: ListView.builder(
-                  itemCount: favItems.length,
+                  itemCount: _favList.length,
                   itemBuilder: (context, index)
                     {
                       return Card(
@@ -32,14 +46,11 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                         color: Colors.transparent,
                         elevation: 0,
                         child:  ListTile(
-                          title: Text(favItems[index]),
+                          title: Text(_favList[index].title),
                           trailing: IconButton(
-                            icon: const Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                            ),
+                            icon: _favList[index].icon,
                             onPressed: () {
-                              favItems.removeAt(index);
+                              _favList.removeAt(index);
                               setState(() {});
                             },
                           ),

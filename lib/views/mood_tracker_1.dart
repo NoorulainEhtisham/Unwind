@@ -7,7 +7,6 @@ import '../entities/moods_type.dart';
 import '../heading_widget.dart';
 import 'package:provider/provider.dart';
 
-
 class MoodTrackerScreen1 extends StatefulWidget {
   const MoodTrackerScreen1({Key? key}) : super(key: key);
 
@@ -16,21 +15,27 @@ class MoodTrackerScreen1 extends StatefulWidget {
 }
 
 class _MoodTrackerScreen1State extends State<MoodTrackerScreen1> {
+  List<MoodsType> _moodsList = [];
+  late bool isLoading;
 
- late List<MoodsType> _moodsList;
+  getData() {
+    context.read<MoodsTypeDatabase>().getMoodsType().then((value) {
+      _moodsList = value;
+      isLoading = false;
+      setState(() {});
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
-    MoodsTypeDatabase().getMoodsType();
-    _moodsList = [];
+    getData();
+    isLoading = false;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
-    _moodsList = context.watch<MoodsTypeDatabase>().record;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -43,37 +48,42 @@ class _MoodTrackerScreen1State extends State<MoodTrackerScreen1> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const HeadingWidget(title: "How are you feeling today?"),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => const SizedBox(
-                    height: 10,
-                  ),
-                  itemCount: _moodsList.length,
-                  itemBuilder: (context, index) => ListTile(
-                    tileColor: _moodsList[index].moodColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+            isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.blueGrey,
                     ),
-                    leading: _moodsList[index].iconLink,
-                    title: Text(_moodsList[index].moodName),
-                    onTap: () {
-                      MoodRecordDatabase().addMoodRecord(
-                          _moodsList[index].moodColor.value,
-                          _moodsList[index].moodName,
-                          DateTime.now()
-                      );
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const HomePageMaster(),
+                  )
+                : Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 10,
                         ),
-                      );
-                    },
+                        itemCount: _moodsList.length,
+                        itemBuilder: (context, index) => ListTile(
+                          tileColor: _moodsList[index].moodColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          leading: _moodsList[index].iconLink,
+                          title: Text(_moodsList[index].moodName),
+                          onTap: () {
+                            MoodRecordDatabase().addMoodRecord(
+                                _moodsList[index].moodColor.value,
+                                _moodsList[index].moodName,
+                                DateTime.now());
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const HomePageMaster(),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
