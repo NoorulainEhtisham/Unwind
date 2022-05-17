@@ -82,7 +82,10 @@ class _TrackViewState extends State<TrackView> {
                                     title: nowPlaying.name,
                                     isPlaylist: true,
                                     audioManager: AudioManager(
-                                      path: "https://www.chosic.com/wp-content/uploads/2022/01/Missing-You.mp3",)
+                                      path:
+                                      //nowPlaying.url
+                                      "https://www.chosic.com/wp-content/uploads/2022/01/Missing-You.mp3"
+                                      ,)
                                   ),
 
                             )

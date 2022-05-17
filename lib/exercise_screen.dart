@@ -97,7 +97,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       floatingActionButton: AudioPlayerBox(
         title: _exercise.title,
         audioManager: AudioManager(
-          path: "https://www.uclahealth.org/marc/mpeg/03_Complete_Meditation_Instructions.mp3"),
+          path:
+          //_exercise.path
+          "https://www.uclahealth.org/marc/mpeg/03_Complete_Meditation_Instructions.mp3"
+        ),
         isPlaylist: false,
       ),
     );
