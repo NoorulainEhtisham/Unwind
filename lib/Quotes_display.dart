@@ -65,14 +65,29 @@ class _currQuoteState extends State<currQuote> {
   List<Quote> _quotesList =[];
   late bool isLoading=true;
 
+  getQList() {
+    context.read<QuotesProvider>().getAllQuotes().then((value) {
+      _quotesList = value;
+      isLoading = false;
+      setState(() {});
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getQList();
+    isLoading = true;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
 
-
-    context.watch<QuotesProvider>().getAllQuotes().then((value) {
-      _quotesList = value;
-      isLoading = false;
-    });
+    // context.watch<QuotesProvider>().getAllQuotes().then((value) {
+    //   _quotesList = value;
+    //   isLoading = false;
+    // });
       Random random = new Random();
       int randomNumber = random.nextInt(_quotesList.length);
       String quote = _quotesList[randomNumber].quote.toString();
