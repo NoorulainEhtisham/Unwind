@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/controllers/playlist_provider.dart';
-import 'package:unwind_project/exercise_screen.dart';
 import 'controllers/entry_provider.dart';
 import 'controllers/exercises_provider.dart';
 
@@ -49,7 +48,8 @@ class MyApp extends StatelessWidget {
         //primarySwatch: Colors.lightBlue,
         primarySwatch: MaterialColor(0xFFD7BAE0, color),
       ),
-      home: const LaunchScreen()
+      home:
+      const LaunchScreen()
     );
   }
 }
