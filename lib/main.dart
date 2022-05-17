@@ -1,24 +1,14 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/controllers/playlist_provider.dart';
+import 'package:unwind_project/controllers/google_sign_in_provider.dart';
 import 'controllers/entry_provider.dart';
 import 'controllers/exercises_provider.dart';
-
-import 'package:unwind_project/MeditationExercises_ListTile.dart';
-import 'package:syncfusion_flutter_pdf/pdf.dart';
-import 'package:unwind_project/audio_player.dart';
-import 'package:unwind_project/home_page.dart';
+import 'controllers/quotes_provider.dart';
 import 'package:unwind_project/controllers/moods_type_database.dart';
 import 'package:unwind_project/home_page_master.dart';
-import 'package:unwind_project/services/local_notification.dart';
 import 'package:unwind_project/views/mood_tracker_1.dart';
-import 'DeepBreathingAnimation.dart';
-import 'deep_breathing.dart';
-import 'package:unwind_project/playlist.dart';
-import 'package:unwind_project/trackview.dart';
 import 'launch.dart';
 
 
@@ -30,7 +20,9 @@ void main() async {
       ChangeNotifierProvider(create: (_) => MoodsTypeDatabase()),
       ChangeNotifierProvider(create: (_) => EntryProvider()),
       ChangeNotifierProvider(create: (_) => ExerciseProvider()),
-      ChangeNotifierProvider(create: (_) => PlayListProvider())
+      ChangeNotifierProvider(create: (_) => PlayListProvider()),
+      ChangeNotifierProvider(create: (_) => GoogleSignInProvider()),
+      ChangeNotifierProvider(create: (_) => QuotesProvider()),
     ],
     child: const MyApp(),
   ));

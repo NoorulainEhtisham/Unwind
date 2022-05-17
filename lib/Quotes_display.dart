@@ -1,8 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'controllers/quotes_provider.dart';
+import 'dart:math';
 
-class QuotesDisplay extends StatelessWidget {
+import 'entities/quote.dart';
+
+class QuotesDisplay extends StatefulWidget {
   const QuotesDisplay({Key? key}) : super(key: key);
+
+  @override
+  State<QuotesDisplay> createState() => _QuotesDisplayState();
+}
+
+class _QuotesDisplayState extends State<QuotesDisplay> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,28 +38,46 @@ class QuotesDisplay extends StatelessWidget {
             ],
           ),
         ),
-        //color: Color(0xFF162A49),
-        height: screenSize.height*0.2,
+        height: screenSize.height * 0.2,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              height: screenSize.height*0.2,
-              width: screenSize.width*0.8,
-              decoration:  BoxDecoration(
-                image: DecorationImage(
-                    colorFilter: ColorFilter.mode(Colors.green.withOpacity(0.3), BlendMode.dstATop),
-                    image: AssetImage('assets/images/Seaside.jpg'),
-                    fit: BoxFit.cover),
-              ),
-              //color: Colors.pinkAccent,
+              height: screenSize.height * 0.2,
+              width: screenSize.width * 0.8,
               child: ListTile(
                 //read quotes here
-                title: Center(child: Text("The only journey is the journey within.")),
+                title: currQuote(),
               ),
             ),
           ],
-        )
-    );
+        ));
   }
+}
+
+class currQuote extends StatefulWidget {
+  const currQuote({Key? key}) : super(key: key);
+  @override
+  State<currQuote> createState() => _currQuoteState();
+}
+
+class _currQuoteState extends State<currQuote> {
+  List<Quote> _quotesList =[];
+  late bool isLoading=true;
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    context.watch<QuotesProvider>().getAllQuotes().then((value) {
+      _quotesList = value;
+      isLoading = false;
+    });
+      Random random = new Random();
+      int randomNumber = random.nextInt(_quotesList.length);
+      String quote = _quotesList[randomNumber].quote.toString();
+      return Center(
+        child: Container(child: Text(quote)),
+      );
+    }
 }

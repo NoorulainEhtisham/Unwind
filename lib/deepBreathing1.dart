@@ -1,9 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:unwind_project/deep_breathing.dart';
-
 import 'DeepBreathingAnimation.dart';
+
 
 class DeepBreathingScreen1 extends StatefulWidget {
   const DeepBreathingScreen1({Key? key}) : super(key: key);
@@ -14,11 +13,13 @@ class DeepBreathingScreen1 extends StatefulWidget {
 
 class _DeepBreathingScreen1State extends State<DeepBreathingScreen1> {
   @override
+
   Widget build(BuildContext context) {
 
     return Scaffold(
       body: Center(
         child: Container(
+          // color: Color(0xFFBEA5C7),
           constraints: BoxConstraints.expand(),
           decoration:  BoxDecoration(
             image: DecorationImage(
@@ -29,7 +30,11 @@ class _DeepBreathingScreen1State extends State<DeepBreathingScreen1> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Instructions_text(),
+              Container(
+                child: Instructions_text(),
+                height: 60,
+                width: 230,
+              ),
               Counter(), //timer 1 to 5
               Container(
                   height: 300,
@@ -39,6 +44,7 @@ class _DeepBreathingScreen1State extends State<DeepBreathingScreen1> {
               ElevatedButton(
                 child: const Text("Stop"),
                 onPressed: (){
+                  dispose(); //end animation
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) =>
@@ -66,6 +72,7 @@ class _CounterState extends State<Counter> {
   Timer? timer;
   @override
   void initState() {
+
     super.initState();
 
     timer = Timer.periodic(
