@@ -15,7 +15,6 @@ class HomePage extends StatelessWidget {
       body: ListView(
         scrollDirection: Axis.vertical,
         children: [
-          Text("Welcome User!",style: Theme.of(context).textTheme.headlineSmall),
           QuotesDisplay(),
           SizedBox(
             height: 30,
