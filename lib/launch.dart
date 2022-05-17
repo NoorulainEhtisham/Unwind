@@ -1,8 +1,11 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:unwind_project/Login_page.dart';
 import 'dart:async';
+
+import 'package:unwind_project/views/mood_tracker_1.dart';
 
 class LaunchScreen extends StatefulWidget {
   const LaunchScreen({Key? key}) : super(key: key);
@@ -21,6 +24,8 @@ class _LaunchScreenState extends State<LaunchScreen> {
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (BuildContext context) => LoginPage())));
   }
+
+
   final List<Color> _colors = [
     const Color(0xffF1D1FC),
     const Color(0xffFCDBF8),
