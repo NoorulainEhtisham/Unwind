@@ -13,10 +13,7 @@ class _UserGoogleAccountInfoState extends State<UserGoogleAccountInfo> {
   @override
   Widget build(BuildContext context) {
     final usergoogleinfo = FirebaseAuth.instance.currentUser;
-    if(usergoogleinfo==null){
-      return Text("");
-    }
-    else {
+    if(usergoogleinfo!=null){
       return Column(
         children: [
           CircleAvatar(
@@ -30,6 +27,8 @@ class _UserGoogleAccountInfoState extends State<UserGoogleAccountInfo> {
         ],
       );
     }
+    else {
+    return Text("Username");
+    }
   }
 }
-

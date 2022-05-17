@@ -29,14 +29,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     // // TODO: implement initState
-    //   _auth.authStateChanges()
-    //     .listen((User? user) {
-    //   if (user == null) {
-    //     print('User is currently signed out!');
-    //   } else {
-    //     print('User is signed in!');
-    //   }
-    // });
     super.initState();
   }
 
@@ -48,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
             child: ListView(
               children: <Widget>[
                 SizedBox(
-                  height: 250,
+                  height: 200,
                   child: SvgPicture.asset('assets/Unwind-Logo.svg'),
                 ),
                 TextField(

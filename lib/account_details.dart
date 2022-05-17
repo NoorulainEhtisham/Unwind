@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:unwind_project/user_google_account_info.dart';
 
 class AccountDetailsScreen extends StatefulWidget {
   const AccountDetailsScreen({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                //UserGoogleAccountInfo(),
+                UserGoogleAccountInfo(),
                 //AccInfo(),
                 const Padding(padding: EdgeInsets.all(8)),
                 isEditable == false ?
