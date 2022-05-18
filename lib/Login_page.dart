@@ -5,9 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/controllers/google_sign_in_provider.dart';
-import 'package:unwind_project/services/user_getIt.dart';
+import 'package:unwind_project/forgotpassword_page.dart';
 import 'Sign_up_page.dart';
-import 'entities/user.dart';
 import 'home_page_master.dart';
 
 class LoginPage extends StatefulWidget {
@@ -30,14 +29,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     // // TODO: implement initState
-    //   _auth.authStateChanges()
-    //     .listen((User? user) {
-    //   if (user == null) {
-    //     print('User is currently signed out!');
-    //   } else {
-    //     print('User is signed in!');
-    //   }
-    // });
     super.initState();
   }
 
@@ -49,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
             child: ListView(
               children: <Widget>[
                 SizedBox(
-                  height: 250,
+                  height: 200,
                   child: SvgPicture.asset('assets/Unwind-Logo.svg'),
                 ),
                 TextField(
@@ -77,7 +68,12 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(fontSize: 13, color: Colors.purpleAccent,),
                     ),
                     onTap: (){
-
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ForgotPasswordPage(
+                          ),
+                        ),
+                      );
                     },
                 ),
                 SizedBox(
@@ -101,7 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                               email: userEmailController.text, password: passwordController.text);
                           User? user = userCredential.user;
                           if (user != null) {
-                            // getIt<NewUser>().setUid(user.uid);
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => HomePageMaster(

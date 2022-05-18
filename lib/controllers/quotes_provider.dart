@@ -22,8 +22,6 @@ class QuotesProvider extends ChangeNotifier{
       quote: e.quote,
     ))
         .toList();
-    print('quotes API response: ${quotes.first.quote}');
-
     _quotes = quotes;
     notifyListeners();
     return _quotes;
