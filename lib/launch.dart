@@ -49,7 +49,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SvgPicture.asset('assets/Unwind-Logo.svg'),
+              SvgPicture.asset('assets/Unwind-Logo+Tagline.svg'),
               JumpingDotsProgressIndicator(
                 fontSize: 70,
                 color: Colors.black,
