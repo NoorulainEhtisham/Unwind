@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/controllers/playlist_provider.dart';
 import 'package:unwind_project/controllers/google_sign_in_provider.dart';
+import 'package:unwind_project/services/user_getIt.dart';
 import 'controllers/entry_provider.dart';
 import 'controllers/exercises_provider.dart';
 import 'controllers/quotes_provider.dart';
@@ -52,7 +53,9 @@ class MyApp extends StatelessWidget {
         //primarySwatch: Colors.lightBlue,
         primarySwatch: MaterialColor(0xFFD7BAE0, color),
       ),
-      home: const LaunchScreen(),
+      home:
+      //HomePageMaster(),
+      const LaunchScreen(),
       routes: {
         "mood tracker 1": (_) => const MoodTrackerScreen1(),
         "home page master": (_) => const HomePageMaster(),

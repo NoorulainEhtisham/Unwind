@@ -26,6 +26,7 @@ class EntryProvider extends ChangeNotifier {
     final entries = entryList
         .map((e) => Entry(
             id: e.id,
+            uid: e.uid,
             title: e.title,
             date: e.date,
             note: e.note,
@@ -90,6 +91,7 @@ class EntryProvider extends ChangeNotifier {
   Future<String> addEntry(Entry entry) async {
     String id = "";
     model = EntryModel(
+      uid: entry.uid,
       title: entry.title,
       note: entry.note,
       date: entry.date,

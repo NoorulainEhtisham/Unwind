@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/cognitive_distortion_alert.dart';
 import 'package:unwind_project/entities/cognitive_distortions.dart';
 import 'package:unwind_project/entities/entry.dart';
+import 'package:unwind_project/entities/user.dart';
 
 import '../controllers/entry_provider.dart';
+import '../services/user_getIt.dart';
 
 class DiaryEntry extends StatefulWidget {
   final Entry? entry;
@@ -22,6 +25,7 @@ class _DiaryEntryState extends State<DiaryEntry> {
   bool isLoading = true;
   final TextEditingController _notecontroller = TextEditingController();
   final TextEditingController _titlecontroller = TextEditingController();
+  NewUser _newUser = GetIt.I<NewUser>();
 
   @override
   void initState() {

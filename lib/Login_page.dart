@@ -5,7 +5,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:unwind_project/controllers/google_sign_in_provider.dart';
+import 'package:unwind_project/services/user_getIt.dart';
 import 'Sign_up_page.dart';
+import 'entities/user.dart';
 import 'home_page_master.dart';
 
 class LoginPage extends StatefulWidget {
@@ -99,6 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                               email: userEmailController.text, password: passwordController.text);
                           User? user = userCredential.user;
                           if (user != null) {
+                            // getIt<NewUser>().setUid(user.uid);
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => HomePageMaster(

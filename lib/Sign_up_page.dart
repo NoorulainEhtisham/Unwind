@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:unwind_project/entities/user.dart';
+import 'package:unwind_project/services/user_getIt.dart';
 import 'package:unwind_project/user_specific_data.dart';
 import 'Login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,6 +25,15 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController password2Controller = TextEditingController();
   bool showError = false;
   String error="";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    setup();
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

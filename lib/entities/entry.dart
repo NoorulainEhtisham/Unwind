@@ -4,12 +4,13 @@ import 'package:unwind_project/entities/cognitive_distortions.dart';
 class Entry {
   String id = "";
   String title;
+  String uid;
   DateTime date;
   String note;
   bool isSelected = false;
   CgnDistort? cognitivedistortion;
 
-  Entry({this.id = "", this.title = 'Title', required this.date, required this.note, this.cognitivedistortion});
+  Entry({this.id = "", this.uid = "", this.title = 'Title', required this.date, required this.note, this.cognitivedistortion});
 
   void setCD(CgnDistort c) => this.cognitivedistortion = c;
 
