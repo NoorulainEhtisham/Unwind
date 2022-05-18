@@ -4,7 +4,7 @@ import 'package:unwind_project/account_screen.dart';
 import 'package:unwind_project/playlist.dart';
 import 'package:unwind_project/services/local_notification.dart';
 // import 'views/favourites_list.dart';
-import 'favourites.dart';
+import 'favourites_screen.dart';
 import 'home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
