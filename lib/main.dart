@@ -27,7 +27,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => GoogleSignInProvider()),
       ChangeNotifierProvider(create: (_) => QuotesProvider()),
       ChangeNotifierProvider(create: (_) => MoodRecordDatabase()),
-      //ChangeNotifierProvider(create: (_) => FavouritesProvider()),
+      ChangeNotifierProvider(create: (_) => FavouritesProvider()),
     ],
     child: const MyApp(),
   ));
