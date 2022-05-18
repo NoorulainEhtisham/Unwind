@@ -5,7 +5,6 @@ import '../entities/cognitive_distortions.dart';
 class EntryModel implements Model {
   String id = "";
   String title;
-  String uid = "";
   DateTime date;
   String note;
   String cgnType;
@@ -13,7 +12,6 @@ class EntryModel implements Model {
 
   EntryModel(
       {this.id = "",
-        this.uid = "",
       required this.title,
       required this.note,
       required this.date,
@@ -26,7 +24,6 @@ class EntryModel implements Model {
   static EntryModel fromJson(Map<String, dynamic> json, String documentID) {
     return EntryModel(
         id: documentID,
-        uid: json['uid'],
         title: json['title'],
         note: json['note'],
         date: json['date'].toDate(),
@@ -40,7 +37,6 @@ class EntryModel implements Model {
     data['title'] = title;
     data['note'] = note;
     data['date'] = date;
-    data['uid'] = uid;
     data['cgnType'] = cgnType;
     data['cgnExample'] = cgnExample;
 

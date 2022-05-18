@@ -39,8 +39,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     //Load an existing PDF document.
     PdfDocument document = PdfDocument(
       inputBytes: await _readDocumentData(
-          //_exercise.script
-        "https://www.uclahealth.org/marc/workfiles/CompleteMeditation_Transcript.pdf"
+          _exercise.script
+        //"https://www.uclahealth.org/marc/workfiles/CompleteMeditation_Transcript.pdf"
       ),
     );
 
@@ -97,9 +97,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       floatingActionButton: AudioPlayerBox(
         title: _exercise.title,
         audioManager: AudioManager(
-          path:
-          //_exercise.path
-          "https://www.uclahealth.org/marc/mpeg/03_Complete_Meditation_Instructions.mp3"
+          path: _exercise.path
+          //"https://www.uclahealth.org/marc/mpeg/03_Complete_Meditation_Instructions.mp3"
         ),
         isPlaylist: false,
       ),
