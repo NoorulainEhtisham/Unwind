@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:unwind_project/controllers/mood_record_database.dart';
 import '../calendar_data_source.dart';
@@ -12,13 +13,24 @@ class MoodTrackerScreen2 extends StatefulWidget {
 }
 
 class _MoodTrackerScreen2State extends State<MoodTrackerScreen2> {
-
+  List<Appointment> _history = [];
+  late bool isLoading;
   final CalendarController _calendarController = CalendarController();
+
+  getData() {
+    context.read<MoodRecordDatabase>().getHistory().then((value) {
+      _history = value;
+      isLoading = false;
+      setState(() {});
+    });
+  }
 
   @override
   initState() {
     _calendarController.displayDate = DateTime.now();
-    MoodRecordDatabase().getMoodHistory();
+    getData();
+    isLoading = false;
+    //MoodRecordDatabase().getMoodHistory();
     super.initState();
   }
 
@@ -56,7 +68,11 @@ class _MoodTrackerScreen2State extends State<MoodTrackerScreen2> {
                   appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
                   //showTrailingAndLeadingDates: false,
                 ),
-                dataSource: MeetingDataSource(MoodRecordDatabase().record),
+                dataSource: MeetingDataSource(_history),
+                appointmentTextStyle: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 9,
+                ),
               ),
             ),
           ],
