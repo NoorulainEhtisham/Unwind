@@ -16,19 +16,21 @@ class _UserGoogleAccountInfoState extends State<UserGoogleAccountInfo> {
     if(usergoogleinfo!=null){
       return Column(
         children: [
+          if(usergoogleinfo.photoURL!=null)
           CircleAvatar(
             radius: 40,
-            backgroundImage: NetworkImage(usergoogleinfo.photoURL!),
+           backgroundImage: NetworkImage(usergoogleinfo.photoURL!),
           ),
-          Text('Name: ' + usergoogleinfo.displayName!,
+
+          if(usergoogleinfo.displayName!=null)Text('Name: ' + usergoogleinfo.displayName!,
             style: TextStyle(color: Colors.blue, fontSize: 16),),
-          Text('Email: ' + usergoogleinfo.email!,
+          if(usergoogleinfo.email != null)Text('Email: ' + usergoogleinfo.email!,
             style: TextStyle(color: Colors.blue, fontSize: 16),)
         ],
       );
     }
     else {
-    return Text("Username");
+    return Text("");
     }
   }
 }
