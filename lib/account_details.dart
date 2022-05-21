@@ -27,7 +27,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                UserGoogleAccountInfo(),
+                if(UserGoogleAccountInfo!=null)UserGoogleAccountInfo(),
                 //AccInfo(),
                 // const Padding(padding: EdgeInsets.all(8)),
                 // isEditable == false ?
@@ -108,34 +108,35 @@ class _AccInfoState extends State<AccInfo> {
 
   @override
   Widget build(BuildContext context) {
-
-  final user= FirebaseAuth.instance.currentUser;
-  String? name="";
-  String? email="";
-  var pfp;
-  if ( user!= null) {
-    for (final providerProfile in user.providerData) {
-      // ID of the provider (google.com, apple.cpm, etc.)
-      final provider = providerProfile.providerId;
-      // UID specific to the provider
-      final uid = providerProfile.uid;
-      // Name, email address, and profile photo URL
-      name = providerProfile.displayName;
-      email = providerProfile.email;
-      pfp = providerProfile.photoURL;
-    }
-  }
+    final User? user = FirebaseAuth.instance.currentUser;
+    String? name = "";
+    String? email = "";
+    var pfp;
+    if (user != null) {
+      for (final providerProfile in user.providerData) {
+        // ID of the provider (google.com, apple.cpm, etc.)
+        final provider = providerProfile.providerId;
+        // UID specific to the provider
+        final uid = providerProfile.uid;
+        // Name, email address, and profile photo URL
+        name = providerProfile.displayName;
+        name = providerProfile.displayName;
+        email = providerProfile.email;
+        pfp = providerProfile.photoURL;
+      }
 
     return Container(
-      child: Column(
-        children: [
-          Text(name!),
-          Text(email!),
-          CircleAvatar(
-            backgroundImage: pfp,
-          )
-        ],
-      )
+        child: Column(
+          children: [
+            if(name!=null) Text(name!),
+            if(email!=null) Text(email!),
+            CircleAvatar(
+              backgroundImage: pfp,
+            )
+          ],
+        )
     );
+  }
+    else return Container();
   }
 }
