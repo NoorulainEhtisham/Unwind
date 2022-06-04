@@ -1,6 +1,7 @@
 # unwind_project
 
 A new Flutter project.
+Contributors: Noor Ul Ain Ehtisham, Ritika Dodani, Areesha Kashif.
 
 ## Getting Started
 
