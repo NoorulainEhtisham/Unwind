@@ -1,17 +1,23 @@
 # unwind_project
 
-A new Flutter project.
-Contributors: Noor Ul Ain Ehtisham, Ritika Dodani, Areesha Kashif.
+Contributors: 
+  1. Noor Ul Ain Ehtisham
+  2. Ritika Dodani
+  3. Areesha Kashif
+  
 
-## Getting Started
+Main Features:
+  1. Mood Tracking: Track your mood progress.
+  2. Meditation: UCLA - Official Guided Meditations, 5-5-5 breathing technique & Heartbeat vibrations.
+  3. Journaling: Cognitive Behavioural Therapy, thought journal & recognize and control triggers and thought processes.
+  4. Soothing Sounds: Reduce stress, improve concetration & mindfulness.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+                            
+                         
+
+
+https://user-images.githubusercontent.com/98297607/172210024-ac8cabbf-269d-4899-9681-0f64a4bb322e.mp4
+
